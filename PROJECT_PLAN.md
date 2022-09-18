@@ -9,7 +9,10 @@
 ## architecture
 
 - pure web
-    - phaser (JS framework)
+    - client application
+        - react
+            - chess.js
+            - react-chessboard
     - networking (MP)
     - web server
 
