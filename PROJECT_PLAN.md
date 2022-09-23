@@ -45,10 +45,13 @@ option b
 ## next session: 
 
 - render the chessboard next time
-- setup ian's vscode (gitbash=default terminal, setup default git editor, lite tutorial on vscode)
+- setup vscode 
+    - gitbash=default terminal
+    - setup default git editor
+    - lite tutorial on vscode (navigation and tips)
 
-- homework
-- ian: read react js docs, https://reactjs.org/docs/getting-started.html
-- ian: read react-chessboard, https://www.npmjs.com/package/react-chessboard
-- ian: read create react app, https://github.com/facebook/create-react-app
-- ian: read about git on atlassian, https://www.atlassian.com/git
+- homework for ian:
+    - react js docs, https://reactjs.org/docs/getting-started.html
+    - react-chessboard, https://www.npmjs.com/package/react-chessboard
+    - create react app, https://github.com/facebook/create-react-app
+    - git on atlassian, https://www.atlassian.com/git
