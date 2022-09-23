@@ -51,7 +51,7 @@ option b
     - lite tutorial on vscode (navigation and tips)
 
 - homework for ian:
-    - react js docs, https://reactjs.org/docs/getting-started.html
-    - react-chessboard, https://www.npmjs.com/package/react-chessboard
-    - create react app, https://github.com/facebook/create-react-app
-    - git on atlassian, https://www.atlassian.com/git
+    - react js docs: https://reactjs.org/docs/getting-started.html
+    - react-chessboard: https://www.npmjs.com/package/react-chessboard
+    - create react app: https://github.com/facebook/create-react-app
+    - git on atlassian: https://www.atlassian.com/git
