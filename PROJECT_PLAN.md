@@ -45,7 +45,7 @@ option b
 ## next session: 
 
 - render the chessboard next time
-- setup vscode 
+- setup vscode: 
     - gitbash=default terminal
     - setup default git editor
     - lite tutorial on vscode (navigation and tips)
