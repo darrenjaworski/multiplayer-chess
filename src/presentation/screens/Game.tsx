@@ -1,7 +1,16 @@
 import styled from "@emotion/styled";
 import { Chessboard } from "../components/Chessboard";
+import { GamePlayer } from "../components/GamePlayer";
 
-interface GameProps {}
+export interface Player {
+  username: string;
+  eloScore: number;
+}
+
+interface GameProps {
+  playerOne: Player;
+  playerTwo: Player;
+}
 
 const GameScreen = styled.div`
   height: 100vh;
@@ -10,16 +19,18 @@ const GameScreen = styled.div`
   justify-content: center;
 `;
 
-const PlayerName = styled.h2`
-  color: red;
-`;
-
 export const Game = (props: GameProps) => {
+  const { playerOne, playerTwo } = props;
   return (
-    <GameScreen data-testid={"game"}>
-      <PlayerName data-testid="top-player">top player name</PlayerName>
+    <GameScreen data-testid="game">
+      <GamePlayer player={playerOne} />
       <Chessboard />
-      <PlayerName data-testid="bottom-player">bottom player name</PlayerName>
+      <GamePlayer player={playerTwo} />
     </GameScreen>
   );
+};
+
+Game.defaultProps = {
+  playerOne: { username: "foo", eloScore: 1 },
+  playerTwo: { username: "bar", eloScore: 2 },
 };

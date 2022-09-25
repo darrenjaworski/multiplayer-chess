@@ -12,7 +12,10 @@ function App() {
   return (
     <>
       <Global styles={globalCss} />
-      <Game />
+      <Game
+        playerOne={{ username: "darren", eloScore: 1 }}
+        playerTwo={{ username: "ian", eloScore: 2 }}
+      />
     </>
   );
 }
