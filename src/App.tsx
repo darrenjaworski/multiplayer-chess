@@ -1,13 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Chessboard } from "react-chessboard";
+import { css, Global } from "@emotion/react";
+import { Game } from "./presentation/screens/Game";
+
+const globalCss = css`
+  body {
+    margin: 0 auto;
+    max-width: 560px;
+  }
+`;
 
 function App() {
   return (
-    <div className="App">
-     <Chessboard id={1} />
-    </div>
+    <>
+      <Global styles={globalCss} />
+      <Game />
+    </>
   );
 }
 
