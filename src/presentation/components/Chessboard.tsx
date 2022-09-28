@@ -8,6 +8,7 @@ import {
 } from "react-chessboard";
 
 interface ChessboardProps extends ChessBoardProps {}
+
 interface MoveTo extends Move {
   to: Square;
 }
