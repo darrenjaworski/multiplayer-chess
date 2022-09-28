@@ -61,3 +61,4 @@ option b
 ## next session:
 
 - move the pieces
+- show ian 'git stash'
