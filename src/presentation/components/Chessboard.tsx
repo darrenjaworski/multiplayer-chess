@@ -5,7 +5,6 @@ import {
   ChessBoardProps,
   CustomSquareStyles,
   Square,
-  Pieces
 } from "react-chessboard";
 
 interface ChessboardProps extends ChessBoardProps {}
