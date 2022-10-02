@@ -5,8 +5,8 @@
 - git
 - node
 - visual studio (ide)
-- redux devtools extension -> https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
-- react devtools extension -> https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
+- [redux devtools extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
+- [react devtools extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 
 ## architecture
 
@@ -76,10 +76,10 @@
   - lite tutorial on vscode (navigation and tips)
 
 - homework for ian:
-  - react js docs: https://reactjs.org/docs/getting-started.html
-  - react-chessboard: https://www.npmjs.com/package/react-chessboard
-  - create react app: https://github.com/facebook/create-react-app
-  - git on atlassian: https://www.atlassian.com/git
+  - [react js docs](https://reactjs.org/docs/getting-started.html)
+  - [react-chessboard](https://www.npmjs.com/package/react-chessboard)
+  - [create react app](https://github.com/facebook/create-react-app)
+  - [git on atlassian](https://www.atlassian.com/git)
 
 ## next session
 
