@@ -1,3 +1,9 @@
+BADGE TO COME...
+
+# real time online multiplayer chess
+
+Please see the [project plan](./PROJECT_PLAN.md).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
