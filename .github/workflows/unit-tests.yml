@@ -35,5 +35,5 @@ jobs:
         id: install
         run: npm install
 
-      - name: mb-public-api
+      - name: FE Unit Tests
         run: npm test
