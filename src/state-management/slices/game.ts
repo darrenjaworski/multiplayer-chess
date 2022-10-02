@@ -1,6 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { Color, DEFAULT_POSITION as StartingFEN } from "chess.js";
+import { Chess, Color, DEFAULT_POSITION as StartingFEN } from "chess.js";
 import { RootState } from "./../store";
 
 export interface GameState {
@@ -19,6 +19,8 @@ export const GameSlice = createSlice({
   reducers: {
     updateFen: (state, action: PayloadAction<string>) => {
       state.fen = action.payload;
+      const game = new Chess(action.payload);
+      state.turn = game.turn();
     },
     updateTurn: (state, action: PayloadAction<Color>) => {
       state.turn = action.payload;

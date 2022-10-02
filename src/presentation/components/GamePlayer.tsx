@@ -26,6 +26,7 @@ const PlayerName = styled.div`
 
 const TurnIcon = styled(FaChessKnight)`
   margin-left: 0.5rem;
+  font-size: 1rem;
 `;
 
 const UndoButton = styled.button``;
