@@ -14,7 +14,9 @@
       - chess.js
       - react-chessboard
   - networking (MP)
+    - websockets
   - web server
+    - auth0 for authentication
 
 ### phased development
 
@@ -25,17 +27,27 @@ option b
     - render a chess board (design, dev)
     - render pieces on a board
     - logic for piece movement
+    - number of players setup
+      - one player vs computer
+      - two players on same browser window
   - getting a chess match against AI
+    - computer does random move
+    - computer does simplistic algorithm to determine move
   - getting a chess match against another online player
+    - api for websockets
+    - frontend client can update via websocket server
   - getting a chess matches against any number of players
     - users can sign up
     - users can search for a match
-    - users are paired
+    - users are paired (matchmaking)
   - setup infrastructure and code pipeline
+    - applications are built and deployed
   - setup domain and deploy
+    - DNS
   - code an advanced AI (convolution neural networks)
+    - simplistic alphazero
 
-## next session: 9/22
+## session: 9/22
 
 - tooling setup
 - basic phaser game to render
@@ -43,7 +55,7 @@ option b
 
 30min/1 hour every week for the next 2 months
 
-## next session: 9/27
+## session: 9/27
 
 - render the chessboard next time
 - setup vscode:
