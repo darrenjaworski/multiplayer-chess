@@ -1,6 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { Chess, Color, DEFAULT_POSITION as StartingFEN, Piece } from "chess.js";
+import { Chess, Color, DEFAULT_POSITION as startingFEN, Piece } from "chess.js";
 import { RootState } from "./../store";
 
 export interface GameState {
@@ -10,7 +10,7 @@ export interface GameState {
 }
 
 const initialState: GameState = {
-  fen: StartingFEN,
+  fen: startingFEN,
   turn: "w",
   captured: [],
 };
@@ -26,6 +26,17 @@ export const GameSlice = createSlice({
     },
     addCaptured: (state, action: PayloadAction<Piece>) => {
       state.captured = [...state.captured, action.payload];
+    },
+    removeCaptured: (state, action: PayloadAction<Piece>) => {
+      const searchPiece = action.payload;
+      const firstMatchIndex = [...state.captured].findIndex(
+        (piece) =>
+          piece.color === searchPiece.color && piece.type === searchPiece.type
+      );
+      state.captured = [
+        ...state.captured.slice(0, firstMatchIndex),
+        ...state.captured.slice(firstMatchIndex + 1),
+      ];
     },
   },
 });
