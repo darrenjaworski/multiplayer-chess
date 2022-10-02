@@ -1,4 +1,4 @@
-import { DEFAULT_POSITION } from "chess.js";
+import { DEFAULT_POSITION, Piece } from "chess.js";
 import createMockStore, {
   MockStoreCreator,
   MockStoreEnhanced,
@@ -12,6 +12,7 @@ export const initialRootState: RootState = {
   game: {
     fen: DEFAULT_POSITION,
     turn: "w",
+    captured: [],
   },
 };
 
@@ -24,6 +25,15 @@ export function createStoreWithBlackTurn() {
     game: {
       ...initialRootState.game,
       turn: "b",
+    },
+  });
+}
+
+export function createStoreWithCapturedPieces(captured: Piece[]) {
+  return mockStore({
+    game: {
+      ...initialRootState.game,
+      captured,
     },
   });
 }

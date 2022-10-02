@@ -1,13 +1,18 @@
-import { Chess, Move } from "chess.js";
+import { Chess, Move, Piece } from "chess.js";
 import { useState } from "react";
 import {
   Chessboard as ReactChessboard,
   ChessBoardProps,
   CustomSquareStyles,
+  Pieces,
   Square,
 } from "react-chessboard";
-import { useAppSelector } from "../../state-management/hooks";
-import { getFEN } from "../../state-management/slices/game";
+import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
+import {
+  addCaptured,
+  getFEN,
+  updateFen,
+} from "../../state-management/slices/game";
 
 interface ChessboardProps extends ChessBoardProps {}
 
@@ -18,6 +23,7 @@ interface MoveTo extends Move {
 export const Chessboard = (props: ChessboardProps) => {
   const { id } = props;
   const gameFEN = useAppSelector(getFEN);
+  const dispatch = useAppDispatch();
 
   const [validMoveStyles, setValidMoveStyles] = useState(
     {} as CustomSquareStyles
@@ -63,11 +69,34 @@ export const Chessboard = (props: ChessboardProps) => {
 
   const handleMouseOut = (_square: Square) => clearValidMovesStyles();
 
+  const handlePieceDrop = (
+    sourceSquare: Square,
+    targetSquare: Square,
+    _piece: Pieces
+  ): boolean => {
+    const localGame = new Chess(gameFEN);
+    const didMove = localGame.move({ from: sourceSquare, to: targetSquare });
+    if (!didMove) return false;
+
+    if (didMove?.captured) {
+      const capturedPiece: Piece = {
+        color: didMove.color === "w" ? "b" : "w",
+        type: didMove.captured,
+      };
+      dispatch(addCaptured(capturedPiece));
+    }
+
+    clearValidMovesStyles();
+    dispatch(updateFen(localGame.fen()));
+    return true;
+  };
+
   return (
     <ReactChessboard
       id={id || Date.now()}
       onMouseOverSquare={handleMouseOver}
       onMouseOutSquare={handleMouseOut}
+      onPieceDrop={handlePieceDrop}
       position={gameFEN}
       customSquareStyles={{ ...validMoveStyles }}
     />

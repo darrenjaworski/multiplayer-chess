@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
-import { Color } from "chess.js";
+import type { Color } from "chess.js";
 import { FaChessKnight } from "react-icons/fa";
 import { useAppSelector } from "../../state-management/hooks";
 import { getTurn } from "../../state-management/slices/game";
 import { Player } from "../screens/Game";
+import { PlayerCapturedPieces } from "./PlayerCapturedPieces";
 
 interface GamePlayerProps {
   player: Player;
@@ -46,6 +47,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
         </h2>
         <span data-testid="player-ranking">Elo: {eloScore}</span>
       </PlayerName>
+      <PlayerCapturedPieces piecesColor={piecesColor} />
       <UndoButton>undo last move</UndoButton>
     </PlayerContainer>
   );
