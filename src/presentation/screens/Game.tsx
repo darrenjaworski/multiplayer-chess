@@ -23,9 +23,9 @@ export const Game = (props: GameProps) => {
   const { playerOne, playerTwo } = props;
   return (
     <GameScreen data-testid="game">
-      <GamePlayer player={playerOne} />
+      <GamePlayer player={playerOne} piecesColor="b" />
       <Chessboard />
-      <GamePlayer player={playerTwo} />
+      <GamePlayer player={playerTwo} piecesColor="w" />
     </GameScreen>
   );
 };

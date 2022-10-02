@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import { renderComponentWithStore } from "../../../test-config/renderComponentWithStore";
 import { Game } from "../Game";
 
 describe("game screen", () => {
   it("shows player names on screen", () => {
-    render(<Game />);
+    renderComponentWithStore(<Game />);
 
     const players = screen.getAllByTestId("player");
 
@@ -18,7 +19,9 @@ describe("game screen", () => {
     const playerOne = { username: "dwight", eloScore: 1 };
     const playerTwo = { username: "andy", eloScore: 2 };
 
-    render(<Game playerOne={playerOne} playerTwo={playerTwo} />);
+    renderComponentWithStore(
+      <Game playerOne={playerOne} playerTwo={playerTwo} />
+    );
 
     const players = screen.getAllByTestId("player-name");
     const p1Name = players[0];
@@ -32,7 +35,9 @@ describe("game screen", () => {
     const playerOne = { username: "dwight", eloScore: 1 };
     const playerTwo = { username: "andy", eloScore: 2 };
 
-    render(<Game playerOne={playerOne} playerTwo={playerTwo} />);
+    renderComponentWithStore(
+      <Game playerOne={playerOne} playerTwo={playerTwo} />
+    );
 
     const players = screen.getAllByTestId("player-ranking");
     const p1Elo = players[0];

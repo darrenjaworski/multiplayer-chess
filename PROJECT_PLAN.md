@@ -27,6 +27,9 @@ option b
     - render a chess board (design, dev)
     - render pieces on a board
     - logic for piece movement
+    - logic for piece capture
+      - display captured pieces in middle above or below board for player
+      - handle reintroducing piece to board from pawn
     - number of players setup
       - one player vs computer
       - two players on same browser window

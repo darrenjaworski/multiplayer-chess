@@ -1,8 +1,13 @@
 import styled from "@emotion/styled";
+import { Color } from "chess.js";
+import { FaChessKnight } from "react-icons/fa";
+import { useAppSelector } from "../../state-management/hooks";
+import { getTurn } from "../../state-management/slices/game";
 import { Player } from "../screens/Game";
 
 interface GamePlayerProps {
   player: Player;
+  piecesColor: Color;
 }
 
 const PlayerContainer = styled.div`
@@ -19,17 +24,36 @@ const PlayerName = styled.div`
   }
 `;
 
+const TurnIcon = styled(FaChessKnight)`
+  margin-left: 0.5rem;
+`;
+
 const UndoButton = styled.button``;
 
 export const GamePlayer = (props: GamePlayerProps) => {
-  const { player } = props;
+  const { player, piecesColor } = props;
+  const { username, eloScore } = player;
+  const gameturn = useAppSelector(getTurn);
+
+  const isPlayersTurn = gameturn === piecesColor;
   return (
     <PlayerContainer data-testid="player">
       <PlayerName>
-        <h2 data-testid="player-name">{player.username}</h2>
-        <span data-testid="player-ranking">Elo: {player.eloScore}</span>
+        <h2 data-testid="player-name">
+          {username}
+          {isPlayersTurn && <TurnIcon data-testid={"player-turn-indicator"} />}
+        </h2>
+        <span data-testid="player-ranking">Elo: {eloScore}</span>
       </PlayerName>
       <UndoButton>undo last move</UndoButton>
     </PlayerContainer>
   );
+};
+
+GamePlayer.defaultProps = {
+  player: {
+    username: "foo",
+    eloScore: 1,
+  },
+  piecesColor: "w",
 };
