@@ -73,7 +73,7 @@ option b
   - create react app: https://github.com/facebook/create-react-app
   - git on atlassian: https://www.atlassian.com/git
 
-## next session:
+## next session
 
 - move the pieces
 - show ian 'git stash'
