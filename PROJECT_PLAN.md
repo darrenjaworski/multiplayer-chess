@@ -20,35 +20,41 @@
 
 ### phased development
 
-option b
-
-- phases
-  - getting a chess match (local)
-    - render a chess board (design, dev)
-    - render pieces on a board
-    - logic for piece movement
-    - logic for piece capture
-      - display captured pieces in middle above or below board for player
-      - handle reintroducing piece to board from pawn
-    - number of players setup
-      - one player vs computer
-      - two players on same browser window
-  - getting a chess match against AI
-    - computer does random move
-    - computer does simplistic algorithm to determine move
-  - getting a chess match against another online player
-    - api for websockets
-    - frontend client can update via websocket server
-  - getting a chess matches against any number of players
-    - users can sign up
-    - users can search for a match
-    - users are paired (matchmaking)
-  - setup infrastructure and code pipeline
-    - applications are built and deployed
-  - setup domain and deploy
-    - DNS
-  - code an advanced AI (convolution neural networks)
-    - simplistic alphazero
+- a local chess match (local)
+  - render a chess board (design, dev)
+  - render pieces on a board
+  - logic for piece movement
+  - logic for piece capture
+    - display captured pieces in middle above or below board for player
+    - handle reintroducing piece to board from pawn
+  - logic for game states
+    - won/lost, stalemate
+    - undo last move
+    - reset game
+  - number of players setup
+    - one player vs computer
+    - two players on same browser window
+- show history of moves from game
+  - show all moves listed out for a game
+  - ability to show historical games from start to finish
+    - backwards and fowards buttons to go move by move through game
+    - play button to animate through game move by move
+- chess match against AI
+  - computer does random move
+  - computer does simplistic algorithm to determine move
+- a chess match against another online player
+  - api for websockets
+  - frontend client can update via websocket server
+- a chess matches against any number of players
+  - users can sign up
+  - users can search for a match
+  - users are paired (matchmaking)
+- setup infrastructure and code pipeline
+  - applications are built and deployed
+- setup domain and deploy
+  - DNS
+- code an advanced AI (convolution neural networks)
+  - simplistic alphazero
 
 ## session: 9/22
 

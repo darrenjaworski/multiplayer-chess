@@ -23,6 +23,12 @@ export const Chessboard = (props: ChessboardProps) => {
     {} as CustomSquareStyles
   );
 
+  const clearValidMovesStyles = (): void => {
+    if (Object.keys(validMoveStyles).length === 0) return;
+
+    setValidMoveStyles({});
+  };
+
   const handleMouseOver = (square: Square) => {
     const localGame = new Chess(gameFEN);
     const moves = localGame.moves({ square, verbose: true }) as MoveTo[];
@@ -36,12 +42,14 @@ export const Chessboard = (props: ChessboardProps) => {
 
     const hintStyles = moves.reduce(
       (validMoves: CustomSquareStyles, move: MoveTo): CustomSquareStyles => {
+        const moveCanCapture =
+          localGame.get(move.to) &&
+          localGame.get(move.to).color !== localGame.get(square).color;
+
         validMoves[move.to] = {
-          background:
-            localGame.get(move.to) &&
-            localGame.get(move.to).color !== localGame.get(square).color
-              ? "radial-gradient(circle, rgba(255,255,255,.5) 85%, transparent 85%)"
-              : "radial-gradient(circle, rgba(0,0,0,.5) 25%, transparent 25%)",
+          background: moveCanCapture
+            ? "radial-gradient(circle, rgba(255,255,255,.5) 85%, transparent 85%)"
+            : "radial-gradient(circle, rgba(0,0,0,.5) 25%, transparent 25%)",
           borderRadius: "50%",
         };
 
@@ -53,11 +61,7 @@ export const Chessboard = (props: ChessboardProps) => {
     setValidMoveStyles(hintStyles);
   };
 
-  const handleMouseOut = (_square: Square) => {
-    if (Object.keys(validMoveStyles).length === 0) return;
-
-    setValidMoveStyles({});
-  };
+  const handleMouseOut = (_square: Square) => clearValidMovesStyles();
 
   return (
     <ReactChessboard

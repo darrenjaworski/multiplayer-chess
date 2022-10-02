@@ -22,13 +22,10 @@ export const GameSlice = createSlice({
       const game = new Chess(action.payload);
       state.turn = game.turn();
     },
-    updateTurn: (state, action: PayloadAction<Color>) => {
-      state.turn = action.payload;
-    },
   },
 });
 
-export const { updateFen, updateTurn } = GameSlice.actions;
+export const { updateFen } = GameSlice.actions;
 
 export function getTurn(state: RootState) {
   return state.game.turn;
