@@ -5,6 +5,8 @@
 - git
 - node
 - visual studio (ide)
+- redux devtools extension -> https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+- react devtools extension -> https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
 
 ## architecture
 
