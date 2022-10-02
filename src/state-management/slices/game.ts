@@ -1,6 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { Color, DEFAULT_POSITION } from "chess.js";
+import { Color, DEFAULT_POSITION as StartingFEN } from "chess.js";
 import { RootState } from "./../store";
 
 export interface GameState {
@@ -9,7 +9,7 @@ export interface GameState {
 }
 
 const initialState = {
-  fen: DEFAULT_POSITION,
+  fen: StartingFEN,
   turn: "w",
 };
 
