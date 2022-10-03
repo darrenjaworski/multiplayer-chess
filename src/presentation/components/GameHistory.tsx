@@ -8,6 +8,8 @@ const StyledGameHistory = styled.div`
   left: 0;
   top: 0;
   max-width: 15rem;
+  max-height: 100vh;
+  overflow: auto;
 `;
 
 type PieceToEnglish = {
@@ -37,8 +39,8 @@ export const GameHistory = () => {
         if (move?.captured) {
           captureText = ` takes ${PieceToEnglishMap[move.captured]}`;
         }
-        if (move?.flags === 'c') {
-            captureText += ', check';
+        if (move.san.slice(-1) === "+") {
+          captureText += ` check`;
         }
 
         return (

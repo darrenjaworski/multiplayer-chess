@@ -57,10 +57,26 @@ export const GameSlice = createSlice({
       state.turn = game.turn();
       state.history = game.history({ verbose: true }) as Move[];
     },
+    loadFromHistory: (state, action: PayloadAction<Move[]>) => {
+      const game = new Chess();
+      [...action.payload].forEach((move) => {
+        game.move(move.san);
+      });
+
+      state.fen = game.fen();
+      state.turn = game.turn();
+      state.history = game.history({ verbose: true }) as Move[];
+    },
   },
 });
 
-export const { updateGame, addCaptured, removeCaptured, loadFromPGN } = GameSlice.actions;
+export const {
+  updateGame,
+  addCaptured,
+  removeCaptured,
+  loadFromPGN,
+  loadFromHistory,
+} = GameSlice.actions;
 
 export const getTurn = (state: RootState) => state.game.turn;
 
@@ -84,3 +100,9 @@ export const getCaptured =
     }
     return state.game.captured;
   };
+
+export const getIsColorInCheck = (color: Color) => (state: RootState) => {
+  const game = new Chess(state.game.fen);
+  if (color === game.turn()) return game.inCheck();
+  return false;
+};

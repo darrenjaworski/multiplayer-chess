@@ -87,7 +87,7 @@ export const Chessboard = (props: ChessboardProps) => {
     }
 
     clearValidMovesStyles();
-    const move = localGame.history({ verbose: true })[0] as unknown as Move;
+    const move = localGame.history({ verbose: true })[0] as Move;
     dispatch(updateGame({ fen: localGame.fen(), move }));
     return true;
   };

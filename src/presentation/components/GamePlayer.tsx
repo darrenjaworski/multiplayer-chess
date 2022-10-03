@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import type { Color } from "chess.js";
 import { FaChessKnight } from "react-icons/fa";
 import { useAppSelector } from "../../state-management/hooks";
-import { getTurn } from "../../state-management/slices/game";
+import { getIsColorInCheck, getTurn } from "../../state-management/slices/game";
 import { Player } from "../screens/Game";
 import { PlayerCapturedPieces } from "./PlayerCapturedPieces";
 
@@ -36,14 +36,20 @@ export const GamePlayer = (props: GamePlayerProps) => {
   const { player, piecesColor } = props;
   const { username, eloScore } = player;
   const gameturn = useAppSelector(getTurn);
+  const isPlayerInCheck = useAppSelector(getIsColorInCheck(piecesColor));
 
   const isPlayersTurn = gameturn === piecesColor;
   return (
     <PlayerContainer data-testid="player">
       <PlayerName>
         <h2 data-testid="player-name">
-          {username}
-          {isPlayersTurn && <TurnIcon data-testid={"player-turn-indicator"} />}
+          <>
+            {username}
+            {isPlayerInCheck && <span> - check</span>}
+            {isPlayersTurn && (
+              <TurnIcon data-testid={"player-turn-indicator"} />
+            )}
+          </>
         </h2>
         <span data-testid="player-ranking">Elo: {eloScore}</span>
       </PlayerName>
