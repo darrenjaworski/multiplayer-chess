@@ -28,12 +28,13 @@
   - ✅ render valid moves on hover
   - logic for piece movement
   - logic for piece capture
-    - display captured pieces in middle above or below board for player
+    - ✅ display captured pieces in middle above or below board for player
     - handle reintroducing piece to board from pawn
   - logic for game states
     - won/lost, stalemate
     - undo last move
     - reset game
+    - ✅ show player in check
   - number of players setup
     - one player vs computer
     - two players on same browser window
