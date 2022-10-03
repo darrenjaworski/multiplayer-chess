@@ -22,9 +22,9 @@
 
 ### phased development
 
-- a local chess match (local)
-  - render a chess board (design, dev)
-  - render pieces on a board
+- 🟡 a local chess match (local)
+  - ✅ render a chess board (design, dev)
+  - ✅ render pieces on a board
   - logic for piece movement
   - logic for piece capture
     - display captured pieces in middle above or below board for player
