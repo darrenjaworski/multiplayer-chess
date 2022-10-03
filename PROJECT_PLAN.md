@@ -35,6 +35,7 @@
     - undo last move
     - reset game
     - ✅ show player in check
+    - ✅ show player's turn
   - number of players setup
     - one player vs computer
     - two players on same browser window

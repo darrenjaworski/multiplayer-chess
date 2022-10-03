@@ -34,20 +34,28 @@ export const GameHistory = () => {
       <h2>Moves history:</h2>
       {gameHistory.map((move, i) => {
         const id = `game-moves-history-${i}`;
-        const moveColor = move.color === "w" ? "white -" : "black -";
+        const moveColorText = move.color === "w" ? "white -" : "black -";
+        const pieceNameText = PieceToEnglishMap[move.piece];
+
+        const didCapture = move?.captured;
+        const didCheck = move.san.slice(-1) === "+";
 
         let captureText = "";
-        if (move?.captured) {
-          captureText = ` takes ${PieceToEnglishMap[move.captured]}`;
+        if (didCapture) {
+          captureText += ` takes ${
+            PieceToEnglishMap[move.captured as PieceSymbol]
+          }`;
         }
-        if (move.san.slice(-1) === "+") {
+        if (didCheck) {
           captureText += ` check`;
         }
 
+        const moveDetails = `${moveColorText} ${pieceNameText}${captureText} - ${move.from} => ${move.to} (${move.san})`;
+
         return (
-          <div key={id} data-testid={id}>{`${moveColor} ${
-            PieceToEnglishMap[move.piece]
-          }${captureText} - ${move.from} => ${move.to} (${move.san})`}</div>
+          <div key={id} data-testid={id}>
+            {moveDetails}
+          </div>
         );
       })}
       <h2>PGN:</h2>
