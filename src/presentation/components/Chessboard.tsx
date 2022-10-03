@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   addCaptured,
   getFEN,
-  updateFen,
+  updateGame,
 } from "../../state-management/slices/game";
 
 interface ChessboardProps extends ChessBoardProps {}
@@ -87,7 +87,8 @@ export const Chessboard = (props: ChessboardProps) => {
     }
 
     clearValidMovesStyles();
-    dispatch(updateFen(localGame.fen()));
+    const move = localGame.history({ verbose: true })[0] as unknown as Move;
+    dispatch(updateGame({ fen: localGame.fen(), move }));
     return true;
   };
 

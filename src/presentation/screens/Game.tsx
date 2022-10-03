@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Chessboard } from "../components/Chessboard";
+import { GameHistory } from "../components/GameHistory";
 import { GamePlayer } from "../components/GamePlayer";
 
 export interface Player {
@@ -22,11 +23,14 @@ const GameScreen = styled.div`
 export const Game = (props: GameProps) => {
   const { playerOne, playerTwo } = props;
   return (
-    <GameScreen data-testid="game">
-      <GamePlayer player={playerOne} piecesColor="b" />
-      <Chessboard />
-      <GamePlayer player={playerTwo} piecesColor="w" />
-    </GameScreen>
+    <>
+      <GameScreen data-testid="game">
+        <GamePlayer player={playerOne} piecesColor="b" />
+        <Chessboard />
+        <GamePlayer player={playerTwo} piecesColor="w" />
+      </GameScreen>
+      <GameHistory />
+    </>
   );
 };
 

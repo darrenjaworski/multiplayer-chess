@@ -1,28 +1,39 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { Chess, Color, DEFAULT_POSITION as startingFEN, Piece } from "chess.js";
+import type { Color, Move, Piece } from "chess.js";
+import { Chess, DEFAULT_POSITION as startingFEN } from "chess.js";
 import { RootState } from "./../store";
 
 export interface GameState {
   fen: string;
   turn: Color;
   captured: Piece[];
+  history: Move[];
 }
 
 const initialState: GameState = {
   fen: startingFEN,
   turn: "w",
   captured: [],
+  history: [],
 };
+
+interface UpdateGamePayload {
+  fen: string;
+  move: Move;
+}
 
 export const GameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    updateFen: (state, action: PayloadAction<string>) => {
-      state.fen = action.payload;
-      const game = new Chess(action.payload);
+    updateGame: (state, action: PayloadAction<UpdateGamePayload>) => {
+      const game = new Chess(action.payload.fen);
+      const updatedHistory = [...state.history, action.payload.move];
+
+      state.fen = game.fen();
       state.turn = game.turn();
+      state.history = updatedHistory;
     },
     addCaptured: (state, action: PayloadAction<Piece>) => {
       state.captured = [...state.captured, action.payload];
@@ -38,14 +49,32 @@ export const GameSlice = createSlice({
         ...state.captured.slice(firstMatchIndex + 1),
       ];
     },
+    loadFromPGN: (state, action: PayloadAction<string>) => {
+      const game = new Chess();
+      game.loadPgn(action.payload);
+
+      state.fen = game.fen();
+      state.turn = game.turn();
+      state.history = game.history({ verbose: true }) as Move[];
+    },
   },
 });
 
-export const { updateFen, addCaptured } = GameSlice.actions;
+export const { updateGame, addCaptured, removeCaptured, loadFromPGN } = GameSlice.actions;
 
 export const getTurn = (state: RootState) => state.game.turn;
 
 export const getFEN = (state: RootState) => state.game.fen;
+
+export const getHistory = (state: RootState) => state.game.history;
+
+export const getPGN = (state: RootState) => {
+  const game = new Chess();
+  [...state.game.history].forEach((move) => {
+    game.move(move.san);
+  });
+  return game.pgn();
+};
 
 export const getCaptured =
   (color: Color | undefined = undefined) =>
