@@ -24,7 +24,18 @@ describe("GameHistory", () => {
     expect(moves.length).toEqual(11);
     expect(moves[0].innerHTML).toEqual("white - knight - g1 =&gt; f3 (Nf3)");
     expect(moves[moves.length - 1].innerHTML).toEqual(
-      "white - rook takes knight, check - h1 =&gt; h2 (Rxh2)"
+      "white - rook takes knight - h1 =&gt; h2 (Rxh2)"
+    );
+  });
+
+  it("displays fen", () => {
+    const storeWithHistory = createStoreWithHistory();
+    renderComponentWithStore(<GameHistory />, storeWithHistory);
+
+    const fen = screen.getByTestId("game-history-fen");
+
+    expect(fen).toHaveTextContent(
+      "rnbq1b1r/ppp1pkpp/3p4/8/8/5P2/PPPPP2R/RNBQKB2 b Q - 0 6"
     );
   });
 });

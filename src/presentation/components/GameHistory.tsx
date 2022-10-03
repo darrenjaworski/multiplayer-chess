@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import type { PieceSymbol } from "chess.js";
 import { useAppSelector } from "../../state-management/hooks";
-import { getHistory, getPGN } from "../../state-management/slices/game";
+import { getFEN, getHistory, getPGN } from "../../state-management/slices/game";
 
 const StyledGameHistory = styled.div`
   position: fixed;
@@ -28,6 +28,7 @@ const PieceToEnglishMap: PieceToEnglish = {
 export const GameHistory = () => {
   const gameHistory = useAppSelector(getHistory);
   const pgn = useAppSelector(getPGN);
+  const fen = useAppSelector(getFEN);
   return (
     <StyledGameHistory>
       <h2>Moves history:</h2>
@@ -51,6 +52,8 @@ export const GameHistory = () => {
       })}
       <h2>PGN:</h2>
       <div data-testid="game-history-pgn">{pgn}</div>
+      <h2>FEN:</h2>
+      <div data-testid="game-history-fen">{fen}</div>
     </StyledGameHistory>
   );
 };

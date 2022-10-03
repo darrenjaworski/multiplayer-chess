@@ -25,6 +25,7 @@
 - 🟡 a local chess match (local)
   - ✅ render a chess board (design, dev)
   - ✅ render pieces on a board
+  - ✅ render valid moves on hover
   - logic for piece movement
   - logic for piece capture
     - display captured pieces in middle above or below board for player
@@ -36,8 +37,8 @@
   - number of players setup
     - one player vs computer
     - two players on same browser window
-- show history of moves from game
-  - show all moves listed out for a game
+- 🟡 show history of moves from game
+  - ✅ show all moves listed out for a game
   - ability to show historical games from start to finish
     - backwards and fowards buttons to go move by move through game
     - play button to animate through game move by move
