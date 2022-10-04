@@ -36,3 +36,9 @@ export const Modal = (props: ModalProps) => {
     </ReactModal>
   );
 };
+
+Modal.defaultProps = {
+  isOpen: false,
+  handleClose: undefined,
+  children: <></>,
+};
