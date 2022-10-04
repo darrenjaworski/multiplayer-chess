@@ -1,16 +1,6 @@
-import styled from "@emotion/styled";
 import type { PieceSymbol } from "chess.js";
 import { useAppSelector } from "../../state-management/hooks";
 import { getFEN, getHistory, getPGN } from "../../state-management/slices/game";
-
-const StyledGameHistory = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  max-width: 15rem;
-  max-height: 100vh;
-  overflow: auto;
-`;
 
 type PieceToEnglish = {
   [key in PieceSymbol]: string;
@@ -30,7 +20,7 @@ export const GameHistory = () => {
   const pgn = useAppSelector(getPGN);
   const fen = useAppSelector(getFEN);
   return (
-    <StyledGameHistory>
+    <>
       <h2>Moves history:</h2>
       {gameHistory.map((move, i) => {
         const id = `game-moves-history-${i}`;
@@ -53,15 +43,15 @@ export const GameHistory = () => {
         const moveDetails = `${moveColorText} ${pieceNameText}${captureText} - ${move.from} => ${move.to} (${move.san})`;
 
         return (
-          <div key={id} data-testid={id}>
+          <p key={id} data-testid={id}>
             {moveDetails}
-          </div>
+          </p>
         );
       })}
       <h2>PGN:</h2>
-      <div data-testid="game-history-pgn">{pgn}</div>
+      <p data-testid="game-history-pgn">{pgn}</p>
       <h2>FEN:</h2>
-      <div data-testid="game-history-fen">{fen}</div>
-    </StyledGameHistory>
+      <p data-testid="game-history-fen">{fen}</p>
+    </>
   );
 };

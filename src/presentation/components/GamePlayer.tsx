@@ -71,6 +71,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
         data-testid={`${piecesColor}-undo`}
         disabled={shouldDisable}
         onClick={handleUndoClick}
+        title="undo previous move"
       >
         undo last move
       </UndoButton>

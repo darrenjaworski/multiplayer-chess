@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Chessboard } from "../components/Chessboard";
-import { GameHistory } from "../components/GameHistory";
 import { GamePlayer } from "../components/GamePlayer";
 import { GameTicker } from "../components/GameTicker";
 
@@ -19,6 +18,7 @@ const GameScreen = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  z-index: 0;
 `;
 
 export const Game = (props: GameProps) => {
@@ -31,7 +31,6 @@ export const Game = (props: GameProps) => {
         <Chessboard />
         <GamePlayer player={playerTwo} piecesColor="w" />
       </GameScreen>
-      <GameHistory />
     </>
   );
 };
