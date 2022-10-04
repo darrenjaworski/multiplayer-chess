@@ -1,8 +1,14 @@
 import styled from "@emotion/styled";
 import type { Color } from "chess.js";
+import React from "react";
 import { FaChessKnight } from "react-icons/fa";
-import { useAppSelector } from "../../state-management/hooks";
-import { getIsColorInCheck, getTurn } from "../../state-management/slices/game";
+import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
+import {
+  getGameStarted,
+  getIsColorInCheck,
+  getTurn,
+  undoMove,
+} from "../../state-management/slices/game";
 import { Player } from "../screens/Game";
 import { PlayerCapturedPieces } from "./PlayerCapturedPieces";
 
@@ -33,12 +39,19 @@ const TurnIcon = styled(FaChessKnight)`
 const UndoButton = styled.button``;
 
 export const GamePlayer = (props: GamePlayerProps) => {
+  const dispatch = useAppDispatch();
   const { player, piecesColor } = props;
   const { username, eloScore } = player;
   const gameturn = useAppSelector(getTurn);
   const isPlayerInCheck = useAppSelector(getIsColorInCheck(piecesColor));
 
   const isPlayersTurn = gameturn === piecesColor;
+  const gameHasStarted = useAppSelector(getGameStarted);
+  const shouldDisable = isPlayersTurn || !gameHasStarted;
+  const handleUndoClick = (_event: React.MouseEvent) => {
+    dispatch(undoMove(piecesColor));
+  };
+
   return (
     <PlayerContainer data-testid="player">
       <PlayerName>
@@ -54,7 +67,9 @@ export const GamePlayer = (props: GamePlayerProps) => {
         <span data-testid="player-ranking">Elo: {eloScore}</span>
       </PlayerName>
       <PlayerCapturedPieces piecesColor={piecesColor} />
-      <UndoButton>undo last move</UndoButton>
+      <UndoButton disabled={shouldDisable} onClick={handleUndoClick}>
+        undo last move
+      </UndoButton>
     </PlayerContainer>
   );
 };

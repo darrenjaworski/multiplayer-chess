@@ -36,6 +36,7 @@
     - reset game
     - ✅ show player in check
     - ✅ show player's turn
+    - timer for move
   - number of players setup
     - one player vs computer
     - two players on same browser window

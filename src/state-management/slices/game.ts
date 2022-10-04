@@ -67,6 +67,16 @@ export const GameSlice = createSlice({
       state.turn = game.turn();
       state.history = game.history({ verbose: true }) as Move[];
     },
+    undoMove: (state, action: PayloadAction<Color>) => {
+      const game = new Chess();
+      [...state.history].forEach((move) => {
+        game.move(move.san);
+      });
+      game.undo();
+      state.fen = game.fen();
+      state.turn = game.turn();
+      state.history = game.history({ verbose: true }) as Move[];
+    },
   },
 });
 
@@ -76,7 +86,11 @@ export const {
   removeCaptured,
   loadFromPGN,
   loadFromHistory,
+  undoMove,
 } = GameSlice.actions;
+
+export const getGameStarted = (state: RootState) =>
+  state.game.history.length > 0;
 
 export const getTurn = (state: RootState) => state.game.turn;
 
