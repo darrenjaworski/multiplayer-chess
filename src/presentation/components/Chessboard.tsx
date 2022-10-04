@@ -94,7 +94,7 @@ export const Chessboard = (props: ChessboardProps) => {
 
   return (
     <ReactChessboard
-      id={id || Date.now()}
+      id={id}
       onMouseOverSquare={handleMouseOver}
       onMouseOutSquare={handleMouseOut}
       onPieceDrop={handlePieceDrop}
