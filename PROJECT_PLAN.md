@@ -26,17 +26,18 @@
   - ✅ render a chess board (design, dev)
   - ✅ render pieces on a board
   - ✅ render valid moves on hover
-  - logic for piece movement
+  - ✅ logic for piece movement
   - logic for piece capture
     - ✅ display captured pieces in middle above or below board for player
     - handle reintroducing piece to board from pawn
   - logic for game states
     - won/lost, stalemate
     - undo last move
+      - ✅ undo when not your turn
+      - 5 second timer to undo your move and before other player
     - reset game
     - ✅ show player in check
     - ✅ show player's turn
-    - timer for move
   - number of players setup
     - one player vs computer
     - two players on same browser window
