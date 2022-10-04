@@ -39,18 +39,18 @@ const TurnIcon = styled(FaChessKnight)`
 const UndoButton = styled.button``;
 
 export const GamePlayer = (props: GamePlayerProps) => {
-  const dispatch = useAppDispatch();
   const { player, piecesColor } = props;
   const { username, eloScore } = player;
+
+  const dispatch = useAppDispatch();
   const gameturn = useAppSelector(getTurn);
   const isPlayerInCheck = useAppSelector(getIsColorInCheck(piecesColor));
+  const gameHasStarted = useAppSelector(getGameStarted);
 
   const isPlayersTurn = gameturn === piecesColor;
-  const gameHasStarted = useAppSelector(getGameStarted);
   const shouldDisable = isPlayersTurn || !gameHasStarted;
-  const handleUndoClick = (_event: React.MouseEvent) => {
-    dispatch(undoMove(piecesColor));
-  };
+
+  const handleUndoClick = (_event: React.MouseEvent) => dispatch(undoMove());
 
   return (
     <PlayerContainer data-testid="player">
@@ -67,7 +67,11 @@ export const GamePlayer = (props: GamePlayerProps) => {
         <span data-testid="player-ranking">Elo: {eloScore}</span>
       </PlayerName>
       <PlayerCapturedPieces piecesColor={piecesColor} />
-      <UndoButton disabled={shouldDisable} onClick={handleUndoClick}>
+      <UndoButton
+        data-testid={`${piecesColor}-undo`}
+        disabled={shouldDisable}
+        onClick={handleUndoClick}
+      >
         undo last move
       </UndoButton>
     </PlayerContainer>

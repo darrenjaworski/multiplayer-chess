@@ -67,12 +67,13 @@ export const GameSlice = createSlice({
       state.turn = game.turn();
       state.history = game.history({ verbose: true }) as Move[];
     },
-    undoMove: (state, action: PayloadAction<Color>) => {
+    undoMove: (state, action: PayloadAction<void>) => {
       const game = new Chess();
       [...state.history].forEach((move) => {
         game.move(move.san);
       });
       game.undo();
+
       state.fen = game.fen();
       state.turn = game.turn();
       state.history = game.history({ verbose: true }) as Move[];
