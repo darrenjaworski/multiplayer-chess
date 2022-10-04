@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Chessboard } from "../components/Chessboard";
 import { GameHistory } from "../components/GameHistory";
 import { GamePlayer } from "../components/GamePlayer";
+import { GameTicker } from "../components/GameTicker";
 
 export interface Player {
   username: string;
@@ -25,6 +26,7 @@ export const Game = (props: GameProps) => {
   return (
     <>
       <GameScreen data-testid="game">
+        <GameTicker />
         <GamePlayer player={playerOne} piecesColor="b" />
         <Chessboard />
         <GamePlayer player={playerTwo} piecesColor="w" />

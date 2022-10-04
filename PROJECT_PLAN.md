@@ -46,6 +46,7 @@
     - two players on same browser window
 - 🟡 show history of moves from game
   - ✅ show all moves listed out for a game
+  - ✅ show ticker above game that display pgn
   - ability to show historical games from start to finish
     - backwards and fowards buttons to go move by move through game
     - play button to animate through game move by move
