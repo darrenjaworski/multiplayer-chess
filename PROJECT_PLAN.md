@@ -25,14 +25,20 @@
 
 ### phased development
 
+🟡 means a major phase is in progress
+✅ means an item is completed
+
 - 🟡 a local chess match (local)
   - ✅ render a chess board (design, dev)
   - ✅ render pieces on a board
   - ✅ render valid moves on hover
-  - ✅ logic for piece movement
+  - logic for piece movement
+    - ✅ basic movement
+    - castling
   - logic for piece capture
     - ✅ display captured pieces in middle above or below board for player
     - handle reintroducing piece to board from pawn
+    - en pessant capture
   - logic for game states
     - won/lost, stalemate
     - undo last move

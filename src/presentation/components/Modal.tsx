@@ -31,6 +31,8 @@ export const Modal = (props: ModalProps) => {
       isOpen={isOpen}
       onRequestClose={handleClose}
       style={modalStyles}
+      // TODO remove this and fix test bug with appElement usage
+      ariaHideApp={false}
     >
       {children}
     </ReactModal>
