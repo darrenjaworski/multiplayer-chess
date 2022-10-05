@@ -34,11 +34,11 @@
   - ✅ render valid moves on hover
   - logic for piece movement
     - ✅ basic movement
-    - castling
+    - ✅ castling
   - logic for piece capture
     - ✅ display captured pieces in middle above or below board for player
     - handle reintroducing piece to board from pawn
-    - en pessant capture
+    - ✅ en pessant capture
   - logic for game states
     - won/lost, stalemate
     - undo last move
