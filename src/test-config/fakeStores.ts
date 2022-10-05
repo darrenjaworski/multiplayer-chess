@@ -164,3 +164,101 @@ export function createStoreWithHistory() {
     },
   });
 }
+
+export function createStoreWithPawnToPromote() {
+  return mockStore({
+    game: {
+      fen: "rnbqkbn1/pppppppP/2r5/8/7P/8/PPPPPP2/RNBQKBNR w KQq - 1 6",
+      turn: "w",
+      captured: [
+        {
+          color: "b",
+          type: "p",
+        },
+      ],
+      history: [
+        {
+          color: "w",
+          piece: "p",
+          from: "h2",
+          to: "h4",
+          san: "h4",
+          flags: "b",
+        },
+        {
+          color: "b",
+          piece: "p",
+          from: "h7",
+          to: "h5",
+          san: "h5",
+          flags: "b",
+        },
+        {
+          color: "w",
+          piece: "p",
+          from: "g2",
+          to: "g4",
+          san: "g4",
+          flags: "b",
+        },
+        {
+          color: "b",
+          piece: "r",
+          from: "h8",
+          to: "h6",
+          san: "Rh6",
+          flags: "n",
+        },
+        {
+          color: "w",
+          piece: "p",
+          from: "g4",
+          to: "h5",
+          san: "gxh5",
+          flags: "c",
+          captured: "p",
+        },
+        {
+          color: "b",
+          piece: "r",
+          from: "h6",
+          to: "a6",
+          san: "Ra6",
+          flags: "n",
+        },
+        {
+          color: "w",
+          piece: "p",
+          from: "h5",
+          to: "h6",
+          san: "h6",
+          flags: "n",
+        },
+        {
+          color: "b",
+          piece: "r",
+          from: "a6",
+          to: "b6",
+          san: "Rb6",
+          flags: "n",
+        },
+        {
+          color: "w",
+          piece: "p",
+          from: "h6",
+          to: "h7",
+          san: "h7",
+          flags: "n",
+        },
+        {
+          color: "b",
+          piece: "r",
+          from: "b6",
+          to: "c6",
+          san: "Rc6",
+          flags: "n",
+        },
+      ],
+    },
+  });
+}

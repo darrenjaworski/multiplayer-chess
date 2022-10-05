@@ -154,7 +154,7 @@ export const Chessboard = (props: ChessboardProps) => {
         handleClose={handlePromotionModalClose}
         isOpen={isPromotionModalOpen}
       >
-        <>
+        <div data-testid="promotion-modal">
           <h2>Please select a piece for promotion:</h2>
           <PromotionPieces>
             <FaChessQueen
@@ -174,7 +174,7 @@ export const Chessboard = (props: ChessboardProps) => {
               onClick={() => handlePromotionSelection("r")}
             />
           </PromotionPieces>
-        </>
+        </div>
       </Modal>
       <ReactChessboard
         id={id}
