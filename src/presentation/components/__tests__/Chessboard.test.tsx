@@ -12,4 +12,6 @@ describe("Chessboard", () => {
 
     expect(chessboard).toBeInTheDocument();
   });
+
+  xit("handles promotions", () => {});
 });

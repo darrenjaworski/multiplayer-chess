@@ -1,4 +1,5 @@
-import { Chess, Move, Piece } from "chess.js";
+import styled from "@emotion/styled";
+import { Chess, Move, Piece, PieceSymbol } from "chess.js";
 import { useState } from "react";
 import {
   Chessboard as ReactChessboard,
@@ -7,12 +8,19 @@ import {
   Pieces,
   Square,
 } from "react-chessboard";
+import {
+  FaChessBishop,
+  FaChessKnight,
+  FaChessQueen,
+  FaChessRook,
+} from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   addCaptured,
   getFEN,
   updateGame,
 } from "../../state-management/slices/game";
+import { Modal } from "./Modal";
 
 interface ChessboardProps extends ChessBoardProps {}
 
@@ -20,10 +28,22 @@ interface MoveTo extends Move {
   to: Square;
 }
 
+const promotionPieceStyles = {
+  fontSize: "3rem",
+};
+
+const PromotionPieces = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
 export const Chessboard = (props: ChessboardProps) => {
   const { id } = props;
   const gameFEN = useAppSelector(getFEN);
   const dispatch = useAppDispatch();
+
+  const [promotionFromTo, setPromotionFromTo] = useState({ from: "", to: "" });
+  const [isPromotionModalOpen, setPromotionModalOpen] = useState(false);
 
   const [validMoveStyles, setValidMoveStyles] = useState(
     {} as CustomSquareStyles
@@ -75,7 +95,32 @@ export const Chessboard = (props: ChessboardProps) => {
     _piece: Pieces
   ): boolean => {
     const localGame = new Chess(gameFEN);
-    const didMove = localGame.move({ from: sourceSquare, to: targetSquare });
+    const moves = localGame.moves({
+      square: sourceSquare,
+      verbose: true,
+    }) as MoveTo[];
+    const canPromote = moves.some((move) => move?.promotion);
+
+    if (canPromote) {
+      setPromotionFromTo({ from: sourceSquare, to: targetSquare });
+      setPromotionModalOpen(true);
+      return false;
+    }
+
+    return commitMove(sourceSquare, targetSquare);
+  };
+
+  const commitMove = (
+    sourceSquare: Square,
+    targetSquare: Square,
+    promotion: PieceSymbol | null = null
+  ): boolean => {
+    const localGame = new Chess(gameFEN);
+    const moveAttempt = { from: sourceSquare, to: targetSquare } as Move;
+
+    if (promotion) moveAttempt.promotion = promotion;
+
+    const didMove = localGame.move(moveAttempt);
     if (!didMove) return false;
 
     if (didMove?.captured) {
@@ -92,15 +137,54 @@ export const Chessboard = (props: ChessboardProps) => {
     return true;
   };
 
+  const handlePromotionSelection = (piece: PieceSymbol) => {
+    setPromotionModalOpen(false);
+    setPromotionFromTo({ from: "", to: "" });
+    // @ts-ignore
+    commitMove(promotionFromTo.from, promotionFromTo.to, piece);
+  };
+
+  const handlePromotionModalClose = () => {
+    setPromotionModalOpen(false);
+  };
+
   return (
-    <ReactChessboard
-      id={id}
-      onMouseOverSquare={handleMouseOver}
-      onMouseOutSquare={handleMouseOut}
-      onPieceDrop={handlePieceDrop}
-      position={gameFEN}
-      customSquareStyles={{ ...validMoveStyles }}
-    />
+    <>
+      <Modal
+        handleClose={handlePromotionModalClose}
+        isOpen={isPromotionModalOpen}
+      >
+        <>
+          <h2>Please select a piece for promotion:</h2>
+          <PromotionPieces>
+            <FaChessQueen
+              style={promotionPieceStyles}
+              onClick={() => handlePromotionSelection("q")}
+            />
+            <FaChessBishop
+              style={promotionPieceStyles}
+              onClick={() => handlePromotionSelection("b")}
+            />
+            <FaChessKnight
+              style={promotionPieceStyles}
+              onClick={() => handlePromotionSelection("n")}
+            />
+            <FaChessRook
+              style={promotionPieceStyles}
+              onClick={() => handlePromotionSelection("r")}
+            />
+          </PromotionPieces>
+        </>
+      </Modal>
+      <ReactChessboard
+        id={id}
+        onMouseOverSquare={handleMouseOver}
+        onMouseOutSquare={handleMouseOut}
+        onPieceDrop={handlePieceDrop}
+        position={gameFEN}
+        customSquareStyles={{ ...validMoveStyles }}
+      />
+    </>
   );
 };
 
