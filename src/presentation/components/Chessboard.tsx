@@ -21,12 +21,24 @@ interface MoveTo extends Move {
   to: Square;
 }
 
+interface PromotionFromTo {
+  from: Square | null;
+  to: Square | null;
+}
+
+const initialPromotionFromTo: PromotionFromTo = {
+  from: null,
+  to: null,
+};
+
 export const Chessboard = (props: ChessboardProps) => {
   const { id } = props;
   const gameFEN = useAppSelector(getFEN);
   const dispatch = useAppDispatch();
 
-  const [promotionFromTo, setPromotionFromTo] = useState({ from: "", to: "" });
+  const [promotionFromTo, setPromotionFromTo] = useState(
+    initialPromotionFromTo
+  );
   const [isPromotionModalOpen, setPromotionModalOpen] = useState(false);
 
   const [validMoveStyles, setValidMoveStyles] = useState(
@@ -123,9 +135,11 @@ export const Chessboard = (props: ChessboardProps) => {
 
   const handlePromotionSelection = (piece: PieceSymbol) => {
     setPromotionModalOpen(false);
-    setPromotionFromTo({ from: "", to: "" });
-    // @ts-ignore
-    commitMove(promotionFromTo.from, promotionFromTo.to, piece);
+    const { from, to } = promotionFromTo;
+    if (!from || !to) return;
+
+    commitMove(from, to, piece);
+    setPromotionFromTo({ from: null, to: null });
   };
 
   const handlePromotionModalClose = () => {
