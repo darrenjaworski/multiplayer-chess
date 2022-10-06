@@ -55,6 +55,7 @@
   - number of players setup
     - one player vs computer
     - two players on same browser window
+    - board and piece styling
 - 🟡 show history of moves from game
   - ✅ show all moves listed out for a game
   - ✅ show ticker above game that displays pgn
