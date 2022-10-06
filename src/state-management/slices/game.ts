@@ -140,3 +140,11 @@ export const getIsColorInCheck = (color: Color) => (state: RootState) => {
   if (color === game.turn()) return game.inCheck();
   return false;
 };
+
+export const getIsColorInCheckMate = (color: Color) => (state: RootState) => {
+  const game = new Chess(state.game.fen);
+  if (!game.isGameOver()) return;
+
+  if (color === game.turn()) return game.isCheckmate();
+  return false;
+};

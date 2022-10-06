@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   getGameStarted,
   getIsColorInCheck,
+  getIsColorInCheckMate,
   getTurn,
   undoMove,
 } from "../../state-management/slices/game";
@@ -45,6 +46,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
   const dispatch = useAppDispatch();
   const gameturn = useAppSelector(getTurn);
   const isPlayerInCheck = useAppSelector(getIsColorInCheck(piecesColor));
+  const isPlayerCheckMated = useAppSelector(getIsColorInCheckMate(piecesColor));
   const gameHasStarted = useAppSelector(getGameStarted);
 
   const isPlayersTurn = gameturn === piecesColor;
@@ -58,7 +60,8 @@ export const GamePlayer = (props: GamePlayerProps) => {
         <h2 data-testid="player-name">
           <>
             {username}
-            {isPlayerInCheck && <span> - check</span>}
+            {isPlayerInCheck && !isPlayerCheckMated && <span data-testid="player-check"> - check</span>}
+            {isPlayerCheckMated && <span data-testid="player-check-mate"> - check mate</span>}
             {isPlayersTurn && (
               <TurnIcon data-testid={"player-turn-indicator"} />
             )}

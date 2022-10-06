@@ -1,4 +1,4 @@
-import { DEFAULT_POSITION, Piece } from "chess.js";
+import { Chess, DEFAULT_POSITION, Move, Piece } from "chess.js";
 import createMockStore, {
   MockStoreCreator,
   MockStoreEnhanced,
@@ -259,6 +259,32 @@ export function createStoreWithPawnToPromote() {
           flags: "n",
         },
       ],
+    },
+  });
+}
+
+export function createStoreWithGameState(gameState: Chess) {
+  const captured = gameState
+    .history()
+    // @ts-ignore
+    .reduce((capturedList: Piece[], move: Move): Piece[] => {
+      if (move?.captured) {
+        const capturedPiece: Piece = {
+          type: move.captured,
+          color: move.color === "w" ? "w" : "b",
+        };
+        capturedList.push(capturedPiece);
+      }
+      return capturedList;
+    }, []);
+
+  return mockStore({
+    game: {
+      turn: gameState.turn(),
+      fen: gameState.fen(),
+      history: gameState.history() as Move[],
+      // @ts-ignore
+      captured,
     },
   });
 }
