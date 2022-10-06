@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { Chess, Move, Piece, PieceSymbol } from "chess.js";
 import { useState } from "react";
 import {
@@ -8,34 +7,19 @@ import {
   Pieces,
   Square,
 } from "react-chessboard";
-import {
-  FaChessBishop,
-  FaChessKnight,
-  FaChessQueen,
-  FaChessRook,
-} from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   addCaptured,
   getFEN,
   updateGame,
 } from "../../state-management/slices/game";
-import { Modal } from "./Modal";
+import { PromotionModal } from "./PromotionModal";
 
 interface ChessboardProps extends ChessBoardProps {}
 
 interface MoveTo extends Move {
   to: Square;
 }
-
-const promotionPieceStyles = {
-  fontSize: "3rem",
-};
-
-const PromotionPieces = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-`;
 
 export const Chessboard = (props: ChessboardProps) => {
   const { id } = props;
@@ -150,32 +134,11 @@ export const Chessboard = (props: ChessboardProps) => {
 
   return (
     <>
-      <Modal
+      <PromotionModal
         handleClose={handlePromotionModalClose}
         isOpen={isPromotionModalOpen}
-      >
-        <div data-testid="promotion-modal">
-          <h2>Please select a piece for promotion:</h2>
-          <PromotionPieces>
-            <FaChessQueen
-              style={promotionPieceStyles}
-              onClick={() => handlePromotionSelection("q")}
-            />
-            <FaChessBishop
-              style={promotionPieceStyles}
-              onClick={() => handlePromotionSelection("b")}
-            />
-            <FaChessKnight
-              style={promotionPieceStyles}
-              onClick={() => handlePromotionSelection("n")}
-            />
-            <FaChessRook
-              style={promotionPieceStyles}
-              onClick={() => handlePromotionSelection("r")}
-            />
-          </PromotionPieces>
-        </div>
-      </Modal>
+        promotePiece={handlePromotionSelection}
+      />
       <ReactChessboard
         id={id}
         onMouseOverSquare={handleMouseOver}
