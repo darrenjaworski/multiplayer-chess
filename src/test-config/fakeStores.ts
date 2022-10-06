@@ -264,10 +264,9 @@ export function createStoreWithPawnToPromote() {
 }
 
 export function createStoreWithGameState(gameState: Chess) {
-  const captured = gameState
-    .history()
-    // @ts-ignore
-    .reduce((capturedList: Piece[], move: Move): Piece[] => {
+  const gameHistory = gameState.history() as Move[];
+  const captured = gameHistory.reduce(
+    (capturedList: Piece[], move: Move): Piece[] => {
       if (move?.captured) {
         const capturedPiece: Piece = {
           type: move.captured,
@@ -276,14 +275,15 @@ export function createStoreWithGameState(gameState: Chess) {
         capturedList.push(capturedPiece);
       }
       return capturedList;
-    }, []);
+    },
+    []
+  );
 
   return mockStore({
     game: {
       turn: gameState.turn(),
       fen: gameState.fen(),
       history: gameState.history() as Move[],
-      // @ts-ignore
       captured,
     },
   });
