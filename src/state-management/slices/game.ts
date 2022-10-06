@@ -72,7 +72,21 @@ export const GameSlice = createSlice({
       [...state.history].forEach((move) => {
         game.move(move.san);
       });
-      game.undo();
+      const lastMove = game.undo();
+      if (lastMove?.captured) {
+        const capturedColor = lastMove.color === "w" ? "b" : "w";
+        const capturedPiece = lastMove.captured;
+
+        const searchPiece = { color: capturedColor, type: capturedPiece };
+        const firstMatchIndex = [...state.captured].findIndex(
+          (piece) =>
+            piece.color === searchPiece.color && piece.type === searchPiece.type
+        );
+        state.captured = [
+          ...state.captured.slice(0, firstMatchIndex),
+          ...state.captured.slice(firstMatchIndex + 1),
+        ];
+      }
 
       state.fen = game.fen();
       state.turn = game.turn();
@@ -98,6 +112,11 @@ export const getTurn = (state: RootState) => state.game.turn;
 export const getFEN = (state: RootState) => state.game.fen;
 
 export const getHistory = (state: RootState) => state.game.history;
+
+export const getIsEndgame = (state: RootState) => {
+  const game = new Chess(state.game.fen);
+  return game.isGameOver();
+};
 
 export const getPGN = (state: RootState) => {
   const game = new Chess();

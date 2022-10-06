@@ -41,10 +41,14 @@
     - ✅ en pessant capture
   - logic for game states
     - won/lost, stalemate
+      - ✅ display game state
+      - display game move history
+      - display who won
+      - display on player line who is in check mate, both in stalemate, etc
     - undo last move
       - ✅ undo when not your turn
       - 5 second timer to undo your move and before other player
-      - when capture is undone on board, remove from captured pieces
+      - ✅ when capture is undone on board, remove from captured pieces
     - reset game
     - ✅ show player in check
     - ✅ show player's turn

@@ -1,5 +1,5 @@
 import { Chess, Move, Piece, PieceSymbol } from "chess.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Chessboard as ReactChessboard,
   ChessBoardProps,
@@ -11,9 +11,11 @@ import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   addCaptured,
   getFEN,
+  getIsEndgame,
   updateGame,
 } from "../../state-management/slices/game";
 import { PromotionModal } from "./PromotionModal";
+import {CompletionModal} from './CompletionModal';
 
 interface ChessboardProps extends ChessBoardProps {}
 
@@ -34,16 +36,23 @@ const initialPromotionFromTo: PromotionFromTo = {
 export const Chessboard = (props: ChessboardProps) => {
   const { id } = props;
   const gameFEN = useAppSelector(getFEN);
+  const isEndgame = useAppSelector(getIsEndgame);
   const dispatch = useAppDispatch();
 
   const [promotionFromTo, setPromotionFromTo] = useState(
     initialPromotionFromTo
   );
   const [isPromotionModalOpen, setPromotionModalOpen] = useState(false);
-
   const [validMoveStyles, setValidMoveStyles] = useState(
     {} as CustomSquareStyles
   );
+  const [isCompletionModalOpen, setCompletionModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (isEndgame) {
+      setCompletionModalOpen(true);
+    }
+  }, [isEndgame]);
 
   const clearValidMovesStyles = (): void => {
     if (Object.keys(validMoveStyles).length === 0) return;
@@ -148,6 +157,7 @@ export const Chessboard = (props: ChessboardProps) => {
 
   return (
     <>
+      <CompletionModal handleClose={() => setCompletionModalOpen(false)} isOpen={isCompletionModalOpen} />
       <PromotionModal
         handleClose={handlePromotionModalClose}
         isOpen={isPromotionModalOpen}
