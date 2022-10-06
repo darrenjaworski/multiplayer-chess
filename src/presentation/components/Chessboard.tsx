@@ -14,8 +14,8 @@ import {
   getIsEndgame,
   updateGame,
 } from "../../state-management/slices/game";
+import { CompletionModal } from "./CompletionModal";
 import { PromotionModal } from "./PromotionModal";
-import {CompletionModal} from './CompletionModal';
 
 interface ChessboardProps extends ChessBoardProps {}
 
@@ -157,7 +157,10 @@ export const Chessboard = (props: ChessboardProps) => {
 
   return (
     <>
-      <CompletionModal handleClose={() => setCompletionModalOpen(false)} isOpen={isCompletionModalOpen} />
+      <CompletionModal
+        handleClose={() => setCompletionModalOpen(false)}
+        isOpen={isCompletionModalOpen}
+      />
       <PromotionModal
         handleClose={handlePromotionModalClose}
         isOpen={isPromotionModalOpen}
