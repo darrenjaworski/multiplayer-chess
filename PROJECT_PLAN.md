@@ -44,6 +44,7 @@
     - undo last move
       - ✅ undo when not your turn
       - 5 second timer to undo your move and before other player
+      - when capture is undone on board, remove from captured pieces
     - reset game
     - ✅ show player in check
     - ✅ show player's turn
@@ -70,7 +71,7 @@
   - applications are built and deployed
 - setup domain and deploy
   - DNS
-- code an advanced AI (convolution neural networks)
+- advanced AI
   - simplistic alphazero
 
 ## session: 9/22
