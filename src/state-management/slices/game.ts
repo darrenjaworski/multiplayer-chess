@@ -106,35 +106,32 @@ export const GameSlice = createSlice({
       state,
       action: PayloadAction<UpdatePlayerClockPayload>
     ) => {
-      // TODO refactor the hell out of this
-      const playerClockCopy = state.playerClockHistory
+      const fullClockHistory = state.playerClockHistory
         ? [...state.playerClockHistory]
         : [];
 
-      const playerColor = state.turn === "w" ? "b" : "w";
+      const previousTurn = state.turn === "w" ? "b" : "w";
 
-      const playerColorClock = playerClockCopy.filter(
-        (moveElapsed) => moveElapsed.history.color === playerColor
+      const playerClockHistory = fullClockHistory.filter(
+        (moveElapsed) => moveElapsed.history.color === previousTurn
       );
 
-      const hasLastPlayerClock = playerColorClock[playerColorClock.length - 1];
+      const latestClockHistory = playerClockHistory.slice(-1)[0];
 
       let elapsedTime = 0;
-      if (hasLastPlayerClock) {
-        elapsedTime =
-          playerColorClock[playerColorClock.length - 1].remaining -
-          action.payload;
-      } else if (playerClockCopy.length === 1) {
-        elapsedTime = playerClockCopy[0].remaining - action.payload;
+      if (latestClockHistory) {
+        elapsedTime = latestClockHistory.remaining - action.payload;
+      } else if (fullClockHistory.length === 1) {
+        elapsedTime = fullClockHistory[0].remaining - action.payload;
       }
 
       const clockUpdate: MoveElapsed = {
-        history: state.history[state.history.length - 1],
+        history: state.history.slice(-1)[0],
         elapsed: elapsedTime,
         remaining: action.payload,
       };
 
-      state.playerClockHistory = [...playerClockCopy, clockUpdate];
+      state.playerClockHistory = [...fullClockHistory, clockUpdate];
     },
   },
 });
