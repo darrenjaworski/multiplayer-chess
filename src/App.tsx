@@ -8,6 +8,9 @@ const globalCss = css`
     margin: 0 auto;
     max-width: 560px;
   }
+  html {
+    font-family: Arial, Helvetica, sans-serif;
+  }
 `;
 
 function App() {
