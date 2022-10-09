@@ -13,6 +13,11 @@ interface GameProps {
   playerTwo: Player;
 }
 
+export enum GameMode {
+  untimed,
+  lightning,
+}
+
 const GameScreen = styled.div`
   height: 100vh;
   display: flex;
@@ -23,13 +28,15 @@ const GameScreen = styled.div`
 
 export const Game = (props: GameProps) => {
   const { playerOne, playerTwo } = props;
+
+  const chosenMode = GameMode.lightning;
   return (
     <>
       <GameScreen data-testid="game">
         <GameTicker />
-        <GamePlayer player={playerOne} piecesColor="b" />
+        <GamePlayer player={playerOne} piecesColor="b" mode={chosenMode} />
         <Chessboard />
-        <GamePlayer player={playerTwo} piecesColor="w" />
+        <GamePlayer player={playerTwo} piecesColor="w" mode={chosenMode} />
       </GameScreen>
     </>
   );

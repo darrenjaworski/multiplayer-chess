@@ -10,12 +10,14 @@ import {
   getTurn,
   undoMove,
 } from "../../state-management/slices/game";
-import { Player } from "../screens/Game";
+import { GameMode, Player } from "../screens/Game";
 import { PlayerCapturedPieces } from "./PlayerCapturedPieces";
+import { PlayerCountdown } from "./PlayerCountdown";
 
 interface GamePlayerProps {
   player: Player;
   piecesColor: Color;
+  mode: GameMode;
 }
 
 const PlayerContainer = styled.div`
@@ -40,7 +42,7 @@ const TurnIcon = styled(FaChessKnight)`
 const UndoButton = styled.button``;
 
 export const GamePlayer = (props: GamePlayerProps) => {
-  const { player, piecesColor } = props;
+  const { player, piecesColor, mode } = props;
   const { username, eloScore } = player;
 
   const dispatch = useAppDispatch();
@@ -60,8 +62,12 @@ export const GamePlayer = (props: GamePlayerProps) => {
         <h2 data-testid="player-name">
           <>
             {username}
-            {isPlayerInCheck && !isPlayerCheckMated && <span data-testid="player-check"> - check</span>}
-            {isPlayerCheckMated && <span data-testid="player-check-mate"> - check mate</span>}
+            {isPlayerInCheck && !isPlayerCheckMated && (
+              <span data-testid="player-check"> - check</span>
+            )}
+            {isPlayerCheckMated && (
+              <span data-testid="player-check-mate"> - check mate</span>
+            )}
             {isPlayersTurn && (
               <TurnIcon data-testid={"player-turn-indicator"} />
             )}
@@ -70,14 +76,17 @@ export const GamePlayer = (props: GamePlayerProps) => {
         <span data-testid="player-ranking">Elo: {eloScore}</span>
       </PlayerName>
       <PlayerCapturedPieces piecesColor={piecesColor} />
-      <UndoButton
-        data-testid={`${piecesColor}-undo`}
-        disabled={shouldDisable}
-        onClick={handleUndoClick}
-        title="undo previous move"
-      >
-        undo last move
-      </UndoButton>
+      {mode === GameMode.untimed && (
+        <UndoButton
+          data-testid={`${piecesColor}-undo`}
+          disabled={shouldDisable}
+          onClick={handleUndoClick}
+          title="undo previous move"
+        >
+          undo last move
+        </UndoButton>
+      )}
+      {mode === GameMode.lightning && <PlayerCountdown turn={isPlayersTurn} />}
     </PlayerContainer>
   );
 };
@@ -88,4 +97,5 @@ GamePlayer.defaultProps = {
     eloScore: 1,
   },
   piecesColor: "w",
+  mode: 0,
 };
