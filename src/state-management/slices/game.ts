@@ -106,6 +106,7 @@ export const GameSlice = createSlice({
       state,
       action: PayloadAction<UpdatePlayerClockPayload>
     ) => {
+      // TODO refactor the hell out of this
       const playerClockCopy = state.playerClockHistory
         ? [...state.playerClockHistory]
         : [];

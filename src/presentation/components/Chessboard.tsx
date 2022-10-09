@@ -173,6 +173,7 @@ export const Chessboard = (props: ChessboardProps) => {
         onPieceDrop={handlePieceDrop}
         position={gameFEN}
         customSquareStyles={{ ...validMoveStyles }}
+        arePremovesAllowed={false}
       />
     </>
   );
