@@ -15,12 +15,21 @@ interface PlayerCountdownProps {
   color: Color;
 }
 
-const CenteredClock = styled.div`
+interface CenteredClockProps {
+  turn: boolean;
+}
+
+const CenteredClock = styled.div<CenteredClockProps>`
   display: flex;
   flex-direction: row;
   justify-content: centered;
   gap: 0.25rem;
+  color: ${(props) => (props.turn ? "red" : "steelblue")};
 `;
+
+CenteredClock.defaultProps = {
+  turn: false,
+};
 
 function getMinSec(remaining: number): string {
   const remainingMin = Math.floor(remaining / 60);
@@ -62,7 +71,7 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
   }, [gameTurn]);
 
   return (
-    <CenteredClock>
+    <CenteredClock turn={turn}>
       {turn ? <FaUserClock /> : <FaClock />}
       {getMinSec(timeLeft)}
     </CenteredClock>

@@ -45,6 +45,7 @@
       - display game move history
       - display who won
       - display on player line who is in check mate, both in stalemate, etc
+      - enable player to forfeit match
     - undo last move
       - ✅ undo when not your turn
       - 5 second timer to undo your move and before other player
@@ -56,6 +57,11 @@
     - one player vs computer
     - two players on same browser window
     - board and piece styling
+    - game modes
+      - unlimited time
+      - presets with 5, 10 or 15 min
+        - ✅ clock ticks down on player line
+        - handle time run out
 - 🟡 show history of moves from game
   - ✅ show all moves listed out for a game
   - ✅ show ticker above game that displays pgn
