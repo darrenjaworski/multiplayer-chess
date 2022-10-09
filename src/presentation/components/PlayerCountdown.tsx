@@ -79,7 +79,7 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
 };
 
 PlayerCountdown.defaultProps = {
-  startTime: 60,
+  startTime: 300,
   turn: false,
   color: "w",
 };
