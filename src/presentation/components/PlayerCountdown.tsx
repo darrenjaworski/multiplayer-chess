@@ -31,7 +31,8 @@ CenteredClock.defaultProps = {
   turn: false,
 };
 
-function getMinSec(remaining: number): string {
+export function getMinSec(remaining: number): string {
+  if (remaining < 0) return "";
   const remainingMin = Math.floor(remaining / 60);
   const remainingSec = remaining % 60;
   const displayMin = remainingMin > 0 ? `${remainingMin}:` : "";
@@ -71,9 +72,9 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
   }, [gameTurn]);
 
   return (
-    <CenteredClock turn={turn}>
+    <CenteredClock turn={turn} data-testid={`player-${color}-countdown`}>
       {turn ? <FaUserClock /> : <FaClock />}
-      {getMinSec(timeLeft)}
+      <span data-testid={`player-${color}-countdown-remaining`}>{getMinSec(timeLeft)}</span>
     </CenteredClock>
   );
 };
