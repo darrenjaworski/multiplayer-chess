@@ -15,7 +15,7 @@ export interface GameState {
   turn: Color;
   captured: Piece[];
   history: Move[];
-  playerClockHistory: MoveElapsed[] | null;
+  playerClockHistory: MoveElapsed[];
 }
 
 const initialState: GameState = {
@@ -23,7 +23,7 @@ const initialState: GameState = {
   turn: "w",
   captured: [],
   history: [],
-  playerClockHistory: null,
+  playerClockHistory: [],
 };
 
 interface UpdateGamePayload {
