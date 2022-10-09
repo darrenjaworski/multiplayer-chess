@@ -25,6 +25,11 @@ const PGNOverflow = styled.div`
   overflow-x: scroll;
   white-space: nowrap;
   padding-right: 0.5rem;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 export const GameTicker = () => {
