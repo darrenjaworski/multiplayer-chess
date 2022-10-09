@@ -51,6 +51,6 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
 };
 
 PlayerCountdown.defaultProps = {
-  startTime: 10,
+  startTime: 300,
   turn: false,
 };
