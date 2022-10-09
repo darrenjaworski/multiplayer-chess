@@ -86,7 +86,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
           undo last move
         </UndoButton>
       )}
-      {mode === GameMode.lightning && <PlayerCountdown turn={isPlayersTurn && gameHasStarted} />}
+      {mode === GameMode.lightning && <PlayerCountdown color={piecesColor} turn={isPlayersTurn && gameHasStarted} />}
     </PlayerContainer>
   );
 };

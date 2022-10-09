@@ -1,10 +1,18 @@
 import styled from "@emotion/styled";
+import { Color } from "chess.js";
 import { useEffect, useState } from "react";
 import { FaClock, FaUserClock } from "react-icons/fa";
+import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
+import {
+  getGameStarted,
+  getTurn,
+  updatePlayerClock,
+} from "../../state-management/slices/game";
 
 interface PlayerCountdownProps {
   startTime: number;
   turn: boolean;
+  color: Color;
 }
 
 const CenteredClock = styled.div`
@@ -24,8 +32,13 @@ function getMinSec(remaining: number): string {
 }
 
 export const PlayerCountdown = (props: PlayerCountdownProps) => {
-  const { startTime, turn } = props;
+  const { startTime, turn, color } = props;
+  const gameTurn = useAppSelector(getTurn);
+  const gameStarted = useAppSelector(getGameStarted);
+
+  const dispatch = useAppDispatch();
   const [timeLeft, setTimeLeft] = useState(startTime);
+
   useEffect(() => {
     if (!turn) return;
 
@@ -42,6 +55,12 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
     };
   });
 
+  useEffect(() => {
+    if (!gameStarted) return;
+    if (gameTurn === color) return;
+    dispatch(updatePlayerClock(timeLeft));
+  }, [gameTurn]);
+
   return (
     <CenteredClock>
       {turn ? <FaUserClock /> : <FaClock />}
@@ -51,6 +70,7 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
 };
 
 PlayerCountdown.defaultProps = {
-  startTime: 300,
+  startTime: 60,
   turn: false,
+  color: "w",
 };

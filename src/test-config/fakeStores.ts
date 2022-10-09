@@ -14,6 +14,7 @@ export const initialRootState: RootState = {
     turn: "w",
     captured: [],
     history: [],
+    playerClockHistory: null,
   },
 };
 
@@ -42,6 +43,7 @@ export function createStoreWithCapturedPieces(captured: Piece[]) {
 export function createStoreWithHistory() {
   return mockStore({
     game: {
+      playerClockHistory: null,
       fen: "rnbq1b1r/ppp1pkpp/3p4/8/8/5P2/PPPPP2R/RNBQKB2 b Q - 0 6",
       turn: "b",
       captured: [
@@ -168,6 +170,7 @@ export function createStoreWithHistory() {
 export function createStoreWithPawnToPromote() {
   return mockStore({
     game: {
+      playerClockHistory: null,
       fen: "rnbqkbn1/pppppppP/2r5/8/7P/8/PPPPPP2/RNBQKBNR w KQq - 1 6",
       turn: "w",
       captured: [
@@ -281,6 +284,7 @@ export function createStoreWithGameState(gameState: Chess) {
 
   return mockStore({
     game: {
+      playerClockHistory: null,
       turn: gameState.turn(),
       fen: gameState.fen(),
       history: gameState.history() as Move[],

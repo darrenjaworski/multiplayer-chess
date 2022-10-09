@@ -4,11 +4,18 @@ import type { Color, Move, Piece } from "chess.js";
 import { Chess, DEFAULT_POSITION as startingFEN } from "chess.js";
 import { RootState } from "./../store";
 
+type MoveElapsed = {
+  history: Move;
+  elapsed: number;
+  remaining: number;
+};
+
 export interface GameState {
   fen: string;
   turn: Color;
   captured: Piece[];
   history: Move[];
+  playerClockHistory: MoveElapsed[] | null;
 }
 
 const initialState: GameState = {
@@ -16,12 +23,15 @@ const initialState: GameState = {
   turn: "w",
   captured: [],
   history: [],
+  playerClockHistory: null,
 };
 
 interface UpdateGamePayload {
   fen: string;
   move: Move;
 }
+
+type UpdatePlayerClockPayload = number;
 
 export const GameSlice = createSlice({
   name: "game",
@@ -67,7 +77,7 @@ export const GameSlice = createSlice({
       state.turn = game.turn();
       state.history = game.history({ verbose: true }) as Move[];
     },
-    undoMove: (state, action: PayloadAction<void>) => {
+    undoMove: (state, _action: PayloadAction<void>) => {
       const game = new Chess();
       [...state.history].forEach((move) => {
         game.move(move.san);
@@ -92,6 +102,39 @@ export const GameSlice = createSlice({
       state.turn = game.turn();
       state.history = game.history({ verbose: true }) as Move[];
     },
+    updatePlayerClock: (
+      state,
+      action: PayloadAction<UpdatePlayerClockPayload>
+    ) => {
+      const playerClockCopy = state.playerClockHistory
+        ? [...state.playerClockHistory]
+        : [];
+
+      const playerColor = state.turn === "w" ? "b" : "w";
+
+      const playerColorClock = playerClockCopy.filter(
+        (moveElapsed) => moveElapsed.history.color === playerColor
+      );
+
+      const hasLastPlayerClock = playerColorClock[playerColorClock.length - 1];
+
+      let elapsedTime = 0;
+      if (hasLastPlayerClock) {
+        elapsedTime =
+          playerColorClock[playerColorClock.length - 1].remaining -
+          action.payload;
+      } else if (playerClockCopy.length === 1) {
+        elapsedTime = playerClockCopy[0].remaining - action.payload;
+      }
+
+      const clockUpdate: MoveElapsed = {
+        history: state.history[state.history.length - 1],
+        elapsed: elapsedTime,
+        remaining: action.payload,
+      };
+
+      state.playerClockHistory = [...playerClockCopy, clockUpdate];
+    },
   },
 });
 
@@ -102,6 +145,7 @@ export const {
   loadFromPGN,
   loadFromHistory,
   undoMove,
+  updatePlayerClock,
 } = GameSlice.actions;
 
 export const getGameStarted = (state: RootState) =>
