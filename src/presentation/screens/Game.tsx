@@ -29,7 +29,7 @@ const GameScreen = styled.div`
 export const Game = (props: GameProps) => {
   const { playerOne, playerTwo } = props;
 
-  const chosenMode = GameMode.lightning;
+  const chosenMode = GameMode.untimed;
   return (
     <>
       <GameScreen data-testid="game">

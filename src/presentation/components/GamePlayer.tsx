@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import type { Color } from "chess.js";
-import React from "react";
 import { FaChessKnight } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
@@ -13,6 +12,7 @@ import {
 import { GameMode, Player } from "../screens/Game";
 import { PlayerCapturedPieces } from "./PlayerCapturedPieces";
 import { PlayerCountdown } from "./PlayerCountdown";
+import { UndoButton } from "./UndoButton";
 
 interface GamePlayerProps {
   player: Player;
@@ -39,8 +39,6 @@ const TurnIcon = styled(FaChessKnight)`
   font-size: 1rem;
 `;
 
-const UndoButton = styled.button``;
-
 export const GamePlayer = (props: GamePlayerProps) => {
   const { player, piecesColor, mode } = props;
   const { username, eloScore } = player;
@@ -54,7 +52,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
   const isPlayersTurn = gameturn === piecesColor;
   const shouldDisable = isPlayersTurn || !gameHasStarted;
 
-  const handleUndoClick = (_event: React.MouseEvent) => dispatch(undoMove());
+  const handleUndoClick = () => dispatch(undoMove());
 
   return (
     <PlayerContainer data-testid="player">
@@ -78,15 +76,19 @@ export const GamePlayer = (props: GamePlayerProps) => {
       <PlayerCapturedPieces piecesColor={piecesColor} />
       {mode === GameMode.untimed && (
         <UndoButton
-          data-testid={`${piecesColor}-undo`}
+          handleClick={handleUndoClick}
           disabled={shouldDisable}
-          onClick={handleUndoClick}
-          title="undo previous move"
+          color={piecesColor}
         >
           undo last move
         </UndoButton>
       )}
-      {mode === GameMode.lightning && <PlayerCountdown color={piecesColor} turn={isPlayersTurn && gameHasStarted} />}
+      {mode === GameMode.lightning && (
+        <PlayerCountdown
+          color={piecesColor}
+          turn={isPlayersTurn && gameHasStarted}
+        />
+      )}
     </PlayerContainer>
   );
 };
