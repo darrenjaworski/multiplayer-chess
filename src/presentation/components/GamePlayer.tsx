@@ -44,12 +44,12 @@ export const GamePlayer = (props: GamePlayerProps) => {
   const { username, eloScore } = player;
 
   const dispatch = useAppDispatch();
-  const gameturn = useAppSelector(getTurn);
+  const gameTurn = useAppSelector(getTurn);
   const isPlayerInCheck = useAppSelector(getIsColorInCheck(piecesColor));
   const isPlayerCheckMated = useAppSelector(getIsColorInCheckMate(piecesColor));
   const gameHasStarted = useAppSelector(getGameStarted);
 
-  const isPlayersTurn = gameturn === piecesColor;
+  const isPlayersTurn = gameTurn === piecesColor;
   const shouldDisable = isPlayersTurn || !gameHasStarted;
 
   const handleUndoClick = () => dispatch(undoMove());
@@ -79,6 +79,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
           handleClick={handleUndoClick}
           disabled={shouldDisable}
           color={piecesColor}
+          turn={gameTurn}
         >
           undo last move
         </UndoButton>
