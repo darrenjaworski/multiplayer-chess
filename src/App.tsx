@@ -1,6 +1,8 @@
 import { css, Global } from "@emotion/react";
 import { Provider } from "react-redux";
-import { Game } from "./presentation/screens/Game";
+import { RouterProvider } from "react-router-dom";
+import { ErrorBoundary } from "./presentation/components/ErrorBoundary";
+import { router } from "./presentation/routing/Routing";
 import { store } from "./state-management/store";
 
 const globalCss = css`
@@ -16,11 +18,10 @@ const globalCss = css`
 function App() {
   return (
     <Provider store={store}>
-      <Global styles={globalCss} />
-      <Game
-        playerOne={{ username: "darren", eloScore: 1 }}
-        playerTwo={{ username: "ian", eloScore: 2 }}
-      />
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+        <Global styles={globalCss} />
+      </ErrorBoundary>
     </Provider>
   );
 }

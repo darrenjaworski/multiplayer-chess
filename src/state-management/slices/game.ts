@@ -10,20 +10,46 @@ type MoveElapsed = {
   remaining: number;
 };
 
+interface Player {
+  username: string;
+  eloScore: number;
+}
+
+export enum GameModes {
+  untimed,
+  lightning,
+  speedy,
+  slowpoke,
+}
+
+export const GAME_MODES = [
+  { key: GameModes.untimed, label: "untimed", time: undefined },
+  { key: GameModes.lightning, label: "lightning (5 min)", time: 300 },
+  { key: GameModes.speedy, label: "speedy (10 min)", time: 600 },
+  { key: GameModes.slowpoke, label: "slow poke (15 min)", time: 900 },
+];
+
 export interface GameState {
   fen: string;
   turn: Color;
   captured: Piece[];
   history: Move[];
   playerClockHistory: MoveElapsed[];
+  players: Player[];
+  mode: GameModes;
 }
 
-const initialState: GameState = {
+export const initialState: GameState = {
   fen: startingFEN,
   turn: "w",
   captured: [],
   history: [],
   playerClockHistory: [],
+  players: [
+    { username: "foo", eloScore: 1 },
+    { username: "bar", eloScore: 2 },
+  ],
+  mode: GameModes.lightning,
 };
 
 interface UpdateGamePayload {
@@ -133,6 +159,12 @@ export const GameSlice = createSlice({
 
       state.playerClockHistory = [...fullClockHistory, clockUpdate];
     },
+    updatePlayers: (state, action: PayloadAction<Player[]>) => {
+      state.players = action.payload;
+    },
+    updateMode: (state, action: PayloadAction<GameModes>) => {
+      state.mode = action.payload;
+    },
   },
 });
 
@@ -144,6 +176,8 @@ export const {
   loadFromHistory,
   undoMove,
   updatePlayerClock,
+  updatePlayers,
+  updateMode,
 } = GameSlice.actions;
 
 export const getGameStarted = (state: RootState) =>
@@ -189,4 +223,12 @@ export const getIsColorInCheckMate = (color: Color) => (state: RootState) => {
 
   if (color === game.turn()) return game.isCheckmate();
   return false;
+};
+
+export const getPlayers = (state: RootState) => {
+  return state.game.players;
+};
+
+export const getGameMode = (state: RootState) => {
+  return state.game.mode;
 };

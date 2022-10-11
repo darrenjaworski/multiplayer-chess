@@ -3,13 +3,15 @@ import type { Color } from "chess.js";
 import { FaChessKnight } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
+  GameModes,
+  GAME_MODES,
   getGameStarted,
   getIsColorInCheck,
   getIsColorInCheckMate,
   getTurn,
   undoMove,
 } from "../../state-management/slices/game";
-import { GameMode, Player } from "../screens/Game";
+import { Player } from "../screens/Game";
 import { PlayerCapturedPieces } from "./PlayerCapturedPieces";
 import { PlayerCountdown } from "./PlayerCountdown";
 import { UndoButton } from "./UndoButton";
@@ -17,7 +19,7 @@ import { UndoButton } from "./UndoButton";
 interface GamePlayerProps {
   player: Player;
   piecesColor: Color;
-  mode: GameMode;
+  mode: GameModes;
 }
 
 const PlayerContainer = styled.div`
@@ -74,7 +76,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
         <span data-testid="player-ranking">Elo: {eloScore}</span>
       </PlayerName>
       <PlayerCapturedPieces piecesColor={piecesColor} />
-      {mode === GameMode.untimed && (
+      {mode === GameModes.untimed && (
         <UndoButton
           handleClick={handleUndoClick}
           disabled={shouldDisable}
@@ -84,10 +86,11 @@ export const GamePlayer = (props: GamePlayerProps) => {
           undo last move
         </UndoButton>
       )}
-      {mode === GameMode.lightning && (
+      {mode !== GameModes.untimed && (
         <PlayerCountdown
           color={piecesColor}
           turn={isPlayersTurn && gameHasStarted}
+          startTime={GAME_MODES[mode].time}
         />
       )}
     </PlayerContainer>

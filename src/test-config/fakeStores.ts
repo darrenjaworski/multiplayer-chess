@@ -3,6 +3,7 @@ import createMockStore, {
   MockStoreCreator,
   MockStoreEnhanced,
 } from "redux-mock-store";
+import { initialState } from "../state-management/slices/game";
 import type { AppDispatch, RootState } from "../state-management/store";
 
 export type FakeStore = MockStoreEnhanced<RootState, AppDispatch>;
@@ -10,6 +11,8 @@ export type FakeStore = MockStoreEnhanced<RootState, AppDispatch>;
 const mockStore: MockStoreCreator<RootState, AppDispatch> = createMockStore([]);
 export const initialRootState: RootState = {
   game: {
+    mode: initialState.mode,
+    players: [...initialState.players],
     fen: DEFAULT_POSITION,
     turn: "w",
     captured: [],
@@ -43,6 +46,8 @@ export function createStoreWithCapturedPieces(captured: Piece[]) {
 export function createStoreWithHistory() {
   return mockStore({
     game: {
+      mode: initialState.mode,
+      players: [...initialState.players],
       playerClockHistory: [],
       fen: "rnbq1b1r/ppp1pkpp/3p4/8/8/5P2/PPPPP2R/RNBQKB2 b Q - 0 6",
       turn: "b",
@@ -170,6 +175,8 @@ export function createStoreWithHistory() {
 export function createStoreWithPawnToPromote() {
   return mockStore({
     game: {
+      mode: initialState.mode,
+      players: [...initialState.players],
       playerClockHistory: [],
       fen: "rnbqkbn1/pppppppP/2r5/8/7P/8/PPPPPP2/RNBQKBNR w KQq - 1 6",
       turn: "w",
@@ -284,6 +291,8 @@ export function createStoreWithGameState(gameState: Chess) {
 
   return mockStore({
     game: {
+      mode: initialState.mode,
+      players: [...initialState.players],
       playerClockHistory: [],
       turn: gameState.turn(),
       fen: gameState.fen(),

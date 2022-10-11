@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { useAppSelector } from "../../state-management/hooks";
+import { getGameMode, getPlayers } from "../../state-management/slices/game";
 import { Chessboard } from "../components/Chessboard";
 import { GamePlayer } from "../components/GamePlayer";
 import { GameTicker } from "../components/GameTicker";
@@ -6,16 +8,6 @@ import { GameTicker } from "../components/GameTicker";
 export interface Player {
   username: string;
   eloScore: number;
-}
-
-interface GameProps {
-  playerOne: Player;
-  playerTwo: Player;
-}
-
-export enum GameMode {
-  untimed,
-  lightning,
 }
 
 const GameScreen = styled.div`
@@ -26,23 +18,18 @@ const GameScreen = styled.div`
   z-index: 0;
 `;
 
-export const Game = (props: GameProps) => {
-  const { playerOne, playerTwo } = props;
+export const Game = () => {
+  const players = useAppSelector(getPlayers);
+  const playerOne = players[0];
+  const playerTwo = players[1];
 
-  const chosenMode = GameMode.untimed;
+  const chosenMode = useAppSelector(getGameMode);
   return (
-    <>
-      <GameScreen data-testid="game">
-        <GameTicker />
-        <GamePlayer player={playerOne} piecesColor="b" mode={chosenMode} />
-        <Chessboard />
-        <GamePlayer player={playerTwo} piecesColor="w" mode={chosenMode} />
-      </GameScreen>
-    </>
+    <GameScreen data-testid="game">
+      <GameTicker />
+      <GamePlayer player={playerOne} piecesColor="b" mode={chosenMode} />
+      <Chessboard />
+      <GamePlayer player={playerTwo} piecesColor="w" mode={chosenMode} />
+    </GameScreen>
   );
-};
-
-Game.defaultProps = {
-  playerOne: { username: "foo", eloScore: 1 },
-  playerTwo: { username: "bar", eloScore: 2 },
 };
