@@ -50,7 +50,7 @@ export const initialState: GameState = {
     { username: "foo", eloScore: 1 },
     { username: "bar", eloScore: 2 },
   ],
-  mode: GameModes.lightning,
+  mode: GameModes.untimed,
   playerTimeout: false,
 };
 
