@@ -4,7 +4,7 @@ import { Theme } from "./@types/Theme";
 export const darkTheme: Theme = {
   colors: {
     primary: "blue",
-    secondary: "red",
+    secondary: "#DBBBBF",
     text: "#B2CEB9",
     disabled: "#769491",
   },

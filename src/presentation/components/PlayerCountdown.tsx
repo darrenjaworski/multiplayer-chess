@@ -1,3 +1,4 @@
+import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Color } from "chess.js";
 import { useEffect, useState } from "react";
@@ -44,6 +45,8 @@ export function getMinSec(remaining: number): string {
 
 export const PlayerCountdown = (props: PlayerCountdownProps) => {
   const { startTime, turn, color } = props;
+
+  const theme = useTheme();
   const gameTurn = useAppSelector(getTurn);
   const gameStarted = useAppSelector(getGameStarted);
 
@@ -75,7 +78,13 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
 
   return (
     <CenteredClock turn={turn} data-testid={`player-${color}-countdown`}>
-      {turn ? <FaUserClock /> : <FaClock />}
+      {turn ? (
+        // @ts-ignore
+        <FaUserClock color={theme.colors.secondary} />
+      ) : (
+        // @ts-ignore
+        <FaClock color={theme.colors.text} />
+      )}
       <span data-testid={`player-${color}-countdown-remaining`}>
         {getMinSec(timeLeft)}
       </span>

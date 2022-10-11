@@ -16,6 +16,7 @@ const GameScreen = styled.div`
   flex-direction: column;
   justify-content: center;
   z-index: 0;
+  row-gap: 0.5rem;
 `;
 
 export const Game = () => {

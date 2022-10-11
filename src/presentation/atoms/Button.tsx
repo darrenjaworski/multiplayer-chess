@@ -41,7 +41,10 @@ const StyledButton = styled.button`
         ? props.theme.background
         : props.theme.colors.text;
     }};
-    border: ${(props) => `1px solid ${props.theme.background}`};
+    border: ${(props) =>
+      props.variant === "outlined"
+        ? `1px solid ${props.theme.background}`
+        : `1px solid ${props.theme.colors.text}`};
   }
 `;
 

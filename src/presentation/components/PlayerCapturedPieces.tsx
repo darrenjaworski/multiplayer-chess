@@ -1,3 +1,4 @@
+import { useTheme } from "@emotion/react";
 import type { Color, Piece, PieceSymbol } from "chess.js";
 import type { IconType } from "react-icons";
 import {
@@ -30,18 +31,31 @@ interface PlayerCapturedPiecesProps {
 
 export const PlayerCapturedPieces = (props: PlayerCapturedPiecesProps) => {
   const { piecesColor } = props;
+
+  const theme = useTheme();
   const capturedPieces = useAppSelector(getCaptured(piecesColor));
 
   if (capturedPieces.length === 0) return null;
 
   const capturedPiecesIcons = capturedPieces.map((piece: Piece, i: number) => {
     const Icon = pieceToIconMap[piece.type];
-    return <Icon key={`${i}-${piecesColor}-${piece.type}`} data-testid={`${piecesColor}-${i}`} />;
+    return (
+      <Icon
+        key={`${i}-${piecesColor}-${piece.type}`}
+        data-testid={`${piecesColor}-${i}`}
+        // @ts-ignore
+        color={theme.colors.text}
+      />
+    );
   });
 
-  return <div data-testid={`${piecesColor}-captured-pieces`}>{capturedPiecesIcons}</div>;
-}
+  return (
+    <div data-testid={`${piecesColor}-captured-pieces`}>
+      {capturedPiecesIcons}
+    </div>
+  );
+};
 
 PlayerCapturedPieces.defaultProps = {
-    piecesColor: 'w'
-}
+  piecesColor: "w",
+};
