@@ -53,22 +53,17 @@
     - reset game
     - ✅ show player in check
     - ✅ show player's turn
-  - number of players setup
+  - ✅ number of players setup
     - ✅ start screen
-    - one player vs computer
     - ✅ two players on same browser window
-    - board and piece styling
     - ✅ game modes
       - ✅ unlimited time
       - ✅ presets with 5, 10 or 15 min
         - ✅ clock ticks down on player line
         - ✅ handle time run out
-- 🟡 show history of moves from game
+- ✅ show history of moves from game
   - ✅ show all moves listed out for a game
   - ✅ show ticker above game that displays pgn
-  - ability to show historical games from start to finish
-    - backwards and fowards buttons to go move by move through game
-    - play button to animate through game move by move
 - chess match against AI
   - computer does random move
   - computer does simplistic algorithm to determine move
@@ -85,6 +80,26 @@
   - DNS
 - advanced AI
   - simplistic alphazero
+
+---
+
+## punted features
+
+- board and piece styling
+  - board preview to the right
+  - style options to the left
+    - board background colors
+    - custom pieces
+    - pieces colors
+    - light mode/dark mode
+- ability to create a user
+  - save/show game history
+  - save board style preferences
+- ability to show historical games from start to finish
+  - backwards and fowards buttons to go move by move through game
+  - play button to animate through game move by move
+
+---
 
 ## session: 9/22
 
