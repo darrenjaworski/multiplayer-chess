@@ -37,6 +37,7 @@ export interface GameState {
   playerClockHistory: MoveElapsed[];
   players: Player[];
   mode: GameModes;
+  playerTimeout: boolean;
 }
 
 export const initialState: GameState = {
@@ -50,6 +51,7 @@ export const initialState: GameState = {
     { username: "bar", eloScore: 2 },
   ],
   mode: GameModes.lightning,
+  playerTimeout: false,
 };
 
 interface UpdateGamePayload {
@@ -165,6 +167,9 @@ export const GameSlice = createSlice({
     updateMode: (state, action: PayloadAction<GameModes>) => {
       state.mode = action.payload;
     },
+    updatePlayerTimeout: (state, action: PayloadAction<boolean>) => {
+      state.playerTimeout = action.payload;
+    },
   },
 });
 
@@ -178,6 +183,7 @@ export const {
   updatePlayerClock,
   updatePlayers,
   updateMode,
+  updatePlayerTimeout,
 } = GameSlice.actions;
 
 export const getGameStarted = (state: RootState) =>
@@ -191,7 +197,7 @@ export const getHistory = (state: RootState) => state.game.history;
 
 export const getIsEndgame = (state: RootState) => {
   const game = new Chess(state.game.fen);
-  return game.isGameOver();
+  return game.isGameOver() || state.game.playerTimeout;
 };
 
 export const getPGN = (state: RootState) => {

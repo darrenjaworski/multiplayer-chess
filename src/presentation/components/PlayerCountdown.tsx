@@ -7,6 +7,7 @@ import {
   getGameStarted,
   getTurn,
   updatePlayerClock,
+  updatePlayerTimeout,
 } from "../../state-management/slices/game";
 
 interface PlayerCountdownProps {
@@ -55,6 +56,7 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
     const playerClock = setInterval(() => {
       if (timeLeft < 1) {
         clearInterval(playerClock);
+        dispatch(updatePlayerTimeout(true));
         return;
       }
       setTimeLeft(timeLeft - 1);
@@ -74,7 +76,9 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
   return (
     <CenteredClock turn={turn} data-testid={`player-${color}-countdown`}>
       {turn ? <FaUserClock /> : <FaClock />}
-      <span data-testid={`player-${color}-countdown-remaining`}>{getMinSec(timeLeft)}</span>
+      <span data-testid={`player-${color}-countdown-remaining`}>
+        {getMinSec(timeLeft)}
+      </span>
     </CenteredClock>
   );
 };

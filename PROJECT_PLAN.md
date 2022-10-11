@@ -58,11 +58,11 @@
     - one player vs computer
     - ✅ two players on same browser window
     - board and piece styling
-    - game modes
+    - ✅ game modes
       - ✅ unlimited time
-      - presets with 5, 10 or 15 min
+      - ✅ presets with 5, 10 or 15 min
         - ✅ clock ticks down on player line
-        - handle time run out
+        - ✅ handle time run out
 - 🟡 show history of moves from game
   - ✅ show all moves listed out for a game
   - ✅ show ticker above game that displays pgn

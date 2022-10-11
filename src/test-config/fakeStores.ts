@@ -1,4 +1,4 @@
-import { Chess, DEFAULT_POSITION, Move, Piece } from "chess.js";
+import { Chess, Move, Piece } from "chess.js";
 import createMockStore, {
   MockStoreCreator,
   MockStoreEnhanced,
@@ -11,13 +11,7 @@ export type FakeStore = MockStoreEnhanced<RootState, AppDispatch>;
 const mockStore: MockStoreCreator<RootState, AppDispatch> = createMockStore([]);
 export const initialRootState: RootState = {
   game: {
-    mode: initialState.mode,
-    players: [...initialState.players],
-    fen: DEFAULT_POSITION,
-    turn: "w",
-    captured: [],
-    history: [],
-    playerClockHistory: [],
+    ...initialState,
   },
 };
 
@@ -46,6 +40,7 @@ export function createStoreWithCapturedPieces(captured: Piece[]) {
 export function createStoreWithHistory() {
   return mockStore({
     game: {
+      ...initialRootState.game,
       mode: initialState.mode,
       players: [...initialState.players],
       playerClockHistory: [],
@@ -175,6 +170,7 @@ export function createStoreWithHistory() {
 export function createStoreWithPawnToPromote() {
   return mockStore({
     game: {
+      ...initialState,
       mode: initialState.mode,
       players: [...initialState.players],
       playerClockHistory: [],
@@ -291,6 +287,7 @@ export function createStoreWithGameState(gameState: Chess) {
 
   return mockStore({
     game: {
+      ...initialState,
       mode: initialState.mode,
       players: [...initialState.players],
       playerClockHistory: [],
