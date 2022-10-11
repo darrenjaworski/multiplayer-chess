@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 import { FaChessKing } from "react-icons/fa";
 import { Form } from "react-router-dom";
 import { GAME_MODES } from "../../state-management/slices/game";
+import { Button } from "../atoms/Button";
 
 // TODO refactor these styles
 const GameScreen = styled(Form)`
@@ -118,7 +119,7 @@ export const Start = () => {
         </fieldset>
       </GameModeSelection>
       <CenteredRow>
-        <button type="submit">start the game</button>
+        <Button type="submit">start the game</Button>
       </CenteredRow>
     </GameScreen>
   );

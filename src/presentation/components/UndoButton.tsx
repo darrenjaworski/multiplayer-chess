@@ -1,5 +1,6 @@
 import type { Color } from "chess.js";
 import { useEffect, useState } from "react";
+import { Button } from "../atoms/Button";
 
 interface UndoButtonProps {
   handleClick: () => void;
@@ -51,14 +52,14 @@ export const UndoButton = (props: UndoButtonProps) => {
   };
 
   return (
-    <button
+    <Button
       data-testid={`${color}-undo`}
       disabled={disabled || buttonTimeout}
       onClick={handleUndoWithtimer}
       title="undo previous move"
     >
       {children}
-    </button>
+    </Button>
   );
 };
 

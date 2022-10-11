@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaHistory } from "react-icons/fa";
 import { useAppSelector } from "../../state-management/hooks";
 import { getPGN } from "../../state-management/slices/game";
+import { Button } from "../atoms/Button";
 import { GameHistory } from "./GameHistory";
 import { Modal } from "./Modal";
 
@@ -56,9 +57,9 @@ export const GameTicker = () => {
       <Modal isOpen={historyModalIsOpen} handleClose={handleModalClose}>
         <div data-testid="full-history-modal">
           <GameHistory />
-          <button onClick={handleModalClose} title="close history modal">
+          <Button onClick={handleModalClose} title="close history modal">
             close full history
-          </button>
+          </Button>
         </div>
       </Modal>
       <HistoryBar>

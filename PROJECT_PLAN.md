@@ -65,6 +65,9 @@
 - ✅ show history of moves from game
   - ✅ show all moves listed out for a game
   - ✅ show ticker above game that displays pgn
+- basic design
+  - themes (light, dark)
+  - color palette for board and pieces (3 presets)
 - chess match against AI
   - computer does random move
   - computer does simplistic algorithm to determine move
