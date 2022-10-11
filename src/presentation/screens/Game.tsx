@@ -27,9 +27,9 @@ export const Game = () => {
   return (
     <GameScreen data-testid="game">
       <GameTicker />
-      <GamePlayer player={playerOne} piecesColor="b" mode={chosenMode} />
+      <GamePlayer player={playerTwo} piecesColor="b" mode={chosenMode} />
       <Chessboard />
-      <GamePlayer player={playerTwo} piecesColor="w" mode={chosenMode} />
+      <GamePlayer player={playerOne} piecesColor="w" mode={chosenMode} />
     </GameScreen>
   );
 };
