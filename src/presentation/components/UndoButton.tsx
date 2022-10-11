@@ -19,10 +19,13 @@ export const UndoButton = (props: UndoButtonProps) => {
   const [timeoutRef, setTimeoutRef] = useState(
     defaultTimeoutState as TimeoutRefState
   );
-  // TODO actually get working!
 
   useEffect(() => {
-    if (disabled) return;
+    if (disabled) {
+      setButtonTimeout(false);
+      if (timeoutRef) clearTimeoutRef(timeoutRef);
+      return;
+    }
 
     const timeout = setTimeout(() => {
       setButtonTimeout(true);
@@ -50,7 +53,7 @@ export const UndoButton = (props: UndoButtonProps) => {
   return (
     <button
       data-testid={`${color}-undo`}
-      disabled={disabled}
+      disabled={disabled || buttonTimeout}
       onClick={handleUndoWithtimer}
       title="undo previous move"
     >
