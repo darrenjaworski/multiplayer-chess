@@ -119,7 +119,9 @@ export const Start = () => {
         </fieldset>
       </GameModeSelection>
       <CenteredRow>
-        <Button type="submit">start the game</Button>
+        <Button type="submit" variant="contained">
+          start the game
+        </Button>
       </CenteredRow>
     </GameScreen>
   );

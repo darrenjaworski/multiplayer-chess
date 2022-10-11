@@ -1,3 +1,4 @@
+import { useTheme } from "@emotion/react";
 import ReactModal from "react-modal";
 
 interface ModalProps {
@@ -6,7 +7,7 @@ interface ModalProps {
   children: JSX.Element | React.ReactElement;
 }
 
-const modalStyles = {
+let modalStyles = {
   overlay: {
     zIndex: 10,
     backgroundColor: "rgba(0,0,0, .75)",
@@ -26,6 +27,10 @@ const modalStyles = {
 
 export const Modal = (props: ModalProps) => {
   const { isOpen, handleClose, children } = props;
+  const theme = useTheme();
+
+  // @ts-ignore
+  modalStyles.content.background = theme.background;
   return (
     <ReactModal
       isOpen={isOpen}

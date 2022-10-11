@@ -1,3 +1,4 @@
+// @ts-nocheck
 import styled from "@emotion/styled";
 
 interface ButtonProps
@@ -10,10 +11,38 @@ interface ButtonProps
 }
 
 const StyledButton = styled.button`
-  color: ${(props) => {
-    // @ts-ignore
-    return props.theme.colors.text;
+  padding: 0.75rem 1rem;
+  border: ${(props) => `1px solid ${props.theme.colors.text}`};
+  background: ${(props) => {
+    return props.variant === "outlined"
+      ? props.theme.background
+      : props.theme.colors.text;
   }};
+  color: ${(props) => {
+    return props.variant === "outlined"
+      ? props.theme.colors.text
+      : props.theme.background;
+  }};
+  &:disabled {
+    background: ${(props) => props.theme.colors.disabled};
+    color: ${(props) => props.theme.colors.text};
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+  &:hover {
+    background: ${(props) => {
+      return props.variant === "outlined"
+        ? props.theme.colors.text
+        : props.theme.background;
+    }};
+    color: ${(props) => {
+      return props.variant === "outlined"
+        ? props.theme.background
+        : props.theme.colors.text;
+    }};
+    border: ${(props) => `1px solid ${props.theme.background}`};
+  }
 `;
 
 export const Button = (props: ButtonProps) => {

@@ -11,15 +11,23 @@ const HistoryBar = styled.div`
   width: 100%;
   height: 2rem;
   max-height: 2rem;
-  background: steelblue;
+  background: ${(props) => {
+    // @ts-ignore
+    return props.theme.colors.text;
+  }};
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: white;
+  color: ${(props) => {
+    // @ts-ignore
+    return props.theme.colors.background;
+  }};
 `;
 
-const FixedShowHistoryButton = styled.button`
+// @ts-ignore
+const FixedShowHistoryButton = styled(Button)`
   margin: 0 0.5rem;
+  padding: 1px 6px;
 `;
 
 const PGNOverflow = styled.div`
@@ -63,6 +71,7 @@ export const GameTicker = () => {
         </div>
       </Modal>
       <HistoryBar>
+        {/* @ts-ignore */}
         <FixedShowHistoryButton
           title="show game history details"
           disabled={pgn ? false : true}

@@ -5,6 +5,7 @@ export const lightTheme: Theme = {
     primary: "red",
     secondary: "blue",
     text: "black",
+    disabled: "gray",
   },
   background: "white",
 };
