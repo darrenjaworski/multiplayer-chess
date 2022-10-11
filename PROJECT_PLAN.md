@@ -26,6 +26,7 @@
 ### phased development
 
 🟡 means a major phase is in progress
+
 ✅ means an item is completed
 
 - 🟡 a local chess match (local)
