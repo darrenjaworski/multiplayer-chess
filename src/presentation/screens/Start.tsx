@@ -42,6 +42,19 @@ const SpacedRadio = styled.div`
   }
 `;
 
+const BlackPiecePreview = styled.div`
+  background: white;
+  padding: 9px;
+  border-radius: 50%;
+  border: 3px solid black;
+`;
+
+const WhitePiecePreview = styled.div`
+  background: black;
+  padding: 0.75rem;
+  border-radius: 50%;
+`;
+
 export const Start = () => {
   const [selectedMode, setSelectedMode] = useState(GAME_MODES[0].key);
 
@@ -55,15 +68,9 @@ export const Start = () => {
         <h1>Let's play some chess!</h1>
       </CenteredRow>
       <PlayerSelection>
-        <div
-          style={{
-            background: "black",
-            padding: "0.75rem",
-            borderRadius: "50%",
-          }}
-        >
-          <FaChessKing color="white" style={{ fontSize: "5rem" }} />
-        </div>
+        <WhitePiecePreview>
+          <FaChessKing color="white" size="5rem" />
+        </WhitePiecePreview>
         <label htmlFor="player-one">White player name</label>
         <input
           maxLength={25}
@@ -74,16 +81,9 @@ export const Start = () => {
         />
       </PlayerSelection>
       <PlayerSelection>
-        <div
-          style={{
-            background: "white",
-            padding: "9px",
-            borderRadius: "50%",
-            border: "3px solid black",
-          }}
-        >
-          <FaChessKing style={{ fontSize: "5rem" }} />
-        </div>
+        <BlackPiecePreview>
+          <FaChessKing size="5rem" />
+        </BlackPiecePreview>
         <label htmlFor="player-two">Black player name</label>
         <input
           maxLength={25}

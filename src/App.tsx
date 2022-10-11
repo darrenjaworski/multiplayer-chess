@@ -17,12 +17,12 @@ const globalCss = css`
 
 function App() {
   return (
-    <Provider store={store}>
-      <ErrorBoundary>
+    <ErrorBoundary>
+      <Provider store={store}>
         <RouterProvider router={router} />
         <Global styles={globalCss} />
-      </ErrorBoundary>
-    </Provider>
+      </Provider>
+    </ErrorBoundary>
   );
 }
 
