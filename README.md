@@ -1,4 +1,4 @@
-[![Multiplayer chess FE tests](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/unit-tests.yml/badge.svg?branch=main&event=push)](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/unit-tests.yml)
+[![Multiplayer chess FE tests](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/unit-tests.yml)
 
 # real time online multiplayer chess
 
