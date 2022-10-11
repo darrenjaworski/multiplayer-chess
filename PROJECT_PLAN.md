@@ -46,9 +46,9 @@
       - display who won
       - display on player line who is in check mate, both in stalemate, etc
       - enable player to forfeit match
-    - undo last move
+    - ✅ undo last move
       - ✅ undo when not your turn
-      - 5 second timer to undo your move and before other player
+      - ✅ 5 second timer to undo your move and before other player
       - ✅ when capture is undone on board, remove from captured pieces
     - reset game
     - ✅ show player in check
