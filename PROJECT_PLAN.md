@@ -99,6 +99,7 @@
 - ability to show historical games from start to finish
   - backwards and fowards buttons to go move by move through game
   - play button to animate through game move by move
+  - timed game, maintain clock from redux timing, not internal state (ability to replay with timing correct)
 
 ---
 
