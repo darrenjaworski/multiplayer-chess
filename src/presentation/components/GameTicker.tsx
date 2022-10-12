@@ -12,15 +12,13 @@ const HistoryBar = styled.div`
   height: 2rem;
   max-height: 2rem;
   background: ${(props) => {
-    // @ts-ignore
     return props.theme.colors.text;
   }};
   display: flex;
   flex-direction: row;
   align-items: center;
   color: ${(props) => {
-    // @ts-ignore
-    return props.theme.colors.background;
+    return props.theme.background;
   }};
 `;
 

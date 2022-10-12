@@ -43,7 +43,6 @@ export const PlayerCapturedPieces = (props: PlayerCapturedPiecesProps) => {
       <Icon
         key={`${i}-${piecesColor}-${piece.type}`}
         data-testid={`${piecesColor}-${i}`}
-        // @ts-ignore
         color={theme.colors.text}
       />
     );

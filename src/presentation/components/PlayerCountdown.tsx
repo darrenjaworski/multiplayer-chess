@@ -79,10 +79,8 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
   return (
     <CenteredClock turn={turn} data-testid={`player-${color}-countdown`}>
       {turn ? (
-        // @ts-ignore
         <FaUserClock color={theme.colors.secondary} />
       ) : (
-        // @ts-ignore
         <FaClock color={theme.colors.text} />
       )}
       <span data-testid={`player-${color}-countdown-remaining`}>

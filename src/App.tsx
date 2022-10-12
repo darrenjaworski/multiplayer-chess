@@ -11,7 +11,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Provider store={store}>
-        <ThemeProvider theme={theme.dark}>
+        <ThemeProvider theme={theme.light}>
           <RouterProvider router={router} />
           <GlobalStyles />
         </ThemeProvider>
