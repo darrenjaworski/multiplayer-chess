@@ -1,4 +1,3 @@
-// @ts-nocheck
 import styled from "@emotion/styled";
 
 interface ButtonProps
@@ -10,7 +9,7 @@ interface ButtonProps
   color: "primary" | "secondary" | "normal";
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<ButtonProps>`
   padding: 0.75rem 1rem;
   border: ${(props) => `1px solid ${props.theme.colors.text}`};
   background: ${(props) => {
