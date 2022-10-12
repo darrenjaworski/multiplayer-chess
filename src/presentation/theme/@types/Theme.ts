@@ -9,3 +9,5 @@ interface Colors {
   secondary: string;
   disabled: string;
 }
+
+export type AvailableThemes = keyof Theme;
