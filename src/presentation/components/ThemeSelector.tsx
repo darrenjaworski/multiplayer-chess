@@ -9,7 +9,6 @@ interface ThemeSelectorProps {
   currentTheme: AvailableThemes;
 }
 
-// @ts-ignore
 const FixedThemeSelector = styled(Button)`
   position: fixed;
   z-index: 0;
@@ -26,7 +25,6 @@ const FixedThemeSelector = styled(Button)`
 export const ThemeSelector = (props: ThemeSelectorProps) => {
   const { currentTheme, toggleTheme } = props;
   return (
-    // @ts-ignore
     <FixedThemeSelector
       onClick={() => toggleTheme(currentTheme === "dark" ? "light" : "dark")}
       title={`switch to ${currentTheme === "dark" ? "light" : "dark"} mode`}

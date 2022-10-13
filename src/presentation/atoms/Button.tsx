@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
+import { FC } from "react";
 
 export interface ButtonProps
   extends React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  variant: "outlined" | "contained";
-  color: "primary" | "secondary" | "normal";
+  variant?: "outlined" | "contained";
+  color?: "primary" | "secondary" | "normal";
   "data-testid"?: string;
 }
 
@@ -48,7 +49,7 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-export const Button = (props: ButtonProps) => {
+export const Button: FC<ButtonProps> = (props: ButtonProps) => {
   const passedProps = { ...props };
 
   delete passedProps.children;
@@ -56,7 +57,7 @@ export const Button = (props: ButtonProps) => {
   return <StyledButton {...passedProps}>{props.children}</StyledButton>;
 };
 
-export const defaultButtonProps = {
+export const defaultButtonProps: ButtonProps = {
   variant: "outlined",
   color: "normal",
 };
