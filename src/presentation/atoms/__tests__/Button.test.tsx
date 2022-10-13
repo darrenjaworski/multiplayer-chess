@@ -5,7 +5,6 @@ import { Button } from "../Button";
 
 describe("Button", () => {
   it("can handle outlined styling", () => {
-    // @ts-ignore
     renderAtomWithPropsAndTheme(<Button />, { "data-testid": "outlined" });
 
     const button = screen.getByTestId("outlined");
@@ -20,7 +19,6 @@ describe("Button", () => {
   });
 
   it("can render contained styling", () => {
-    // @ts-ignore
     renderAtomWithPropsAndTheme(<Button />, {
       "data-testid": "contained",
       variant: "contained",

@@ -22,7 +22,6 @@ const HistoryBar = styled.div`
   }};
 `;
 
-// @ts-ignore
 const FixedShowHistoryButton = styled(Button)`
   margin: 0 0.5rem;
   padding: 1px 6px;
@@ -69,7 +68,6 @@ export const GameTicker = () => {
         </div>
       </Modal>
       <HistoryBar>
-        {/* @ts-ignore */}
         <FixedShowHistoryButton
           title="show game history details"
           disabled={pgn ? false : true}

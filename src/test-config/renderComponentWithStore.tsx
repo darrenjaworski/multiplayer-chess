@@ -36,10 +36,8 @@ export const renderComponentWithRouter = (
   );
 };
 
-// @ts-ignore
 export const renderAtomWithPropsAndTheme = (
   componentToRender: JSX.Element | React.ReactElement,
-  // @ts-ignore
   props: ButtonProps = defaultButtonProps,
   selectedTheme: AvailableThemes = "dark"
 ) => {
