@@ -24,6 +24,7 @@ export const ThemeSelector = (props: ThemeSelectorProps) => {
     <FixedThemeSelector
       onClick={() => toggleTheme(currentTheme === "dark" ? "light" : "dark")}
       title="toggle light and dark mode"
+      data-testid="theme-selector"
     >
       {currentTheme === "dark" ? <WiDaySunny /> : <MdNightlight />}
     </FixedThemeSelector>

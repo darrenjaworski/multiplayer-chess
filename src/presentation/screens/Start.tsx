@@ -66,7 +66,7 @@ export const Start = () => {
   return (
     <GameScreen method="post" action="/game" data-testid="start">
       <CenteredRow>
-        <h1>Let's play some chess!</h1>
+        <h1 data-testid="start-headline">Let's play some chess!</h1>
       </CenteredRow>
       <PlayerSelection>
         <WhitePiecePreview>
@@ -79,6 +79,7 @@ export const Start = () => {
           required
           name="playerOne"
           id="player-one"
+          data-testid="white-pieces-player-name"
         />
       </PlayerSelection>
       <PlayerSelection>
@@ -92,6 +93,7 @@ export const Start = () => {
           required
           name="playerTwo"
           id="player-two"
+          data-testid="black-pieces-player-name"
         />
       </PlayerSelection>
       <GameModeSelection>
@@ -111,6 +113,7 @@ export const Start = () => {
                   value={mode.key}
                   checked={mode.key === selectedMode}
                   onChange={handleSelectedModeUpdate}
+                  data-testid={`${mode.key}-mode-selection`}
                 />
                 <label htmlFor={id}>{label}</label>
               </SpacedRadio>
