@@ -5,9 +5,8 @@ import { Button } from "../Button";
 
 describe("Button", () => {
   it("can handle outlined styling", () => {
-    renderAtomWithPropsAndTheme(
-      <Button data-testid="outlined" variant="outlined" />
-    );
+    // @ts-ignore
+    renderAtomWithPropsAndTheme(<Button />, { "data-testid": "outlined" });
 
     const button = screen.getByTestId("outlined");
 
@@ -20,10 +19,12 @@ describe("Button", () => {
     expect(button).toHaveStyle(expectedStyles);
   });
 
-  xit("can render contained styling", () => {
-    renderAtomWithPropsAndTheme(
-      <Button data-testid="contained" variant="contained" />
-    );
+  it("can render contained styling", () => {
+    // @ts-ignore
+    renderAtomWithPropsAndTheme(<Button />, {
+      "data-testid": "contained",
+      variant: "contained",
+    });
 
     const button = screen.getByTestId("contained");
 

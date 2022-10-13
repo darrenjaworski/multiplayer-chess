@@ -53,8 +53,6 @@ export const Button = (props: ButtonProps) => {
 
   delete passedProps.children;
 
-  console.log(passedProps)
-
   return <StyledButton {...passedProps}>{props.children}</StyledButton>;
 };
 
