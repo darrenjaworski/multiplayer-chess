@@ -13,8 +13,14 @@ interface ThemeSelectorProps {
 const FixedThemeSelector = styled(Button)`
   position: fixed;
   z-index: 0;
-  bottom: 0;
-  right: 0;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 50%;
+  padding: 0.25rem;
+  > * {
+    top: 0.1rem;
+    position: relative;
+  }
 `;
 
 export const ThemeSelector = (props: ThemeSelectorProps) => {
