@@ -40,12 +40,11 @@ const PGNOverflow = styled.div`
 
 export const GameTicker = () => {
   const [historyModalIsOpen, setHistoryModalOpen] = useState(false);
-  const scrollElement = useRef(null);
+  const scrollElement = useRef<HTMLDivElement>(null);
   const pgn = useAppSelector(getPGN);
 
   useEffect(() => {
     if (!scrollElement?.current) return;
-    // @ts-ignore
     scrollElement.current.scrollLeft = scrollElement.current.scrollWidth;
   });
 
