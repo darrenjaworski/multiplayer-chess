@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   GameModes,
   GAME_MODES,
+  getGameMode,
   getGameStarted,
   getIsColorInCheck,
   getIsColorInCheckMate,
@@ -19,7 +20,6 @@ import { UndoButton } from "./UndoButton";
 interface GamePlayerProps {
   player: Player;
   piecesColor: Color;
-  mode: GameModes;
 }
 
 const PlayerContainer = styled.div`
@@ -42,7 +42,7 @@ const TurnIcon = styled(FaChessKnight)`
 `;
 
 export const GamePlayer = (props: GamePlayerProps) => {
-  const { player, piecesColor, mode } = props;
+  const { player, piecesColor } = props;
   const { username, eloScore } = player;
 
   const dispatch = useAppDispatch();
@@ -50,6 +50,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
   const isPlayerInCheck = useAppSelector(getIsColorInCheck(piecesColor));
   const isPlayerCheckMated = useAppSelector(getIsColorInCheckMate(piecesColor));
   const gameHasStarted = useAppSelector(getGameStarted);
+  const mode = useAppSelector(getGameMode);
 
   const isPlayersTurn = gameTurn === piecesColor;
   const shouldDisable = isPlayersTurn || !gameHasStarted;
@@ -103,5 +104,4 @@ GamePlayer.defaultProps = {
     eloScore: 1,
   },
   piecesColor: "w",
-  mode: 0,
 };

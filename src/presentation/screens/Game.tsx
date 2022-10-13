@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useAppSelector } from "../../state-management/hooks";
-import { getGameMode, getPlayers } from "../../state-management/slices/game";
+import { getPlayers } from "../../state-management/slices/game";
 import { Chessboard } from "../components/Chessboard";
 import { GamePlayer } from "../components/GamePlayer";
 import { GameTicker } from "../components/GameTicker";
@@ -23,14 +23,12 @@ export const Game = () => {
   const players = useAppSelector(getPlayers);
   const playerOne = players[0];
   const playerTwo = players[1];
-
-  const chosenMode = useAppSelector(getGameMode);
   return (
     <GameScreen data-testid="game">
       <GameTicker />
-      <GamePlayer player={playerTwo} piecesColor="b" mode={chosenMode} />
+      <GamePlayer player={playerTwo} piecesColor="b" />
       <Chessboard />
-      <GamePlayer player={playerOne} piecesColor="w" mode={chosenMode} />
+      <GamePlayer player={playerOne} piecesColor="w" />
     </GameScreen>
   );
 };
