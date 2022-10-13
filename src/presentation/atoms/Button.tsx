@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 
-interface ButtonProps
+export interface ButtonProps
   extends React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
   variant: "outlined" | "contained";
   color: "primary" | "secondary" | "normal";
+  "data-testid"?: string;
 }
 
 const StyledButton = styled.button<ButtonProps>`
@@ -52,10 +53,14 @@ export const Button = (props: ButtonProps) => {
 
   delete passedProps.children;
 
+  console.log(passedProps)
+
   return <StyledButton {...passedProps}>{props.children}</StyledButton>;
 };
 
-Button.defaultProps = {
+export const defaultButtonProps = {
   variant: "outlined",
   color: "normal",
 };
+
+Button.defaultProps = defaultButtonProps;
