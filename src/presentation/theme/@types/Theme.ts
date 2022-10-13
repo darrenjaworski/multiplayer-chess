@@ -10,4 +10,9 @@ interface Colors {
   disabled: string;
 }
 
-export type AvailableThemes = keyof Theme;
+export interface Themes {
+  light: Theme;
+  dark: Theme;
+}
+
+export type AvailableThemes = keyof Themes;
