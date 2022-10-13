@@ -68,6 +68,7 @@
 - 🟡 basic design
   - ✅ themes (light, dark)
   - color palette for board and pieces (3 presets)
+  - add sound effects to player piece moves, captures. end game.
 - chess match against AI
   - computer does random move
   - computer does simplistic algorithm to determine move
