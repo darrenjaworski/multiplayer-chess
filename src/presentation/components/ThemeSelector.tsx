@@ -29,7 +29,7 @@ export const ThemeSelector = (props: ThemeSelectorProps) => {
     // @ts-ignore
     <FixedThemeSelector
       onClick={() => toggleTheme(currentTheme === "dark" ? "light" : "dark")}
-      title="toggle light and dark mode"
+      title={`switch to ${currentTheme === "dark" ? "light" : "dark"} mode`}
       data-testid="theme-selector"
     >
       {currentTheme === "dark" ? <WiDaySunny /> : <MdNightlight />}
