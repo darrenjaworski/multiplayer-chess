@@ -3,7 +3,6 @@ import userEvent from "@testing-library/user-event";
 import { GameModes } from "../../../state-management/slices/game";
 import { renderComponentWithRouter } from "../../../test-config/renderComponentWithStore";
 
-// TODO come write some tests you tired bastard
 describe("Start", () => {
   it("accepts user names and game selection", () => {
     renderComponentWithRouter();
@@ -25,6 +24,6 @@ describe("Start", () => {
       `${GameModes.untimed}-mode-selection`
     );
     userEvent.click(modeSelection);
-    expect(modeSelection).toHaveAttribute('checked');
+    expect(modeSelection).toHaveAttribute("checked");
   });
 });

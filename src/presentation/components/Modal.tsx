@@ -7,6 +7,8 @@ interface ModalProps {
   children: JSX.Element | React.ReactElement;
 }
 
+ReactModal.setAppElement("#root");
+
 export const Modal = (props: ModalProps) => {
   const { isOpen, handleClose, children } = props;
   const theme = useTheme();
@@ -35,8 +37,6 @@ export const Modal = (props: ModalProps) => {
       isOpen={isOpen}
       onRequestClose={handleClose}
       style={modalStyles}
-      // TODO remove this and fix test bug with appElement usage
-      ariaHideApp={false}
     >
       {children}
     </ReactModal>
