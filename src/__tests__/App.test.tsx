@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../App";
+import { ErrorBoundary } from "../presentation/components/ErrorBoundary";
 import { theme } from "../presentation/theme/theme";
 
 describe("app", () => {
@@ -26,4 +27,18 @@ describe("app", () => {
   });
 });
 
-// TODO write some tests around the error boundary
+describe("ErrorBoundary", () => {
+  it("triggers from error", () => {
+    const ThrowError = () => {
+      throw new Error("test");
+    };
+
+    render(
+      <ErrorBoundary>
+        <ThrowError />
+      </ErrorBoundary>
+    );
+
+    expect(screen.getByTestId("error-boundary")).toBeInTheDocument();
+  });
+});

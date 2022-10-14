@@ -15,7 +15,7 @@ const FixedThemeSelector = styled(Button)`
   bottom: 1rem;
   right: 1rem;
   border-radius: 50%;
-  padding: 0.25rem;
+  padding: 4px 6px;
   > * {
     top: 0.1rem;
     position: relative;

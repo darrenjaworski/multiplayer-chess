@@ -25,6 +25,9 @@ export const GlobalStyles = () => {
     legend {
       color: ${theme.colors.text};
     }
+    a {
+      color: ${theme.colors.secondary};
+    }
   `;
 
   return <Global styles={globalCss} />;

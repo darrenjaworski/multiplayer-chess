@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 
-// TODO give me a better 404 screen!
 export const NotFound = () => {
   return (
     <>
-      <h1>Uh Oh! You're lost!</h1>
-      <Link to="/">Go home!</Link>
+      <h1>Uh Oh! Let's get you back to a game of chess!</h1>
+      <Link to="/">Click here to set up a new game.</Link>
     </>
   );
 };
