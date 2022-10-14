@@ -35,5 +35,6 @@ export const router = createBrowserRouter([
       store.dispatch(updatePlayers(players));
       store.dispatch(updateMode(mode));
     },
+    children: [{ path: ":id", element: <Game /> }],
   },
 ]);
