@@ -23,19 +23,9 @@ jobs:
             package-lock.json
           registry-url: "https://registry.npmjs.org"
 
-      - name: Load FE node_modules cache
-        uses: actions/cache@v2
-        id: mp-fe-cache
-        with:
-          path: |
-            node_modules
-          key: mp-fe-cache-${{ hashFiles('package-lock.json') }}
-          restore-keys: mp-fe-cache-
-
       - name: Install FE and Build
-        if: steps.mp-fe-cache.outputs.cache-hit != 'true'
         id: install
-        run: | 
+        run: |
           npm ci
           npm run build
 
