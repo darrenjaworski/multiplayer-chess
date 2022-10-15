@@ -3,7 +3,7 @@ import { Boards } from "./BoardTheme";
 export interface Theme {
   colors: Colors;
   background: string;
-  boards?: Boards;
+  boards: Boards;
 }
 
 interface Colors {
