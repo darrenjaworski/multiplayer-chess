@@ -2,6 +2,7 @@ import { useAppSelector } from "../../state-management/hooks";
 import {
   getIsColorInCheckMate,
   getPlayers,
+  getTurn,
 } from "../../state-management/slices/game";
 import { Button } from "../atoms/Button";
 import { GameHistory } from "./GameHistory";
@@ -13,21 +14,27 @@ interface CompletionModalProps {
 }
 
 export const CompletionModal = (props: CompletionModalProps) => {
-  const { handleClose, isOpen } = props;
+  const { isOpen } = props;
   const players = useAppSelector(getPlayers);
-  const isWhiteCheckMated = useAppSelector(getIsColorInCheckMate("w"));
 
-  console.log(isWhiteCheckMated);
+  const { username: wUsername } = players[0];
+  const { username: bUsername } = players[1];
+
+  const isWhiteCheckMated = useAppSelector(getIsColorInCheckMate("w"));
+  const currentTurn = useAppSelector(getTurn);
+
+  const getLoserText = (whiteCheckMate: boolean | undefined) => {
+    if (!whiteCheckMate)
+      return `${currentTurn === "w" ? wUsername : bUsername} has forfeited.`;
+
+    return `Check mate ${whiteCheckMate ? wUsername : bUsername}.`;
+  };
 
   return (
-    <Modal handleClose={handleClose} isOpen={isOpen}>
+    <Modal isOpen={isOpen}>
       <>
         <h1>The Game is over!</h1>
-        <h2>
-          {isWhiteCheckMated
-            ? `Check mate ${players[0].username}.`
-            : `Check mate ${players[1].username}. `}
-        </h2>
+        <h2>{getLoserText(isWhiteCheckMated)}</h2>
         <Button>Reset the game</Button>
         <GameHistory />
       </>

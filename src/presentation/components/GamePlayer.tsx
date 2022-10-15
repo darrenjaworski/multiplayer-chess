@@ -13,6 +13,7 @@ import {
   getIsColorInCheckMate,
   getTurn,
   undoMove,
+  updatePlayerForfeit,
 } from "../../state-management/slices/game";
 import { Button } from "../atoms/Button";
 import { Player } from "../screens/Game";
@@ -80,7 +81,8 @@ export const GamePlayer = (props: GamePlayerProps) => {
   const handleUndoClick = () => dispatch(undoMove());
 
   const handleConfirmedForfeit = () => {
-    console.log("blah");
+    dispatch(updatePlayerForfeit(piecesColor));
+    setConfirmForfeitModal(false);
   };
 
   return (

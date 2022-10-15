@@ -38,6 +38,7 @@ export interface GameState {
   players: Player[];
   mode: GameModes;
   playerTimeout: boolean;
+  playerForfeit: Color | null;
 }
 
 export const initialState: GameState = {
@@ -52,6 +53,7 @@ export const initialState: GameState = {
   ],
   mode: GameModes.untimed,
   playerTimeout: false,
+  playerForfeit: null,
 };
 
 interface UpdateGamePayload {
@@ -170,6 +172,9 @@ export const GameSlice = createSlice({
     updatePlayerTimeout: (state, action: PayloadAction<boolean>) => {
       state.playerTimeout = action.payload;
     },
+    updatePlayerForfeit: (state, action: PayloadAction<Color>) => {
+      state.playerForfeit = action.payload;
+    },
   },
 });
 
@@ -184,6 +189,7 @@ export const {
   updatePlayers,
   updateMode,
   updatePlayerTimeout,
+  updatePlayerForfeit,
 } = GameSlice.actions;
 
 export const getGameStarted = (state: RootState) =>
@@ -197,7 +203,9 @@ export const getHistory = (state: RootState) => state.game.history;
 
 export const getIsEndgame = (state: RootState) => {
   const game = new Chess(state.game.fen);
-  return game.isGameOver() || state.game.playerTimeout;
+  return (
+    game.isGameOver() || state.game.playerTimeout || state.game.playerForfeit
+  );
 };
 
 export const getPGN = (state: RootState) => {

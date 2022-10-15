@@ -40,13 +40,13 @@
     - ✅ display captured pieces in middle above or below board for player
     - ✅ handle promotion
     - ✅ en pessant capture
-  - logic for game states
-    - won/lost, stalemate
+  - ✅ logic for game states
+    - ✅ won/lost, stalemate
       - ✅ display game state
       - ✅ display game move history
       - ✅ display who won
       - ✅ display on player line who is in check mate, both in stalemate, etc
-      - enable player to forfeit match
+      - ✅ enable player to forfeit match
     - ✅ undo last move
       - ✅ undo when not your turn
       - ✅ 5 second timer to undo your move and before other player
