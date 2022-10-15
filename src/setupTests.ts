@@ -6,6 +6,4 @@ import "@testing-library/jest-dom";
 import ReactModal from "react-modal";
 
 // #root doesn't exist in tests...
-jest
-  .spyOn(ReactModal, "setAppElement")
-  .mockImplementation((param) => console.log(`setAppElement:'${param}'`));
+jest.spyOn(ReactModal, "setAppElement").mockImplementation((_param) => {});
