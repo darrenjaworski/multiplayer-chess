@@ -1,4 +1,5 @@
 import { Theme } from "./@types/Theme";
+import { forest } from "./boards/forest";
 import { grape } from "./boards/grape";
 import { midnight } from "./boards/midnight";
 
@@ -14,5 +15,6 @@ export const darkTheme: Theme = {
   boards: {
     midnight,
     grape,
+    forest,
   },
 };

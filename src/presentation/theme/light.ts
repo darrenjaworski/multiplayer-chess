@@ -1,4 +1,5 @@
 import { Theme } from "./@types/Theme";
+import { hoth } from "./boards/hoth";
 import { nautical } from "./boards/nautical";
 import { tomato } from "./boards/tomato";
 
@@ -14,5 +15,6 @@ export const lightTheme: Theme = {
   boards: {
     tomato,
     nautical,
+    hoth,
   },
 };

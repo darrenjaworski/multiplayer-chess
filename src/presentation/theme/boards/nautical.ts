@@ -3,9 +3,9 @@ import { generateTheme } from "./generateTheme";
 
 const nauticalOptions: BoardOptions = {
   darkPieces: "#0d1b2a",
-  lightPieces: "#e0e1dd",
+  lightPieces: "#778da9",
   darkSquareBackground: "#415a77",
-  lightSquareBackground: "#778da9",
+  lightSquareBackground: "#e0e1dd",
   iconType: "Fa",
 };
 
