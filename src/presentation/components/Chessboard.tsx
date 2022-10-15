@@ -14,6 +14,7 @@ import {
   getIsEndgame,
   updateGame,
 } from "../../state-management/slices/game";
+import { useBoardTheme } from "../theme/theme";
 import { CompletionModal } from "./CompletionModal";
 import { PromotionModal } from "./PromotionModal";
 
@@ -155,6 +156,8 @@ export const Chessboard = (props: ChessboardProps) => {
     setPromotionModalOpen(false);
   };
 
+  const boardTheme = useBoardTheme();
+
   return (
     <>
       <CompletionModal
@@ -174,6 +177,9 @@ export const Chessboard = (props: ChessboardProps) => {
         position={gameFEN}
         customSquareStyles={{ ...validMoveStyles }}
         arePremovesAllowed={false}
+        customDarkSquareStyle={boardTheme.customDarkSquareStyle}
+        customLightSquareStyle={boardTheme.customLightSquareStyle}
+        customPieces={boardTheme.customPieces}
       />
     </>
   );

@@ -22,15 +22,18 @@ const FixedThemeSelector = styled(Button)`
   }
 `;
 
+// TODO add board theme selector to be beside this one
 export const ThemeSelector = (props: ThemeSelectorProps) => {
   const { currentTheme, toggleTheme } = props;
   return (
-    <FixedThemeSelector
-      onClick={() => toggleTheme(currentTheme === "dark" ? "light" : "dark")}
-      title={`switch to ${currentTheme === "dark" ? "light" : "dark"} mode`}
-      data-testid="theme-selector"
-    >
-      {currentTheme === "dark" ? <WiDaySunny /> : <MdNightlight />}
-    </FixedThemeSelector>
+    <>
+      <FixedThemeSelector
+        onClick={() => toggleTheme(currentTheme === "dark" ? "light" : "dark")}
+        title={`switch to ${currentTheme === "dark" ? "light" : "dark"} mode`}
+        data-testid="theme-selector"
+      >
+        {currentTheme === "dark" ? <WiDaySunny /> : <MdNightlight />}
+      </FixedThemeSelector>
+    </>
   );
 };

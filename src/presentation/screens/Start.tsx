@@ -4,6 +4,7 @@ import { FaChessKing } from "react-icons/fa";
 import { Form } from "react-router-dom";
 import { GAME_MODES } from "../../state-management/slices/game";
 import { Button } from "../atoms/Button";
+import { useBoardTheme } from "../theme/theme";
 
 // TODO refactor these styles
 const GameScreen = styled(Form)`
@@ -43,21 +44,32 @@ const SpacedRadio = styled.div`
   }
 `;
 
+// TODO refactor to remove ts-ignores
 const BlackPiecePreview = styled.div`
-  background: white;
+  background: ${(props) => {
+    // @ts-ignore
+    return props.background;
+  }};
   padding: 9px;
   border-radius: 50%;
-  border: 3px solid black;
+  border: 3px solid
+    ${(props) => {
+      return props.color;
+    }};
 `;
 
 const WhitePiecePreview = styled.div`
-  background: black;
+  background: ${(props) => {
+    // @ts-ignore
+    return props.background;
+  }};
   padding: 0.75rem;
   border-radius: 50%;
 `;
 
 export const Start = () => {
   const [selectedMode, setSelectedMode] = useState(GAME_MODES[0].key);
+  const boardThemes = useBoardTheme();
 
   const handleSelectedModeUpdate = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedMode(Number(event.target.value));
@@ -69,8 +81,15 @@ export const Start = () => {
         <h1 data-testid="start-headline">Let's play some chess!</h1>
       </CenteredRow>
       <PlayerSelection>
-        <BlackPiecePreview>
-          <FaChessKing size="5rem" />
+        {/* @ts-ignore */}
+        <BlackPiecePreview
+          /* @ts-ignore */
+          background={boardThemes.colors.lightSquare}
+          /* @ts-ignore */
+          color={boardThemes.colors.darkPieces}
+        >
+          {/* @ts-ignore */}
+          <FaChessKing color={boardThemes.colors.darkPieces} size="5rem" />
         </BlackPiecePreview>
         <label htmlFor="player-two">Black player name</label>
         <input
@@ -83,8 +102,10 @@ export const Start = () => {
         />
       </PlayerSelection>
       <PlayerSelection>
-        <WhitePiecePreview>
-          <FaChessKing color="white" size="5rem" />
+        {/* @ts-ignore */}
+        <WhitePiecePreview background={boardThemes.colors.darkSquare}>
+          {/* @ts-ignore */}
+          <FaChessKing color={boardThemes.colors.lightPieces} size="5rem" />
         </WhitePiecePreview>
         <label htmlFor="player-one">White player name</label>
         <input
