@@ -9,7 +9,6 @@ import { Game, Player } from "../screens/Game";
 import { NotFound } from "../screens/NotFound";
 import { Start } from "../screens/Start";
 
-// TODO we need the routing to go to a chess game hash
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -19,7 +18,6 @@ export const router = createBrowserRouter([
   {
     path: "/game",
     element: <Game />,
-    errorElement: <NotFound />,
     action: async ({ request }) => {
       // TODO this feels really janky. there has to be an easier way to do this!
       const formData = await request.formData();
