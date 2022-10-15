@@ -1,3 +1,4 @@
+import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { Color } from "chess.js";
 import { useState } from "react";
@@ -67,6 +68,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
   const { username, eloScore } = player;
 
   const [confirmForfeitModal, setConfirmForfeitModal] = useState(false);
+  const theme = useTheme();
 
   const dispatch = useAppDispatch();
   const gameTurn = useAppSelector(getTurn);
@@ -110,7 +112,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
             {isPlayersTurn && (
               <ForfeitFlag
                 size={"1rem"}
-                color="#ffffff"
+                color={theme.colors.secondary}
                 onClick={() => setConfirmForfeitModal(true)}
               />
             )}
