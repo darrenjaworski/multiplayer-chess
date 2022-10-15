@@ -1,6 +1,9 @@
+import { Boards } from "./BoardTheme";
+
 export interface Theme {
   colors: Colors;
   background: string;
+  boards?: Boards;
 }
 
 interface Colors {
