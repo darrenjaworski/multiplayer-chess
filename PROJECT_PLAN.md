@@ -8,6 +8,7 @@
   - extensions
     - [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
     - [jest test runner](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)
+    - [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [redux devtools extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
 - [react devtools extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
 

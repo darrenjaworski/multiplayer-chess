@@ -39,7 +39,7 @@ export function getMinSec(remaining: number): string {
   const remainingSec = remaining % 60;
   const displayMin = remainingMin > 0 ? `${remainingMin}:` : "";
   const displaySec =
-    remainingSec.toString().length == 1 ? `0${remainingSec}` : remainingSec;
+    remainingSec.toString().length === 1 ? `0${remainingSec}` : remainingSec;
   return `${displayMin}${displaySec}`;
 }
 
@@ -74,6 +74,7 @@ export const PlayerCountdown = (props: PlayerCountdownProps) => {
     if (!gameStarted) return;
     if (gameTurn === color) return;
     dispatch(updatePlayerClock(timeLeft));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameTurn]);
 
   return (

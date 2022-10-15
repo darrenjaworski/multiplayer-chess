@@ -15,7 +15,7 @@ type TimeoutRefState = undefined | NodeJS.Timeout;
 const defaultTimeoutState: TimeoutRefState = undefined;
 
 export const UndoButton = (props: UndoButtonProps) => {
-  const { handleClick, disabled, color, children, turn } = props;
+  const { handleClick, disabled, color, children } = props;
   const [buttonTimeout, setButtonTimeout] = useState(false);
   const [timeoutRef, setTimeoutRef] = useState(
     defaultTimeoutState as TimeoutRefState
@@ -39,6 +39,7 @@ export const UndoButton = (props: UndoButtonProps) => {
       setButtonTimeout(false);
       if (timeoutRef) clearTimeoutRef(timeoutRef);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disabled]);
 
   const handleUndoWithtimer = () => {
