@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/static/js/main.cec334c7.js",
-    "static/js/787.4dc8422d.chunk.js": "/static/js/787.4dc8422d.chunk.js",
-    "index.html": "/index.html",
-    "main.cec334c7.js.map": "/static/js/main.cec334c7.js.map",
-    "787.4dc8422d.chunk.js.map": "/static/js/787.4dc8422d.chunk.js.map"
+    "main.js": "https://darrenjaworski.github.io/multiplayer-chess/static/js/main.6cecc82f.js",
+    "static/js/787.4dc8422d.chunk.js": "https://darrenjaworski.github.io/multiplayer-chess/static/js/787.4dc8422d.chunk.js",
+    "index.html": "https://darrenjaworski.github.io/multiplayer-chess/index.html",
+    "main.6cecc82f.js.map": "https://darrenjaworski.github.io/multiplayer-chess/static/js/main.6cecc82f.js.map",
+    "787.4dc8422d.chunk.js.map": "https://darrenjaworski.github.io/multiplayer-chess/static/js/787.4dc8422d.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.cec334c7.js"
+    "static/js/main.6cecc82f.js"
   ]
 }
