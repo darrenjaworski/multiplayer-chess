@@ -1,5 +1,5 @@
 import { configure, screen } from "@testing-library/react";
-import { renderComponentWithStore } from "../../../test-config/renderComponentWithStore";
+import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { Chessboard } from "../Chessboard";
 
 describe("Chessboard", () => {

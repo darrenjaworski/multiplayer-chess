@@ -7,7 +7,7 @@ import {
   createStoreWithGameState,
   createStoreWithHistory,
 } from "../../../test-config/fakeStores";
-import { renderComponentWithStore } from "../../../test-config/renderComponentWithStore";
+import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { GamePlayer } from "../GamePlayer";
 
 describe("GamePlayer", () => {

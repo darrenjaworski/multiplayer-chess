@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import { initialState } from "../../../state-management/slices/game";
-import { renderComponentWithStore } from "../../../test-config/renderComponentWithStore";
+import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { Game } from "../Game";
 
 describe("game screen", () => {

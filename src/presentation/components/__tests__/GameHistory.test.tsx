@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import { createStoreWithHistory } from "../../../test-config/fakeStores";
-import { renderComponentWithStore } from "../../../test-config/renderComponentWithStore";
+import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { GameHistory } from "../GameHistory";
 
 describe("GameHistory", () => {

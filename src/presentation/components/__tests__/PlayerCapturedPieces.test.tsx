@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import type { Piece } from "chess.js";
 import { createStoreWithCapturedPieces } from "../../../test-config/fakeStores";
-import { renderComponentWithStore } from "../../../test-config/renderComponentWithStore";
+import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { PlayerCapturedPieces } from "../PlayerCapturedPieces";
 
 describe("PlayerCapturedPieces", () => {
@@ -19,18 +19,18 @@ describe("PlayerCapturedPieces", () => {
       capturedPiecesStore
     );
 
-    const blackFirstCaptured = screen.getByTestId('b-0');
-    const blackSecondCaptured = screen.getByTestId('b-1');
-    
+    const blackFirstCaptured = screen.getByTestId("b-0");
+    const blackSecondCaptured = screen.getByTestId("b-1");
+
     expect(blackFirstCaptured).toBeInTheDocument();
     expect(blackSecondCaptured).toBeInTheDocument();
   });
 
-  it('will not render when no captured pieces for player color', ()=>{
+  it("will not render when no captured pieces for player color", () => {
     const piecesColor = "w";
     const captured: Piece[] = [
       { color: "b", type: "b" },
-      { color: "b", type: "n" }
+      { color: "b", type: "n" },
     ];
     const capturedPiecesStore = createStoreWithCapturedPieces(captured);
 
@@ -40,5 +40,5 @@ describe("PlayerCapturedPieces", () => {
     );
     const nullElement = screen.queryByTestId(`${piecesColor}-captured-pieces`);
     expect(nullElement).not.toBeInTheDocument();
-  })
+  });
 });

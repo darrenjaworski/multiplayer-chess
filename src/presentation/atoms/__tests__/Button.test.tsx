@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { renderAtomWithPropsAndTheme } from "../../../test-config/renderComponentWithStore";
+import { renderAtomWithPropsAndTheme } from "../../../test-config/renderComponentWith";
 import { theme } from "../../theme/theme";
 import { Button } from "../Button";
 

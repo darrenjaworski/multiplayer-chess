@@ -1,7 +1,7 @@
 import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GameModes } from "../../../state-management/slices/game";
-import { renderComponentWithRouter } from "../../../test-config/renderComponentWithStore";
+import { renderComponentWithRouter } from "../../../test-config/renderComponentWith";
 
 describe("Start", () => {
   it("accepts user names and game selection", () => {

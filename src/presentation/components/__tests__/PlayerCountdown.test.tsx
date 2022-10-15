@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { renderComponentWithStore } from "../../../test-config/renderComponentWithStore";
+import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { getMinSec, PlayerCountdown } from "../PlayerCountdown";
 
 describe("PlayerCountddown", () => {

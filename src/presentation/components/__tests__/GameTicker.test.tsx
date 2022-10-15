@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
-import { createStoreWithHistory } from "../../../test-config/fakeStores";
-import { renderComponentWithStore } from "../../../test-config/renderComponentWithStore";
-import { GameTicker } from "../GameTicker";
 import userEvent from "@testing-library/user-event";
+import { createStoreWithHistory } from "../../../test-config/fakeStores";
+import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
+import { GameTicker } from "../GameTicker";
 
 describe("GameTicker", () => {
   it("displays message when no pgn for the game", () => {
@@ -24,23 +24,23 @@ describe("GameTicker", () => {
     );
   });
 
-  it('has disabled show full history button when no game history', ()=>{
+  it("has disabled show full history button when no game history", () => {
     renderComponentWithStore(<GameTicker />);
-    const showHistoryButton = screen.getByTitle('show game history details');
+    const showHistoryButton = screen.getByTitle("show game history details");
 
-    expect(showHistoryButton).toHaveAttribute('disabled');
+    expect(showHistoryButton).toHaveAttribute("disabled");
   });
 
-  it('displays modal when show full history is clicked', ()=>{
+  it("displays modal when show full history is clicked", () => {
     const storeWithHistory = createStoreWithHistory();
     renderComponentWithStore(<GameTicker />, storeWithHistory);
 
-    const showHistoryButton = screen.getByTitle('show game history details');
-    
-    expect(showHistoryButton).not.toHaveAttribute('disabled');
+    const showHistoryButton = screen.getByTitle("show game history details");
+
+    expect(showHistoryButton).not.toHaveAttribute("disabled");
 
     userEvent.click(showHistoryButton);
-    const modalContent = screen.getByTestId('full-history-modal');
+    const modalContent = screen.getByTestId("full-history-modal");
     expect(modalContent).toBeInTheDocument();
   });
 });
