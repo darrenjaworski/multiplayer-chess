@@ -39,7 +39,7 @@ jobs:
 
       - name: Build
         id: build
-        run: npm run build
+        run: REACT_APP_ENVIRONMENT="GH" npm run build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4

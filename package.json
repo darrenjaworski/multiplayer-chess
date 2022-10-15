@@ -1,6 +1,5 @@
 {
   "name": "multiplayer-chess",
-  "homepage": "https://darrenjaworski.github.io/multiplayer-chess/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
