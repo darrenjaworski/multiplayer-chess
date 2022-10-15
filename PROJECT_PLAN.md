@@ -40,7 +40,7 @@
     - ✅ display captured pieces in middle above or below board for player
     - ✅ handle promotion
     - ✅ en pessant capture
-  - ✅ logic for game states
+  - 🟡 logic for game states
     - ✅ won/lost, stalemate
       - ✅ display game state
       - ✅ display game move history
@@ -51,7 +51,7 @@
       - ✅ undo when not your turn
       - ✅ 5 second timer to undo your move and before other player
       - ✅ when capture is undone on board, remove from captured pieces
-    - reset game
+    - 🟡 reset game
     - ✅ show player in check
     - ✅ show player's turn
   - ✅ number of players setup
