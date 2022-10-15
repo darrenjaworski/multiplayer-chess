@@ -69,20 +69,6 @@ export const Start = () => {
         <h1 data-testid="start-headline">Let's play some chess!</h1>
       </CenteredRow>
       <PlayerSelection>
-        <WhitePiecePreview>
-          <FaChessKing color="white" size="5rem" />
-        </WhitePiecePreview>
-        <label htmlFor="player-one">White player name</label>
-        <input
-          maxLength={25}
-          type="text"
-          required
-          name="playerOne"
-          id="player-one"
-          data-testid="white-pieces-player-name"
-        />
-      </PlayerSelection>
-      <PlayerSelection>
         <BlackPiecePreview>
           <FaChessKing size="5rem" />
         </BlackPiecePreview>
@@ -94,6 +80,20 @@ export const Start = () => {
           name="playerTwo"
           id="player-two"
           data-testid="black-pieces-player-name"
+        />
+      </PlayerSelection>
+      <PlayerSelection>
+        <WhitePiecePreview>
+          <FaChessKing color="white" size="5rem" />
+        </WhitePiecePreview>
+        <label htmlFor="player-one">White player name</label>
+        <input
+          maxLength={25}
+          type="text"
+          required
+          name="playerOne"
+          id="player-one"
+          data-testid="white-pieces-player-name"
         />
       </PlayerSelection>
       <GameModeSelection>
