@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/multiplayer-chess/static/js/main.22bedee7.js",
-    "static/js/787.4dc8422d.chunk.js": "/multiplayer-chess/static/js/787.4dc8422d.chunk.js",
-    "index.html": "/multiplayer-chess/index.html",
-    "main.22bedee7.js.map": "/multiplayer-chess/static/js/main.22bedee7.js.map",
-    "787.4dc8422d.chunk.js.map": "/multiplayer-chess/static/js/787.4dc8422d.chunk.js.map"
+    "main.js": "/static/js/main.cec334c7.js",
+    "static/js/787.4dc8422d.chunk.js": "/static/js/787.4dc8422d.chunk.js",
+    "index.html": "/index.html",
+    "main.cec334c7.js.map": "/static/js/main.cec334c7.js.map",
+    "787.4dc8422d.chunk.js.map": "/static/js/787.4dc8422d.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.22bedee7.js"
+    "static/js/main.cec334c7.js"
   ]
 }
