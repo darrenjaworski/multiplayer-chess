@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import type { Color } from "chess.js";
+import { useState } from "react";
+import { BsFlagFill } from "react-icons/bs";
 import { FaChessKnight } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
@@ -12,7 +14,9 @@ import {
   getTurn,
   undoMove,
 } from "../../state-management/slices/game";
+import { Button } from "../atoms/Button";
 import { Player } from "../screens/Game";
+import { Modal } from "./Modal";
 import { PlayerCapturedPieces } from "./PlayerCapturedPieces";
 import { PlayerCountdown } from "./PlayerCountdown";
 import { UndoButton } from "./UndoButton";
@@ -41,9 +45,27 @@ const TurnIcon = styled(FaChessKnight)`
   font-size: 1rem;
 `;
 
+const ForfeitFlag = styled(BsFlagFill)`
+  margin-left: 0.5rem;
+  &:hover {
+    color: black;
+  }
+`;
+
+const ConfirmationButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  > button:last-child {
+    margin-left: 0.5rem;
+  }
+`;
+
 export const GamePlayer = (props: GamePlayerProps) => {
   const { player, piecesColor } = props;
   const { username, eloScore } = player;
+
+  const [confirmForfeitModal, setConfirmForfeitModal] = useState(false);
 
   const dispatch = useAppDispatch();
   const gameTurn = useAppSelector(getTurn);
@@ -57,12 +79,39 @@ export const GamePlayer = (props: GamePlayerProps) => {
 
   const handleUndoClick = () => dispatch(undoMove());
 
+  const handleConfirmedForfeit = () => {
+    console.log("blah");
+  };
+
   return (
     <PlayerContainer data-testid="player">
+      <Modal
+        isOpen={confirmForfeitModal}
+        handleClose={() => {
+          setConfirmForfeitModal(false);
+        }}
+      >
+        <>
+          <h2>{username}, are you sure you want to forfeit?</h2>
+          <ConfirmationButtons>
+            <Button onClick={() => setConfirmForfeitModal(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleConfirmedForfeit}>I'm sure</Button>
+          </ConfirmationButtons>
+        </>
+      </Modal>
       <PlayerName>
         <h2 data-testid="player-name">
           <>
             {username}
+            {isPlayersTurn && (
+              <ForfeitFlag
+                size={"1rem"}
+                color="#ffffff"
+                onClick={() => setConfirmForfeitModal(true)}
+              />
+            )}
             {isPlayerInCheck && !isPlayerCheckMated && (
               <span data-testid="player-check"> - check</span>
             )}
