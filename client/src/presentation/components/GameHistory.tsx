@@ -6,7 +6,7 @@ type PieceToEnglish = {
   [key in PieceSymbol]: string;
 };
 
-const PieceToEnglishMap: PieceToEnglish = {
+export const PieceToEnglishMap: PieceToEnglish = {
   p: "pawn",
   n: "knight",
   k: "king",

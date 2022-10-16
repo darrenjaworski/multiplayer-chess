@@ -36,7 +36,6 @@ const FixedActionButtons = styled.div`
   column-gap: 0.5rem;
 `;
 
-// TODO add board theme selector to be beside this one
 export const OptionsSelector = () => {
   const currentMode = useAppSelector(getThemeMode);
   const currentDarkBoard = useAppSelector(getDarkBoardKey);
