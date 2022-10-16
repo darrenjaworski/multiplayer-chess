@@ -71,7 +71,7 @@
   - ✅ color palette for board and pieces (3 presets)
   - ✅ board theme switcher
   - 🟡 add sound effects to player piece moves, captures. end game, check, promotion.
-  - 🟡 mobile friendly
+  - ✅ mobile friendly
 - chess match against AI
   - computer does random move
   - computer does simplistic algorithm to determine move
@@ -107,6 +107,9 @@
   - backwards and fowards buttons to go move by move through game
   - play button to animate through game move by move
   - timed game, maintain clock from redux timing, not internal state (ability to replay with timing correct)
+- mobile first controls, click to select piece, click to select destination, etc
+- allow premoves
+- style arrows on board for capture
 
 ---
 
