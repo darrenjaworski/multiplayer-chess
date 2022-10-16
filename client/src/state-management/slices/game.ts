@@ -244,6 +244,17 @@ export const getIsColorInCheckMate = (color: Color) => (state: RootState) => {
   return false;
 };
 
+export const getEndGameResult = (state: RootState) => {
+  const game = new Chess(state.game.fen);
+  return {
+    isDraw: game.isDraw(),
+    isStalemate: game.isStalemate(),
+    isCheckMate: game.isCheckmate(),
+    isForfeit: state.game.playerForfeit !== null,
+    isPlayerTimeout: state.game.playerTimeout,
+  };
+};
+
 export const getPlayers = (state: RootState) => {
   return state.game.players;
 };

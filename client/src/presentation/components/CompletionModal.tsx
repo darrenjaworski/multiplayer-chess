@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
-  getIsColorInCheckMate,
+  getEndGameResult,
   getPlayers,
   getTurn,
   resetGame,
@@ -34,14 +34,33 @@ export const CompletionModal = (props: CompletionModalProps) => {
   const { username: wUsername } = players[0];
   const { username: bUsername } = players[1];
 
-  const isWhiteCheckMated = useAppSelector(getIsColorInCheckMate("w"));
+  const endgameStatus = useAppSelector(getEndGameResult);
   const currentTurn = useAppSelector(getTurn);
 
-  const getLoserText = (whiteCheckMate: boolean | undefined) => {
-    if (!whiteCheckMate)
-      return `${currentTurn === "w" ? wUsername : bUsername} has forfeited.`;
+  const getLoserText = () => {
+    if (endgameStatus.isCheckMate) {
+      return `Check mate ${currentTurn ? wUsername : bUsername}.`;
+    }
 
-    return `Check mate ${whiteCheckMate ? wUsername : bUsername}.`;
+    if (endgameStatus.isDraw) {
+      return `The game was a draw.`;
+    }
+
+    if (endgameStatus.isForfeit) {
+      return `${currentTurn === "w" ? wUsername : bUsername} has forfeited.`;
+    }
+
+    if (endgameStatus.isPlayerTimeout) {
+      return `${
+        currentTurn === "w" ? wUsername : bUsername
+      } has run out of time.`;
+    }
+
+    if (endgameStatus.isStalemate) {
+      return `The game was a stalemate`;
+    }
+
+    return;
   };
 
   const handleBackToStart = () => {
@@ -58,7 +77,7 @@ export const CompletionModal = (props: CompletionModalProps) => {
     <Modal isOpen={isOpen}>
       <>
         <h1>The Game is over!</h1>
-        <h2>{getLoserText(isWhiteCheckMated)}</h2>
+        <h2 data-testid="endgame-text">{getLoserText()}</h2>
         <ConfirmationButtons>
           <Button onClick={handleGameReset}>Reset the game</Button>
           <Button onClick={handleBackToStart}>Set up a new game</Button>

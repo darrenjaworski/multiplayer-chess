@@ -282,7 +282,8 @@ export function createStoreWithPawnToPromote() {
 }
 
 export function createStoreWithGameState(gameState: Chess) {
-  const gameHistory = gameState.history() as Move[];
+  console.log(gameState);
+  const gameHistory = gameState.history({ verbose: true }) as Move[];
   const captured = gameHistory.reduce(
     (capturedList: Piece[], move: Move): Piece[] => {
       if (move?.captured) {
@@ -306,8 +307,18 @@ export function createStoreWithGameState(gameState: Chess) {
       playerClockHistory: [],
       turn: gameState.turn(),
       fen: gameState.fen(),
-      history: gameState.history() as Move[],
+      history: gameState.history({ verbose: true }) as Move[],
       captured,
+    },
+  });
+}
+
+export function createStoreWithForfeit() {
+  return mockStore({
+    ...initialRootState,
+    game: {
+      ...initialGameState,
+      playerForfeit: "b",
     },
   });
 }
