@@ -91,7 +91,7 @@ export const Start = () => {
           {/* @ts-ignore */}
           <FaChessKing color={boardThemes.colors.darkPieces} size="5rem" />
         </BlackPiecePreview>
-        <label htmlFor="player-two">Black player name</label>
+        <label htmlFor="player-two">Dark pieces player name</label>
         <input
           maxLength={25}
           type="text"
@@ -107,7 +107,7 @@ export const Start = () => {
           {/* @ts-ignore */}
           <FaChessKing color={boardThemes.colors.lightPieces} size="5rem" />
         </WhitePiecePreview>
-        <label htmlFor="player-one">White player name</label>
+        <label htmlFor="player-one">Light pieces player name</label>
         <input
           maxLength={25}
           type="text"
