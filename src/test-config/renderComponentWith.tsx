@@ -2,7 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import { render, RenderResult } from "@testing-library/react";
 import React from "react";
 import { Provider } from "react-redux";
-import { RouterProvider } from "react-router-dom";
+import { BrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
 import { MockStoreEnhanced } from "redux-mock-store";
 import { ButtonProps, defaultButtonProps } from "../presentation/atoms/Button";
 import { router } from "../presentation/routing/Routing";
@@ -16,9 +16,17 @@ export const renderComponentWithStore = (
   definedStore: MockStoreEnhanced<RootState> | null = null
 ): RenderResult => {
   const store = definedStore ? definedStore : createDefaultStore();
+
+  // TODO match the app usage more closely but for one component in isolation
   return render(
     <Provider store={store}>
-      <ThemeProvider theme={theme.dark}>{ComponentToRender}</ThemeProvider>
+      <ThemeProvider theme={theme.dark}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="*" element={ComponentToRender} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </Provider>
   );
 };
