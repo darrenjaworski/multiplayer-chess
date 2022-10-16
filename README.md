@@ -116,6 +116,7 @@
 - allow premoves
 - style arrows on board for capture
 - allow users to swap between board pieces icons
+- each move takes a min of 1 sec off clock
 
 ---
 
