@@ -7,6 +7,7 @@ import {
   Pieces,
   Square,
 } from "react-chessboard";
+import useSound from "use-sound";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   addCaptured,
@@ -14,6 +15,11 @@ import {
   getIsEndgame,
   updateGame,
 } from "../../state-management/slices/game";
+import { getShouldPlaySounds } from "../../state-management/slices/settings";
+// @ts-ignore
+import pop from "../soundEffects/pop.mp3";
+// @ts-ignore
+import boop from "../soundEffects/boop.mp3";
 import { useBoardTheme } from "../theme/theme";
 import { CompletionModal } from "./CompletionModal";
 import { PromotionModal } from "./PromotionModal";
@@ -38,7 +44,10 @@ export const Chessboard = (props: ChessboardProps) => {
   const { id } = props;
   const gameFEN = useAppSelector(getFEN);
   const isEndgame = useAppSelector(getIsEndgame);
+  const shouldPlaySounds = useAppSelector(getShouldPlaySounds);
   const dispatch = useAppDispatch();
+  const [playPop] = useSound(pop);
+  const [playBoop] = useSound(boop);
 
   const [promotionFromTo, setPromotionFromTo] = useState(
     initialPromotionFromTo
@@ -128,6 +137,7 @@ export const Chessboard = (props: ChessboardProps) => {
 
     const didMove = localGame.move(moveAttempt);
     if (!didMove) return false;
+    if (shouldPlaySounds) playPop();
 
     if (didMove?.captured) {
       const capturedPiece: Piece = {
@@ -135,6 +145,7 @@ export const Chessboard = (props: ChessboardProps) => {
         type: didMove.captured,
       };
       dispatch(addCaptured(capturedPiece));
+      if (shouldPlaySounds) playBoop();
     }
 
     clearValidMovesStyles();

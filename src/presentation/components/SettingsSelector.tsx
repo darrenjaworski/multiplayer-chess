@@ -1,8 +1,12 @@
 import styled from "@emotion/styled";
-import { FaChessBoard } from "react-icons/fa";
+import { FaChessBoard, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { MdNightlight } from "react-icons/md";
 import { WiDaySunny } from "react-icons/wi";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
+import {
+  getShouldPlaySounds,
+  playSounds,
+} from "../../state-management/slices/settings";
 import {
   getDarkBoardKey,
   getLightBoardKey,
@@ -33,10 +37,12 @@ const FixedActionButtons = styled.div`
 `;
 
 // TODO add board theme selector to be beside this one
-export const ThemeSelector = () => {
+export const OptionsSelector = () => {
   const currentMode = useAppSelector(getThemeMode);
   const currentDarkBoard = useAppSelector(getDarkBoardKey);
   const currentLightBoard = useAppSelector(getLightBoardKey);
+  const shouldPlaySounds = useAppSelector(getShouldPlaySounds);
+
   const dispatch = useAppDispatch();
 
   const toggleTheme = () => {
@@ -54,8 +60,25 @@ export const ThemeSelector = () => {
       : dispatch(updateBoardTheme(nextLightBoardTheme));
   };
 
+  const toggleSoundEffects = () => {
+    dispatch(playSounds(shouldPlaySounds ? false : true));
+  };
+
   return (
     <FixedActionButtons>
+      <IconSelectorButton>
+        {shouldPlaySounds ? (
+          <FaVolumeUp
+            onClick={toggleSoundEffects}
+            title={`turn sound effects ${shouldPlaySounds ? "off" : "on"}`}
+          />
+        ) : (
+          <FaVolumeMute
+            onClick={toggleSoundEffects}
+            title={`turn sound effects ${shouldPlaySounds ? "off" : "on"}`}
+          />
+        )}
+      </IconSelectorButton>
       <IconSelectorButton>
         <FaChessBoard
           onClick={toggleBoardTheme}

@@ -4,6 +4,7 @@ import createMockStore, {
   MockStoreEnhanced,
 } from "redux-mock-store";
 import { initialState as initialGameState } from "../state-management/slices/game";
+import { initialState as initialSettingsState } from "../state-management/slices/settings";
 import { initialState as initialThemeState } from "../state-management/slices/theme";
 import type { AppDispatch, RootState } from "../state-management/store";
 
@@ -16,6 +17,9 @@ export const initialRootState: RootState = {
   },
   theme: {
     ...initialThemeState,
+  },
+  settings: {
+    ...initialSettingsState,
   },
 };
 
