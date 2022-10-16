@@ -16,10 +16,7 @@ import {
   updateGame,
 } from "../../state-management/slices/game";
 import { getShouldPlaySounds } from "../../state-management/slices/settings";
-// @ts-ignore
-import pop from "../soundEffects/pop.mp3";
-// @ts-ignore
-import boop from "../soundEffects/boop.mp3";
+import { movePieceSound, pieceCaptureSound } from "../soundEffects";
 import { useBoardTheme } from "../theme/theme";
 import { CompletionModal } from "./CompletionModal";
 import { PromotionModal } from "./PromotionModal";
@@ -46,8 +43,8 @@ export const Chessboard = (props: ChessboardProps) => {
   const isEndgame = useAppSelector(getIsEndgame);
   const shouldPlaySounds = useAppSelector(getShouldPlaySounds);
   const dispatch = useAppDispatch();
-  const [playPop] = useSound(pop);
-  const [playBoop] = useSound(boop);
+  const [playPieceMove] = useSound(movePieceSound);
+  const [playPieceCapture] = useSound(pieceCaptureSound);
 
   const [promotionFromTo, setPromotionFromTo] = useState(
     initialPromotionFromTo
@@ -128,7 +125,8 @@ export const Chessboard = (props: ChessboardProps) => {
   const commitMove = (
     sourceSquare: Square,
     targetSquare: Square,
-    promotion: PieceSymbol | null = null
+    promotion: PieceSymbol | null = null,
+    playSound: boolean = true
   ): boolean => {
     const localGame = new Chess(gameFEN);
     const moveAttempt = { from: sourceSquare, to: targetSquare } as Move;
@@ -137,7 +135,6 @@ export const Chessboard = (props: ChessboardProps) => {
 
     const didMove = localGame.move(moveAttempt);
     if (!didMove) return false;
-    if (shouldPlaySounds) playPop();
 
     if (didMove?.captured) {
       const capturedPiece: Piece = {
@@ -145,7 +142,9 @@ export const Chessboard = (props: ChessboardProps) => {
         type: didMove.captured,
       };
       dispatch(addCaptured(capturedPiece));
-      if (shouldPlaySounds) playBoop();
+      if (shouldPlaySounds) playPieceCapture();
+    } else {
+      if (shouldPlaySounds && playSound) playPieceMove();
     }
 
     clearValidMovesStyles();
@@ -159,7 +158,7 @@ export const Chessboard = (props: ChessboardProps) => {
     const { from, to } = promotionFromTo;
     if (!from || !to) return;
 
-    commitMove(from, to, piece);
+    commitMove(from, to, piece, false);
     setPromotionFromTo({ from: null, to: null });
   };
 

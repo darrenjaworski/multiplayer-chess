@@ -6,6 +6,8 @@ import {
   FaChessQueen,
   FaChessRook,
 } from "react-icons/fa";
+import useSound from "use-sound";
+import { piecePromotionSound } from "../soundEffects";
 import { Modal } from "./Modal";
 
 const PromotionPieces = styled.div`
@@ -22,16 +24,41 @@ interface PromotionModalProps {
 export const PromotionModal = (props: PromotionModalProps) => {
   const { handleClose, isOpen, promotePiece } = props;
   const iconSize = "3rem";
+  const [playPromotion] = useSound(piecePromotionSound);
 
   return (
     <Modal handleClose={handleClose} isOpen={isOpen}>
       <div data-testid="promotion-modal">
         <h2>Please select a piece for promotion:</h2>
         <PromotionPieces>
-          <FaChessQueen size={iconSize} onClick={() => promotePiece("q")} />
-          <FaChessBishop size={iconSize} onClick={() => promotePiece("b")} />
-          <FaChessKnight size={iconSize} onClick={() => promotePiece("n")} />
-          <FaChessRook size={iconSize} onClick={() => promotePiece("r")} />
+          <FaChessQueen
+            size={iconSize}
+            onClick={() => {
+              playPromotion();
+              promotePiece("q");
+            }}
+          />
+          <FaChessBishop
+            size={iconSize}
+            onClick={() => {
+              playPromotion();
+              promotePiece("b");
+            }}
+          />
+          <FaChessKnight
+            size={iconSize}
+            onClick={() => {
+              playPromotion();
+              promotePiece("n");
+            }}
+          />
+          <FaChessRook
+            size={iconSize}
+            onClick={() => {
+              playPromotion();
+              promotePiece("r");
+            }}
+          />
         </PromotionPieces>
       </div>
     </Modal>

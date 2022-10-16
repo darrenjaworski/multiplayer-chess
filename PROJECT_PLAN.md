@@ -70,7 +70,7 @@
   - ✅ themes (light, dark)
   - ✅ color palette for board and pieces (3 presets)
   - ✅ board theme switcher
-  - 🟡 add sound effects to player piece moves, captures. end game, check.
+  - 🟡 add sound effects to player piece moves, captures. end game, check, promotion.
   - 🟡 mobile friendly
 - chess match against AI
   - computer does random move
