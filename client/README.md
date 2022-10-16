@@ -2,7 +2,7 @@
 
 # real time online multiplayer chess
 
-Please see the [project plan](./PROJECT_PLAN.md).
+Please see the [project plan](../README.md).
 
 # Getting Started with Create React App
 
