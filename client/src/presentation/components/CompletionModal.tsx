@@ -38,8 +38,9 @@ export const CompletionModal = (props: CompletionModalProps) => {
   const currentTurn = useAppSelector(getTurn);
 
   const getLoserText = () => {
+    const isWhitesTurn = currentTurn === "w";
     if (endgameStatus.isCheckMate) {
-      return `Check mate ${currentTurn ? wUsername : bUsername}.`;
+      return `Check mate ${isWhitesTurn ? wUsername : bUsername}.`;
     }
 
     if (endgameStatus.isDraw) {
@@ -47,13 +48,11 @@ export const CompletionModal = (props: CompletionModalProps) => {
     }
 
     if (endgameStatus.isForfeit) {
-      return `${currentTurn === "w" ? wUsername : bUsername} has forfeited.`;
+      return `${isWhitesTurn ? wUsername : bUsername} has forfeited.`;
     }
 
     if (endgameStatus.isPlayerTimeout) {
-      return `${
-        currentTurn === "w" ? wUsername : bUsername
-      } has run out of time.`;
+      return `${isWhitesTurn ? wUsername : bUsername} has run out of time.`;
     }
 
     if (endgameStatus.isStalemate) {
