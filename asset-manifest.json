@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "https://darrenjaworski.github.io/multiplayer-chess/static/js/main.72ede58b.js",
+    "main.js": "https://darrenjaworski.github.io/multiplayer-chess/static/js/main.ffab2a77.js",
     "static/js/845.ef1c7949.chunk.js": "https://darrenjaworski.github.io/multiplayer-chess/static/js/845.ef1c7949.chunk.js",
     "static/js/787.4dc8422d.chunk.js": "https://darrenjaworski.github.io/multiplayer-chess/static/js/787.4dc8422d.chunk.js",
     "static/media/capture.mp3": "https://darrenjaworski.github.io/multiplayer-chess/static/media/capture.6b0e2a4ff8f57e63dd45.mp3",
     "static/media/promotion.mp3": "https://darrenjaworski.github.io/multiplayer-chess/static/media/promotion.6bf5cf877a86f1e6cb78.mp3",
     "static/media/move.mp3": "https://darrenjaworski.github.io/multiplayer-chess/static/media/move.6446137ab706a0b4e0f6.mp3",
     "index.html": "https://darrenjaworski.github.io/multiplayer-chess/index.html",
-    "main.72ede58b.js.map": "https://darrenjaworski.github.io/multiplayer-chess/static/js/main.72ede58b.js.map",
+    "main.ffab2a77.js.map": "https://darrenjaworski.github.io/multiplayer-chess/static/js/main.ffab2a77.js.map",
     "845.ef1c7949.chunk.js.map": "https://darrenjaworski.github.io/multiplayer-chess/static/js/845.ef1c7949.chunk.js.map",
     "787.4dc8422d.chunk.js.map": "https://darrenjaworski.github.io/multiplayer-chess/static/js/787.4dc8422d.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.72ede58b.js"
+    "static/js/main.ffab2a77.js"
   ]
 }
