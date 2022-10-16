@@ -190,6 +190,7 @@ export const Chessboard = (props: ChessboardProps) => {
         customDarkSquareStyle={boardTheme.customDarkSquareStyle}
         customLightSquareStyle={boardTheme.customLightSquareStyle}
         customPieces={boardTheme.customPieces}
+        boardWidth={Math.min(window.innerWidth * 0.9, 560)}
       />
     </>
   );

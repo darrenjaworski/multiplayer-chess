@@ -17,12 +17,12 @@ export const generateTheme = (options: BoardOptions) => {
   };
 
   const lightPiecesProps = {
-    size: "3.5rem",
+    size: scaleSize(),
     color: piecesColor.light,
     style: { marginTop: "0.25rem" },
   };
   const darkPiecesPRops = {
-    size: "3.5rem",
+    size: scaleSize(),
     color: piecesColor.dark,
     style: { marginTop: "0.25rem" },
   };
@@ -56,3 +56,9 @@ export const generateTheme = (options: BoardOptions) => {
     },
   };
 };
+
+function scaleSize() {
+  const ratio = 3.5 / 560;
+  const boardSize = Math.min(window.innerWidth * 0.9, 560);
+  return `${ratio * boardSize}rem`;
+}

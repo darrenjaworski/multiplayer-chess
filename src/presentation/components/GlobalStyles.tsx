@@ -8,6 +8,7 @@ export const GlobalStyles = () => {
     body {
       margin: 0 auto;
       max-width: 560px;
+      width: 90%;
     }
     html {
       font-family: Arial, Helvetica, sans-serif;
