@@ -175,6 +175,10 @@ export const GameSlice = createSlice({
     updatePlayerForfeit: (state, action: PayloadAction<Color>) => {
       state.playerForfeit = action.payload;
     },
+    resetGame: (state, _action: PayloadAction<void>) => {
+      const players = state.players;
+      return { ...initialState, players: players };
+    },
   },
 });
 
@@ -190,6 +194,7 @@ export const {
   updateMode,
   updatePlayerTimeout,
   updatePlayerForfeit,
+  resetGame,
 } = GameSlice.actions;
 
 export const getGameStarted = (state: RootState) =>
