@@ -7,8 +7,12 @@ concurrency:
 on:
   push:
     paths:
-      - "src/**"
+      - "client/src/**"
   workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: client
 
 jobs:
   unit-tests:
