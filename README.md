@@ -115,6 +115,7 @@
 - mobile first controls, click to select piece, click to select destination, etc
 - allow premoves
 - style arrows on board for capture
+- allow users to swap between board pieces icons
 
 ---
 
