@@ -21,10 +21,11 @@
     - react
       - chess.js
       - react-chessboard
-  - networking (MP)
-    - websockets
-  - web server
-    - auth0 for authentication
+  - server
+    - nest js
+      - websockets
+      - chess engine
+      - auth0 for authentication
 
 ### phased development
 
@@ -74,13 +75,14 @@
   - ✅ board theme switcher
   - 🟡 add sound effects to player piece moves, captures. end game, check, promotion.
   - ✅ mobile friendly
+- chess match against another online player or computer
+  - api for websockets
+  - api for chess AI
+  - frontend client can update via websocket server
 - chess match against AI
   - computer does random move
   - computer does simplistic algorithm to determine move
-- a chess match against another online player
-  - api for websockets
-  - frontend client can update via websocket server
-- a chess matches against any number of players
+- chess matches against any number of players
   - users can sign up
   - users can search for a match
   - users are paired (matchmaking)
