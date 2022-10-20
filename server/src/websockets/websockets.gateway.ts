@@ -12,7 +12,7 @@ import { Server, Socket } from 'socket.io';
 
 const options: GatewayMetadata = {
   cors: {
-    origin: ['http://localhost:3000'],
+    origin: '*',
   },
 };
 
@@ -33,7 +33,7 @@ export class WebsocketsGateway
     this.logger.log(`initialized`);
   }
 
-  @SubscribeMessage('msgToServer')
+  @SubscribeMessage('gameUpdate')
   handleMessage(client: Socket, text: string): WsResponse<string> {
     return { event: 'msgToClient', data: text };
   }

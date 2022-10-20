@@ -22,9 +22,11 @@ export const GameHistory = () => {
   return (
     <>
       <h2>Moves history:</h2>
+      {/* @ts-ignore */}
       {gameHistory.map((move, i) => {
         const id = `game-moves-history-${i}`;
         const moveColorText = move.color === "w" ? "white -" : "black -";
+        // @ts-ignore
         const pieceNameText = PieceToEnglishMap[move.piece];
 
         const didCapture = move?.captured;

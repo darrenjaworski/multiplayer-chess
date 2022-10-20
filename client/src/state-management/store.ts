@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { appReducer } from "./appReducer";
+import { appMiddleware } from "./appMiddleware";
 
 export const store = configureStore({
   reducer: appReducer,
+  middleware: appMiddleware,
   devTools: process.env.NODE_ENV !== "production",
 });
 

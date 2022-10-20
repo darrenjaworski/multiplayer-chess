@@ -49,12 +49,14 @@ export const getBoardTheme = (state: RootState) => {
       ? state.theme.darkBoard
       : state.theme.lightBoard;
 
+  // @ts-ignore
   return theme[state.theme.currentMode].boards[boardThemeKey];
 };
 
 export const getLightBoardKey = (state: RootState) => state.theme.lightBoard;
 export const getDarkBoardKey = (state: RootState) => state.theme.darkBoard;
 
+// @ts-ignore
 export const getTheme = (state: RootState) => theme[state.theme.currentMode];
 
 export const getThemeMode = (state: RootState) => state.theme.currentMode;
