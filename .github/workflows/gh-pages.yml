@@ -8,6 +8,7 @@ on:
   push:
     paths:
       - "client/src/**"
+      - "client/public/**"
   workflow_dispatch:
 
 defaults:
