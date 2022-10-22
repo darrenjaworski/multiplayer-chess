@@ -2,6 +2,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { Color, Move, Piece } from "chess.js";
 import { Chess, DEFAULT_POSITION as startingFEN } from "chess.js";
+import { v4 as uuid } from "uuid";
 import { gameSocketApi } from "../api/gameSockets";
 import { RootState } from "./../store";
 
@@ -31,6 +32,7 @@ export const GAME_MODES = [
 ];
 
 export interface GameState {
+  id: string;
   fen: string;
   turn: Color;
   captured: Piece[];
@@ -43,6 +45,7 @@ export interface GameState {
 }
 
 export const initialState: GameState = {
+  id: uuid(),
   fen: startingFEN,
   turn: "w",
   captured: [],
@@ -176,6 +179,9 @@ export const GameSlice = createSlice({
     updatePlayerForfeit: (state, action: PayloadAction<Color>) => {
       state.playerForfeit = action.payload;
     },
+    updateId: (state, action: PayloadAction<string>) => {
+      state.id = action.payload;
+    },
     resetGame: (state, _action: PayloadAction<void>) => {
       const players = state.players;
       return { ...initialState, players: players };
@@ -204,6 +210,7 @@ export const {
   updatePlayerTimeout,
   updatePlayerForfeit,
   resetGame,
+  updateId,
 } = GameSlice.actions;
 
 export const getGameStarted = (state: RootState) =>
@@ -271,4 +278,8 @@ export const getPlayers = (state: RootState) => {
 
 export const getGameMode = (state: RootState) => {
   return state.game.mode;
+};
+
+export const getGameId = (state: RootState) => {
+  return state.game.id;
 };

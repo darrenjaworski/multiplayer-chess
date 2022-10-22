@@ -24,8 +24,6 @@ export const Game = () => {
   const playerOne = players[0];
   const playerTwo = players[1];
 
-  // useGetGameUpdatesQuery(undefined);
-
   return (
     <GameScreen data-testid="game">
       <GameTicker />
