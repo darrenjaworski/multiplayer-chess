@@ -31,6 +31,12 @@ export const GAME_MODES = [
   { key: GameModes.slowpoke, label: "slow poke (15 min)", time: 900 },
 ];
 
+export enum GameTypes {
+  humanVsHumanLocal,
+  humanVsAi,
+  humanVsHumanRemote,
+}
+
 export interface GameState {
   id: string;
   fen: string;
@@ -40,6 +46,7 @@ export interface GameState {
   playerClockHistory: MoveElapsed[];
   players: Player[];
   mode: GameModes;
+  type: GameTypes;
   playerTimeout: boolean;
   playerForfeit: Color | null;
 }
@@ -56,6 +63,7 @@ export const initialState: GameState = {
     { username: "bar", eloScore: 2 },
   ],
   mode: GameModes.untimed,
+  type: GameTypes.humanVsHumanLocal,
   playerTimeout: false,
   playerForfeit: null,
 };
