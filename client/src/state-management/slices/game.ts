@@ -77,7 +77,7 @@ export const initialState: GameState = {
   playerForfeit: null,
 };
 
-interface UpdateGamePayload {
+export interface UpdateGamePayload {
   fen: string;
   move: Move;
 }
@@ -208,7 +208,13 @@ export const GameSlice = createSlice({
     builder.addMatcher(
       gameSocketApi.endpoints.getGameUpdates.matchFulfilled,
       (state, { payload }) => {
-        state.fen = payload.fen;
+        const game = new Chess(payload.fen);
+
+        state.fen = game.fen();
+        state.turn = game.turn();
+        state.history = payload.move
+          ? [...state.history, payload.move]
+          : [...state.history];
       }
     );
   },

@@ -1,14 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import io from "socket.io-client";
-
-interface Message {
-  fen: string;
-}
+import { UpdateGamePayload } from "../slices/game";
 
 export const gameSocketApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
   endpoints: (build) => ({
-    getGameUpdates: build.query<Message, undefined>({
+    getGameUpdates: build.query<UpdateGamePayload, undefined>({
       query: () => ``,
       async onCacheEntryAdded(
         arg,
