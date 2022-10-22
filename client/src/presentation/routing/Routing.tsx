@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
   GameModes,
+  Player,
   updateMode,
   updatePlayers,
 } from "../../state-management/slices/game";
 import { store } from "../../state-management/store";
-import { Game, Player } from "../pages/Game";
+import { Game } from "../pages/Game";
 import { NotFound } from "../pages/NotFound";
 import { Start } from "../pages/Start";
 
@@ -27,8 +28,8 @@ export const router = createBrowserRouter(
         const mode = Number(formData.get("mode")) as GameModes;
 
         const players = [
-          { username: playerOne, eloScore: 1 },
-          { username: playertwo, eloScore: 2 },
+          { username: playerOne, eloScore: 1, color: "w" },
+          { username: playertwo, eloScore: 2, color: "b" },
         ] as Player[];
 
         store.dispatch(updatePlayers(players));

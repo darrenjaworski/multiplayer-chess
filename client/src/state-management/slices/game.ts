@@ -12,9 +12,10 @@ type MoveElapsed = {
   remaining: number;
 };
 
-interface Player {
+export interface Player {
   username: string;
   eloScore: number;
+  color: Color;
 }
 
 export enum GameModes {
@@ -59,8 +60,8 @@ export const initialState: GameState = {
   history: [],
   playerClockHistory: [],
   players: [
-    { username: "foo", eloScore: 1 },
-    { username: "bar", eloScore: 2 },
+    { username: "foo", eloScore: 1, color: "w" },
+    { username: "bar", eloScore: 2, color: "b" },
   ],
   mode: GameModes.untimed,
   type: GameTypes.humanVsHumanLocal,

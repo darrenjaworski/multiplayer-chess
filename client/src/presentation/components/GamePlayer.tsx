@@ -1,6 +1,5 @@
 import { useTheme } from "@emotion/react";
 import styled from "@emotion/styled";
-import type { Color } from "chess.js";
 import { useState } from "react";
 import { BsFlagFill } from "react-icons/bs";
 import { FaChessKnight } from "react-icons/fa";
@@ -13,11 +12,11 @@ import {
   getIsColorInCheck,
   getIsColorInCheckMate,
   getTurn,
+  Player,
   undoMove,
   updatePlayerForfeit,
 } from "../../state-management/slices/game";
 import { Button } from "../atoms/Button";
-import { Player } from "../pages/Game";
 import { Modal } from "./Modal";
 import { PlayerCapturedPieces } from "./PlayerCapturedPieces";
 import { PlayerCountdown } from "./PlayerCountdown";
@@ -25,7 +24,6 @@ import { UndoButton } from "./UndoButton";
 
 interface GamePlayerProps {
   player: Player;
-  piecesColor: Color;
 }
 
 const PlayerContainer = styled.div`
@@ -64,8 +62,8 @@ const ConfirmationButtons = styled.div`
 `;
 
 export const GamePlayer = (props: GamePlayerProps) => {
-  const { player, piecesColor } = props;
-  const { username, eloScore } = player;
+  const { player } = props;
+  const { username, eloScore, color: piecesColor } = player;
 
   const [confirmForfeitModal, setConfirmForfeitModal] = useState(false);
   const theme = useTheme();
@@ -155,6 +153,6 @@ GamePlayer.defaultProps = {
   player: {
     username: "foo",
     eloScore: 1,
+    color: "w",
   },
-  piecesColor: "w",
 };

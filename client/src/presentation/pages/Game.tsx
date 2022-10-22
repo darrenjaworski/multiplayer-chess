@@ -5,11 +5,6 @@ import { Chessboard } from "../components/Chessboard";
 import { GamePlayer } from "../components/GamePlayer";
 import { GameTicker } from "../components/GameTicker";
 
-export interface Player {
-  username: string;
-  eloScore: number;
-}
-
 const GameScreen = styled.div`
   height: 100vh;
   display: flex;
@@ -27,9 +22,9 @@ export const Game = () => {
   return (
     <GameScreen data-testid="game">
       <GameTicker />
-      <GamePlayer player={playerTwo} piecesColor="b" />
+      <GamePlayer player={playerTwo} />
       <Chessboard />
-      <GamePlayer player={playerOne} piecesColor="w" />
+      <GamePlayer player={playerOne} />
     </GameScreen>
   );
 };
