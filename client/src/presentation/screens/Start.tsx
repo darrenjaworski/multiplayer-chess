@@ -6,6 +6,10 @@ import { GAME_MODES } from "../../state-management/slices/game";
 import { Button } from "../atoms/Button";
 import { useBoardTheme } from "../theme/theme";
 
+interface StyledPiecePreviewProps {
+  background: string;
+}
+
 // TODO refactor these styles
 const GameScreen = styled(Form)`
   height: 100vh;
@@ -44,10 +48,8 @@ const SpacedRadio = styled.div`
   }
 `;
 
-// TODO refactor to remove ts-ignores
-const BlackPiecePreview = styled.div`
+const BlackPiecePreview = styled.div<StyledPiecePreviewProps>`
   background: ${(props) => {
-    // @ts-ignore
     return props.background;
   }};
   padding: 9px;
@@ -58,9 +60,8 @@ const BlackPiecePreview = styled.div`
     }};
 `;
 
-const WhitePiecePreview = styled.div`
+const WhitePiecePreview = styled.div<StyledPiecePreviewProps>`
   background: ${(props) => {
-    // @ts-ignore
     return props.background;
   }};
   padding: 0.75rem;
@@ -82,7 +83,6 @@ export const Start = () => {
       </CenteredRow>
       <PlayerSelection>
         <BlackPiecePreview
-          /* @ts-ignore */
           background={boardThemes.colors.lightSquare}
           color={boardThemes.colors.darkPieces}
         >
@@ -99,7 +99,6 @@ export const Start = () => {
         />
       </PlayerSelection>
       <PlayerSelection>
-        {/* @ts-ignore */}
         <WhitePiecePreview background={boardThemes.colors.darkSquare}>
           <FaChessKing color={boardThemes.colors.lightPieces} size="5rem" />
         </WhitePiecePreview>
