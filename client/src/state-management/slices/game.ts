@@ -241,8 +241,9 @@ export const getCaptured =
   (color: Color | undefined = undefined) =>
   (state: RootState) => {
     if (color) {
-      // @ts-ignore
-      return state.game.captured.filter((piece) => piece.color === color);
+      return state.game.captured.filter(
+        (piece: Piece) => piece.color === color
+      );
     }
     return state.game.captured;
   };
