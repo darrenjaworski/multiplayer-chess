@@ -5,9 +5,9 @@ import {
   updatePlayers,
 } from "../../state-management/slices/game";
 import { store } from "../../state-management/store";
-import { Game, Player } from "../screens/Game";
-import { NotFound } from "../screens/NotFound";
-import { Start } from "../screens/Start";
+import { Game, Player } from "../pages/Game";
+import { NotFound } from "../pages/NotFound";
+import { Start } from "../pages/Start";
 
 export const router = createBrowserRouter(
   [

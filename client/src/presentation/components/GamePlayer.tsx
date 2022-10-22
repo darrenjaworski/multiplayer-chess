@@ -17,7 +17,7 @@ import {
   updatePlayerForfeit,
 } from "../../state-management/slices/game";
 import { Button } from "../atoms/Button";
-import { Player } from "../screens/Game";
+import { Player } from "../pages/Game";
 import { Modal } from "./Modal";
 import { PlayerCapturedPieces } from "./PlayerCapturedPieces";
 import { PlayerCountdown } from "./PlayerCountdown";
