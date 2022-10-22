@@ -1,21 +1,25 @@
-// @ts-nocheck
 import React from "react";
 
+interface Internalstate {
+  hasError: boolean;
+}
+
 export class ErrorBoundary extends React.Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false } as Internalstate;
   }
 
-  static getDerivedStateFromError(_error) {
+  static getDerivedStateFromError(_error: any) {
     return { hasError: true };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: any, errorInfo: any) {
     console.log(error, errorInfo);
   }
 
   render() {
+    // @ts-ignore
     if (this.state.hasError) {
       return (
         <div data-testid="error-boundary">
@@ -24,6 +28,7 @@ export class ErrorBoundary extends React.Component {
       );
     }
 
+    // @ts-ignore
     return this.props.children;
   }
 }
