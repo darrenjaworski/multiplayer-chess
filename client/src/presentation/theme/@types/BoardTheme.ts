@@ -1,8 +1,8 @@
 import { CustomPieces } from "react-chessboard";
 
 export interface BoardTheme {
-  customDarkSquareStyle?: CustomDarkSquareStyle;
-  customLightSquareStyle?: CustomLightSquareStyle;
+  customDarkSquareStyle: CustomDarkSquareStyle;
+  customLightSquareStyle: CustomLightSquareStyle;
   customPieces: CustomPieces;
   colors: BoardColors;
 }
