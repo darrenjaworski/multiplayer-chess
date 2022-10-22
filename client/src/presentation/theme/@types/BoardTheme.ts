@@ -22,12 +22,14 @@ export interface CustomPiecesColors {
   dark: string;
 }
 
+export type AvailableIconTypes = "Fa" | "Gi";
+
 export interface BoardOptions {
   lightPieces: string;
   darkPieces: string;
   darkSquareBackground: string;
   lightSquareBackground: string;
-  iconType: "Fa" | "Gi";
+  iconType: AvailableIconTypes;
 }
 
 interface BoardColors {

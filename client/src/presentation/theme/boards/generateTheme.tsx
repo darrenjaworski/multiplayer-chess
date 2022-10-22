@@ -1,3 +1,5 @@
+import { PieceSymbol } from "chess.js";
+import type { Pieces } from "react-chessboard";
 import {
   FaChessBishop,
   FaChessKing,
@@ -22,7 +24,16 @@ import {
   CustomPiecesColors,
 } from "../@types/BoardTheme";
 
-const iconMap = {
+interface IconMap {
+  Fa: PieceToIcon;
+  Gi: PieceToIcon;
+}
+
+type PieceToIcon = {
+  [key in Pieces]: IconType;
+};
+
+export const iconMap: IconMap = {
   Fa: {
     wB: FaChessBishop,
     wK: FaChessKing,
@@ -53,7 +64,6 @@ const iconMap = {
   },
 };
 
-// TODO fix ts-ignores
 // TODO refactor to generate all icons so you can switch icons on the fly like other settings
 export const generateTheme = (options: BoardOptions): BoardTheme => {
   const piecesColor: CustomPiecesColors = {
@@ -74,13 +84,16 @@ export const generateTheme = (options: BoardOptions): BoardTheme => {
 
   const customPieces = Object.keys(iconMap[options.iconType]).reduce(
     (pieces, key) => {
-      // @ts-ignore
-      const Element: IconType = iconMap[options.iconType][key];
+      const iconTypeKey = options.iconType;
+      const iconType = iconMap[iconTypeKey];
+      const elementTypeKey = key as Pieces;
+
+      const Element: IconType = iconType[elementTypeKey];
+
       const isLightPiece = key.charAt(0) === "w";
-      // @ts-ignore
-      const englishNameFromAbbreviation =
-        // @ts-ignore
-        PieceToEnglishMap[key.charAt(1).toLowerCase()];
+      const pieceKey = key.charAt(1).toLowerCase() as unknown as PieceSymbol;
+      const englishNameFromAbbreviation = PieceToEnglishMap[pieceKey];
+
       const props = isLightPiece ? lightPiecesProps : darkPiecesProps;
       // @ts-ignore
       pieces[key] = () => {
