@@ -1,5 +1,5 @@
 import { PieceSymbol } from "chess.js";
-import type { Pieces } from "react-chessboard";
+import type { CustomPieces, Pieces } from "react-chessboard";
 import {
   FaChessBishop,
   FaChessKing,
@@ -95,8 +95,9 @@ export const generateTheme = (options: BoardOptions): BoardTheme => {
       const englishNameFromAbbreviation = PieceToEnglishMap[pieceKey];
 
       const props = isLightPiece ? lightPiecesProps : darkPiecesProps;
-      // @ts-ignore
-      pieces[key] = () => {
+
+      const CustomPieceKey = key as unknown as Pieces;
+      pieces[CustomPieceKey] = () => {
         return (
           <Element
             {...props}
@@ -108,7 +109,7 @@ export const generateTheme = (options: BoardOptions): BoardTheme => {
       };
       return pieces;
     },
-    {}
+    {} as CustomPieces
   );
 
   return {
