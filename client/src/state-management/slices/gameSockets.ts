@@ -4,7 +4,7 @@ interface GameSocketState {
   isConnected: boolean;
 }
 
-const initialState: GameSocketState = {
+export const initialState: GameSocketState = {
   isConnected: false,
 };
 

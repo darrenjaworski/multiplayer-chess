@@ -4,9 +4,27 @@ import createMockStore, {
   MockStoreEnhanced,
 } from "redux-mock-store";
 import { initialState as initialGameState } from "../state-management/slices/game";
+import { initialState as initialGameSocketsState } from "../state-management/slices/gameSockets";
 import { initialState as initialSettingsState } from "../state-management/slices/settings";
 import { initialState as initialThemeState } from "../state-management/slices/theme";
 import type { AppDispatch, RootState } from "../state-management/store";
+
+const initialApiState = {
+  queries: {},
+  mutations: {},
+  provided: {},
+  subscriptions: {},
+  config: {
+    online: true,
+    focused: true,
+    middlewareRegistered: false,
+    refetchOnFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMountOrArgChange: false,
+    keepUnusedDataFor: 60,
+    reducerPath: "api",
+  },
+};
 
 export type FakeStore = MockStoreEnhanced<RootState, AppDispatch>;
 
@@ -21,6 +39,11 @@ export const initialRootState: RootState = {
   settings: {
     ...initialSettingsState,
   },
+  gameSockets: {
+    ...initialGameSocketsState,
+  },
+  // @ts-ignore
+  api: { ...initialApiState },
 };
 
 export function createDefaultStore() {
