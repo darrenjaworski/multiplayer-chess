@@ -1,4 +1,4 @@
-import type { PieceSymbol } from "chess.js";
+import type { Move, PieceSymbol } from "chess.js";
 import { useAppSelector } from "../../state-management/hooks";
 import { getFEN, getHistory, getPGN } from "../../state-management/slices/game";
 
@@ -22,11 +22,9 @@ export const GameHistory = () => {
   return (
     <>
       <h2>Moves history:</h2>
-      {/* @ts-ignore */}
-      {gameHistory.map((move, i) => {
+      {gameHistory.map((move: Move, i: number) => {
         const id = `game-moves-history-${i}`;
         const moveColorText = move.color === "w" ? "white -" : "black -";
-        // @ts-ignore
         const pieceNameText = PieceToEnglishMap[move.piece];
 
         const didCapture = move?.captured;

@@ -81,14 +81,11 @@ export const Start = () => {
         <h1 data-testid="start-headline">Let's play some chess!</h1>
       </CenteredRow>
       <PlayerSelection>
-        {/* @ts-ignore */}
         <BlackPiecePreview
           /* @ts-ignore */
           background={boardThemes.colors.lightSquare}
-          /* @ts-ignore */
           color={boardThemes.colors.darkPieces}
         >
-          {/* @ts-ignore */}
           <FaChessKing color={boardThemes.colors.darkPieces} size="5rem" />
         </BlackPiecePreview>
         <label htmlFor="player-two">Dark pieces player name</label>
@@ -104,7 +101,6 @@ export const Start = () => {
       <PlayerSelection>
         {/* @ts-ignore */}
         <WhitePiecePreview background={boardThemes.colors.darkSquare}>
-          {/* @ts-ignore */}
           <FaChessKing color={boardThemes.colors.lightPieces} size="5rem" />
         </WhitePiecePreview>
         <label htmlFor="player-one">Light pieces player name</label>
