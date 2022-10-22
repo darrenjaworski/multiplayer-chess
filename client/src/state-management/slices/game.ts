@@ -12,10 +12,17 @@ type MoveElapsed = {
   remaining: number;
 };
 
+enum PlayerType {
+  humanLocal,
+  ai,
+  humanRemote,
+}
+
 export interface Player {
   username: string;
   eloScore: number;
   color: Color;
+  type: PlayerType;
 }
 
 export enum GameModes {
@@ -60,8 +67,8 @@ export const initialState: GameState = {
   history: [],
   playerClockHistory: [],
   players: [
-    { username: "foo", eloScore: 1, color: "w" },
-    { username: "bar", eloScore: 2, color: "b" },
+    { username: "foo", eloScore: 1, color: "w", type: PlayerType.humanLocal },
+    { username: "bar", eloScore: 2, color: "b", type: PlayerType.humanLocal },
   ],
   mode: GameModes.untimed,
   type: GameTypes.humanVsHumanLocal,
@@ -296,4 +303,4 @@ export const getGameId = (state: RootState) => {
 
 export const getGameType = (state: RootState) => {
   return state.game.type;
-}
+};
