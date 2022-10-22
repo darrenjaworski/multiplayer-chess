@@ -293,3 +293,7 @@ export const getGameMode = (state: RootState) => {
 export const getGameId = (state: RootState) => {
   return state.game.id;
 };
+
+export const getGameType = (state: RootState) => {
+  return state.game.type;
+}

@@ -197,5 +197,5 @@ export const Chessboard = (props: ChessboardProps) => {
 };
 
 Chessboard.defaultProps = {
-  id: Date.now() * Math.random(),
+  id: Math.round(Date.now() * Math.random()),
 };
