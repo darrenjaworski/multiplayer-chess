@@ -3,7 +3,7 @@ import createMockStore, {
   MockStoreCreator,
   MockStoreEnhanced,
 } from "redux-mock-store";
-import { initialState as initialGameState } from "../state-management/slices/game";
+import { initialState as initialGameState, Player } from "../state-management/slices/game";
 import { initialState as initialGameSocketsState } from "../state-management/slices/gameSockets";
 import { initialState as initialSettingsState } from "../state-management/slices/settings";
 import { initialState as initialThemeState } from "../state-management/slices/theme";
@@ -344,4 +344,16 @@ export function createStoreWithForfeit() {
       playerForfeit: "b",
     },
   });
+}
+
+export function createStoreWithPlayers(players: Player[]) {
+  return mockStore({
+    ...initialRootState,
+    game: {
+      ...initialGameState,
+      players: [
+        ...players
+      ]
+    }
+  })
 }

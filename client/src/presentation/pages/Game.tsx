@@ -16,15 +16,17 @@ const GameScreen = styled.div`
 
 export const Game = () => {
   const players = useAppSelector(getPlayers);
-  const playerOne = players[0];
-  const playerTwo = players[1];
+  const bottomPlayer = players[0];
+  const topPlayer = players[1];
 
   return (
     <GameScreen data-testid="game">
       <GameTicker />
-      <GamePlayer player={playerTwo} />
-      <Chessboard />
-      <GamePlayer player={playerOne} />
+      <GamePlayer player={topPlayer} />
+      <Chessboard
+        boardOrientation={bottomPlayer.color === "b" ? "black" : "white"}
+      />
+      <GamePlayer player={bottomPlayer} />
     </GameScreen>
   );
 };

@@ -12,10 +12,11 @@ type MoveElapsed = {
   remaining: number;
 };
 
-enum PlayerType {
+export enum PlayerType {
   humanLocal,
-  ai,
   humanRemote,
+  aiLocal,
+  aiRemote,
 }
 
 export interface Player {

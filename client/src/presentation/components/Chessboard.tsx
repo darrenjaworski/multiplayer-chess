@@ -38,7 +38,6 @@ const initialPromotionFromTo: PromotionFromTo = {
 };
 
 export const Chessboard = (props: ChessboardProps) => {
-  const { id } = props;
   const gameFEN = useAppSelector(getFEN);
   const isEndgame = useAppSelector(getIsEndgame);
   const shouldPlaySounds = useAppSelector(getShouldPlaySounds);
@@ -180,7 +179,6 @@ export const Chessboard = (props: ChessboardProps) => {
         promotePiece={handlePromotionSelection}
       />
       <ReactChessboard
-        id={id}
         onMouseOverSquare={handleMouseOver}
         onMouseOutSquare={handleMouseOut}
         onPieceDrop={handlePieceDrop}
@@ -191,6 +189,7 @@ export const Chessboard = (props: ChessboardProps) => {
         customLightSquareStyle={boardTheme.customLightSquareStyle}
         customPieces={boardTheme.customPieces}
         boardWidth={Math.min(window.innerWidth * 0.9, 560)}
+        {...props}
       />
     </>
   );

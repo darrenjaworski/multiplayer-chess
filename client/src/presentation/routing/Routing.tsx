@@ -20,6 +20,7 @@ export const router = createBrowserRouter(
     {
       path: "/game",
       element: <Game />,
+      errorElement: <NotFound />,
       action: async ({ request }) => {
         // TODO this feels really janky. there has to be an easier way to do this!
         const formData = await request.formData();
@@ -35,7 +36,9 @@ export const router = createBrowserRouter(
         store.dispatch(updatePlayers(players));
         store.dispatch(updateMode(mode));
       },
-      children: [{ path: ":id", element: <Game /> }],
+      children: [
+        { path: ":id", element: <Game />, errorElement: <NotFound /> },
+      ],
     },
   ],
   {
