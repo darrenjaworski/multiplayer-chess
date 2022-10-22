@@ -2,6 +2,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { Color, Move, Piece } from "chess.js";
 import { Chess, DEFAULT_POSITION as startingFEN } from "chess.js";
+import { gameSocketApi } from "../api/gameSockets";
 import { RootState } from "./../store";
 
 type MoveElapsed = {
@@ -179,6 +180,14 @@ export const GameSlice = createSlice({
       const players = state.players;
       return { ...initialState, players: players };
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      gameSocketApi.endpoints.getGameUpdates.matchFulfilled,
+      (state, { payload }) => {
+        state.fen = payload.fen;
+      }
+    );
   },
 });
 
