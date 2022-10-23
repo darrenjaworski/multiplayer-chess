@@ -7,3 +7,4 @@ import ReactModal from "react-modal";
 
 // #root doesn't exist in tests...
 jest.spyOn(ReactModal, "setAppElement").mockImplementation((_param) => {});
+jest.mock("socket.io-client");
