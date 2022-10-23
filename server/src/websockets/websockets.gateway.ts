@@ -34,7 +34,9 @@ export class WebsocketsGateway
   }
 
   @SubscribeMessage('gameUpdate')
-  handleMessage(client: Socket, text: string): WsResponse<string> {
-    return { event: 'msgToClient', data: text };
+  handleMessage(client: Socket, pgn: string): WsResponse<string> {
+    console.log(client);
+    client.broadcast.emit('gameUpdate', pgn);
+    return { event: 'gameUpdate', data: pgn };
   }
 }

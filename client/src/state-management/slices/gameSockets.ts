@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface GameSocketState {
   isConnected: boolean;
+  clientId: string | null;
 }
 
 export const initialState: GameSocketState = {
   isConnected: false,
+  clientId: null,
 };
 
 export const GameSocketSlice = createSlice({

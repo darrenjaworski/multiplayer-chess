@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { Color, Move, Piece } from "chess.js";
 import { Chess, DEFAULT_POSITION as startingFEN } from "chess.js";
 import { v4 as uuid } from "uuid";
-import { gameSocketApi } from "../api/gameSockets";
+import { gameSocketApi } from "./../api/gameSockets";
 import { RootState } from "./../store";
 
 type MoveElapsed = {
@@ -205,16 +205,28 @@ export const GameSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addMatcher(
-      gameSocketApi.endpoints.getGameUpdates.matchFulfilled,
-      (state, { payload }) => {
-        const game = new Chess(payload.fen);
+    builder.addCase(
+      "api/queries/queryResultPatched",
+      // @ts-ignore
+      (state, action) => {
+        const game = new Chess();
+        // @ts-ignore
+        game.loadPgn(action.payload.patches[0].value);
 
         state.fen = game.fen();
         state.turn = game.turn();
-        state.history = payload.move
-          ? [...state.history, payload.move]
-          : [...state.history];
+        state.history = game.history({ verbose: true }) as Move[];
+      }
+    );
+    builder.addMatcher(
+      gameSocketApi.endpoints.getGameUpdates.matchFulfilled,
+      (state, { payload }) => {
+        const game = new Chess();
+        game.loadPgn(payload.pgn);
+
+        state.fen = game.fen();
+        state.turn = game.turn();
+        state.history = game.history({ verbose: true }) as Move[];
       }
     );
   },
