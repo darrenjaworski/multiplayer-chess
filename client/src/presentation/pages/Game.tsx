@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import { useAppSelector } from "../../state-management/hooks";
-import { getPlayers } from "../../state-management/slices/game";
+import {
+  GameTypes,
+  getGameType,
+  getPlayers,
+} from "../../state-management/slices/game";
 import { Chessboard } from "../components/Chessboard";
 import { GamePlayer } from "../components/GamePlayer";
 import { GameTicker } from "../components/GameTicker";
@@ -15,18 +19,26 @@ const GameScreen = styled.div`
 `;
 
 export const Game = () => {
+  const gameType = useAppSelector(getGameType);
   const players = useAppSelector(getPlayers);
+
   const bottomPlayer = players[0];
   const topPlayer = players[1];
 
   return (
     <GameScreen data-testid="game">
       <GameTicker />
-      <GamePlayer player={topPlayer} />
+      <GamePlayer
+        player={topPlayer}
+        isPlayable={gameType === GameTypes.humanVsHumanLocal}
+      />
       <Chessboard
         boardOrientation={bottomPlayer.color === "b" ? "black" : "white"}
       />
-      <GamePlayer player={bottomPlayer} />
+      <GamePlayer
+        player={bottomPlayer}
+        isPlayable={gameType !== GameTypes.observer}
+      />
     </GameScreen>
   );
 };

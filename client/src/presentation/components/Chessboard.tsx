@@ -8,11 +8,16 @@ import {
   Square,
 } from "react-chessboard";
 import useSound from "use-sound";
+import { useSendGameUpdateMutation } from "../../state-management/api/gameSockets";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   addCaptured,
+  GameTypes,
   getFEN,
+  getGameType,
   getIsEndgame,
+  getPlayerInTurn,
+  PlayerType,
   updateGame,
 } from "../../state-management/slices/game";
 import { getShouldPlaySounds } from "../../state-management/slices/settings";
@@ -38,12 +43,19 @@ const initialPromotionFromTo: PromotionFromTo = {
 };
 
 export const Chessboard = (props: ChessboardProps) => {
+  const [sendGameUpdate] = useSendGameUpdateMutation();
   const gameFEN = useAppSelector(getFEN);
   const isEndgame = useAppSelector(getIsEndgame);
   const shouldPlaySounds = useAppSelector(getShouldPlaySounds);
   const dispatch = useAppDispatch();
   const [playPieceMove] = useSound(movePieceSound);
   const [playPieceCapture] = useSound(pieceCaptureSound);
+  const playerInTurn = useAppSelector(getPlayerInTurn);
+  const gameType = useAppSelector(getGameType);
+
+  const disableMoves =
+    playerInTurn?.type !== PlayerType.humanLocal ||
+    gameType === GameTypes.observer;
 
   const [promotionFromTo, setPromotionFromTo] = useState(
     initialPromotionFromTo
@@ -67,6 +79,8 @@ export const Chessboard = (props: ChessboardProps) => {
   };
 
   const handleMouseOver = (square: Square) => {
+    if (disableMoves) return;
+
     const localGame = new Chess(gameFEN);
     const moves = localGame.moves({ square, verbose: true }) as MoveTo[];
     if (moves.length === 0) return;
@@ -105,6 +119,8 @@ export const Chessboard = (props: ChessboardProps) => {
     targetSquare: Square,
     _piece: Pieces
   ): boolean => {
+    if (disableMoves) return false;
+
     const localGame = new Chess(gameFEN);
     const moves = localGame.moves({
       square: sourceSquare,
@@ -148,6 +164,7 @@ export const Chessboard = (props: ChessboardProps) => {
 
     clearValidMovesStyles();
     const move = localGame.history({ verbose: true })[0] as Move;
+    // sendGameUpdate({ pgn: localGame.pgn() });
     dispatch(updateGame({ fen: localGame.fen(), move }));
     return true;
   };

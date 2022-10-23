@@ -1,5 +1,4 @@
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { Color, Move, Piece } from "chess.js";
 import { Chess, DEFAULT_POSITION as startingFEN } from "chess.js";
 import { v4 as uuid } from "uuid";
@@ -44,6 +43,7 @@ export enum GameTypes {
   humanVsHumanLocal,
   humanVsAi,
   humanVsHumanRemote,
+  observer,
 }
 
 export interface GameState {
@@ -323,3 +323,10 @@ export const getGameId = (state: RootState) => {
 export const getGameType = (state: RootState) => {
   return state.game.type;
 };
+
+export const getPlayerInTurn = createSelector(
+  [getTurn, (state: RootState) => state],
+  (turn, state) => {
+    return state.game.players.find((player) => player.color === turn);
+  }
+);

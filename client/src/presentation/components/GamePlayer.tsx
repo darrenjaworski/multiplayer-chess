@@ -24,6 +24,7 @@ import { UndoButton } from "./UndoButton";
 
 interface GamePlayerProps {
   player: Player;
+  isPlayable: boolean;
 }
 
 const PlayerContainer = styled.div`
@@ -62,7 +63,7 @@ const ConfirmationButtons = styled.div`
 `;
 
 export const GamePlayer = (props: GamePlayerProps) => {
-  const { player } = props;
+  const { player, isPlayable } = props;
   const { username, eloScore, color: piecesColor } = player;
 
   const [confirmForfeitModal, setConfirmForfeitModal] = useState(false);
@@ -107,7 +108,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
         <h2 data-testid="player-name">
           <>
             {username}
-            {isPlayersTurn && (
+            {isPlayersTurn && isPlayable && (
               <ForfeitFlag
                 size={"1rem"}
                 color={theme.colors.secondary}
@@ -128,7 +129,7 @@ export const GamePlayer = (props: GamePlayerProps) => {
         <span data-testid="player-ranking">Elo: {eloScore}</span>
       </PlayerName>
       <PlayerCapturedPieces piecesColor={piecesColor} />
-      {mode === GameModes.untimed && (
+      {mode === GameModes.untimed && isPlayable && (
         <UndoButton
           handleClick={handleUndoClick}
           disabled={shouldDisable}
@@ -155,4 +156,5 @@ GamePlayer.defaultProps = {
     eloScore: 1,
     color: "w",
   },
+  isPlayable: true,
 };
