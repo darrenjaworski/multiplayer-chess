@@ -305,7 +305,6 @@ export function createStoreWithPawnToPromote() {
 }
 
 export function createStoreWithGameState(gameState: Chess) {
-  console.log(gameState);
   const gameHistory = gameState.history({ verbose: true }) as Move[];
   const captured = gameHistory.reduce(
     (capturedList: Piece[], move: Move): Piece[] => {
