@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { ChangeEvent, useState } from "react";
 import { FaChessKing } from "react-icons/fa";
 import { Form } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 import { GAME_MODES } from "../../state-management/slices/game";
 import { Button } from "../atoms/Button";
 import { useBoardTheme } from "../theme/theme";
@@ -70,23 +71,26 @@ const WhitePiecePreview = styled.div<StyledPiecePreviewProps>`
 
 export const Start = () => {
   const [selectedMode, setSelectedMode] = useState(GAME_MODES[0].key);
-  const boardThemes = useBoardTheme();
+  const { colors: boardColors } = useBoardTheme();
 
   const handleSelectedModeUpdate = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedMode(Number(event.target.value));
   };
 
+  const gameId = uuid();
+
   return (
-    <GameScreen method="post" action="/game" data-testid="start">
+    <GameScreen method="post" action={`/game/${gameId}`} data-testid="start">
+      <input type="hidden" value={gameId} name="gameId" id="gameId" />
       <CenteredRow>
         <h1 data-testid="start-headline">Let's play some chess!</h1>
       </CenteredRow>
       <PlayerSelection>
         <BlackPiecePreview
-          background={boardThemes.colors.lightSquare}
-          color={boardThemes.colors.darkPieces}
+          background={boardColors.lightSquare}
+          color={boardColors.darkPieces}
         >
-          <FaChessKing color={boardThemes.colors.darkPieces} size="5rem" />
+          <FaChessKing color={boardColors.darkPieces} size="5rem" />
         </BlackPiecePreview>
         <label htmlFor="player-two">Dark pieces player name</label>
         <input
@@ -99,8 +103,8 @@ export const Start = () => {
         />
       </PlayerSelection>
       <PlayerSelection>
-        <WhitePiecePreview background={boardThemes.colors.darkSquare}>
-          <FaChessKing color={boardThemes.colors.lightPieces} size="5rem" />
+        <WhitePiecePreview background={boardColors.darkSquare}>
+          <FaChessKing color={boardColors.lightPieces} size="5rem" />
         </WhitePiecePreview>
         <label htmlFor="player-one">Light pieces player name</label>
         <input

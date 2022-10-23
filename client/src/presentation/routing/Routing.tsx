@@ -3,6 +3,7 @@ import {
   GameModes,
   Player,
   PlayerType,
+  updateId,
   updateMode,
   updatePlayers,
 } from "../../state-management/slices/game";
@@ -22,33 +23,14 @@ export const router = createBrowserRouter(
       path: "/game",
       element: <Game />,
       errorElement: <NotFound />,
-      action: async ({ request }) => {
-        // TODO this feels really janky. there has to be an easier way to do this!
-        const formData = await request.formData();
-        const playerOne = formData.get("playerOne");
-        const playertwo = formData.get("playerTwo");
-        const mode = Number(formData.get("mode")) as GameModes;
-
-        const players = [
-          {
-            username: playerOne,
-            eloScore: 1,
-            color: "w",
-            type: PlayerType.humanLocal,
-          },
-          {
-            username: playertwo,
-            eloScore: 2,
-            color: "b",
-            type: PlayerType.humanLocal,
-          },
-        ] as Player[];
-
-        store.dispatch(updatePlayers(players));
-        store.dispatch(updateMode(mode));
-      },
+      action: handleStartAction,
       children: [
-        { path: ":id", element: <Game />, errorElement: <NotFound /> },
+        {
+          path: ":id",
+          element: <Game />,
+          errorElement: <NotFound />,
+          action: handleStartAction,
+        },
       ],
     },
   ],
@@ -57,3 +39,32 @@ export const router = createBrowserRouter(
       process.env.REACT_APP_ENVIRONMENT === "GH" ? "/multiplayer-chess" : "/",
   }
 );
+
+// @ts-ignore
+async function handleStartAction({ request }) {
+  // TODO this feels really janky. there has to be an easier way to do this!
+  const formData = await request.formData();
+  const playerOne = formData.get("playerOne");
+  const playertwo = formData.get("playerTwo");
+  const gameId = formData.get("gameId");
+  const mode = Number(formData.get("mode")) as GameModes;
+
+  const players = [
+    {
+      username: playerOne,
+      eloScore: 1,
+      color: "w",
+      type: PlayerType.humanLocal,
+    },
+    {
+      username: playertwo,
+      eloScore: 2,
+      color: "b",
+      type: PlayerType.humanLocal,
+    },
+  ] as Player[];
+
+  store.dispatch(updatePlayers(players));
+  store.dispatch(updateMode(mode));
+  store.dispatch(updateId(gameId));
+}
