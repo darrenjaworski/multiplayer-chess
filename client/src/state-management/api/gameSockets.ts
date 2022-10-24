@@ -18,13 +18,14 @@ interface PGNPayload {
 export const gameSocketApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
   endpoints: (build) => ({
-    sendGameUpdate: build.mutation<unknown, { pgn: string }>({
+    sendGameUpdate: build.mutation<string, { pgn: string }>({
       // @ts-ignore
       query({ pgn }) {
         const socket = getSocket();
-        return new Promise((resolve) => {
-          socket.emit("gameUpdate", pgn);
-        });
+        socket.emit("gameUpdate", pgn);
+        // return new Promise((resolve) => {
+        //   socket.emit("gameUpdate", pgn);
+        // });
       },
     }),
     getGameUpdates: build.query<PGNPayload, string>({
@@ -34,7 +35,7 @@ export const gameSocketApi = createApi({
         return { data: { pgn: game.pgn() } };
       },
       async onCacheEntryAdded(
-        arg,
+        gameId,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
         try {
@@ -42,7 +43,7 @@ export const gameSocketApi = createApi({
           const socket = getSocket();
 
           socket.on("connect", () => {
-            console.log("connected!");
+            socket.emit("join", gameId);
           });
 
           socket.on("gameUpdate", (pgn) => {

@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
+import { useGetGameUpdatesQuery } from "../../state-management/api/gameSockets";
 import { useAppSelector } from "../../state-management/hooks";
 import {
   GameTypes,
+  getGameId,
   getGameType,
   getPlayers,
 } from "../../state-management/slices/game";
@@ -21,6 +23,8 @@ const GameScreen = styled.div`
 export const Game = () => {
   const gameType = useAppSelector(getGameType);
   const players = useAppSelector(getPlayers);
+  const gameId = useAppSelector(getGameId);
+  useGetGameUpdatesQuery(gameId);
 
   const bottomPlayer = players[0];
   const topPlayer = players[1];

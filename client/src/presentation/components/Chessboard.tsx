@@ -8,6 +8,7 @@ import {
   Square,
 } from "react-chessboard";
 import useSound from "use-sound";
+import { useSendGameUpdateMutation } from "../../state-management/api/gameSockets";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   addCaptured,
@@ -42,7 +43,7 @@ const initialPromotionFromTo: PromotionFromTo = {
 };
 
 export const Chessboard = (props: ChessboardProps) => {
-  // const [sendGameUpdate] = useSendGameUpdateMutation();
+  const [sendGameUpdate] = useSendGameUpdateMutation();
   const gameFEN = useAppSelector(getFEN);
   const isEndgame = useAppSelector(getIsEndgame);
   const shouldPlaySounds = useAppSelector(getShouldPlaySounds);
@@ -163,7 +164,7 @@ export const Chessboard = (props: ChessboardProps) => {
 
     clearValidMovesStyles();
     const move = localGame.history({ verbose: true })[0] as Move;
-    // sendGameUpdate({ pgn: localGame.pgn() });
+    sendGameUpdate({ pgn: localGame.pgn() });
     dispatch(updateGame({ fen: localGame.fen(), move }));
     return true;
   };

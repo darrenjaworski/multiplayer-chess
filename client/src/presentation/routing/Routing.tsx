@@ -64,6 +64,9 @@ async function handleStartAction({ request }) {
     },
   ] as Player[];
 
+  // set game type
+  // set players
+
   store.dispatch(updatePlayers(players));
   store.dispatch(updateMode(mode));
   store.dispatch(updateId(gameId));

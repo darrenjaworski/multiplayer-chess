@@ -6,7 +6,6 @@ import {
   OnGatewayInit,
   SubscribeMessage,
   WebSocketGateway,
-  WsResponse,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 
@@ -33,10 +32,15 @@ export class WebsocketsGateway
     this.logger.log(`initialized`);
   }
 
+  @SubscribeMessage('join')
+  handleJoinRoom(client: Socket, gameId: string): void {
+    console.log('join room', gameId);
+    client.join(gameId);
+  }
+
   @SubscribeMessage('gameUpdate')
-  handleMessage(client: Socket, pgn: string): WsResponse<string> {
+  handleGameUpdate(client: Socket, pgn: string): void {
     console.log(client);
     client.broadcast.emit('gameUpdate', pgn);
-    return { event: 'gameUpdate', data: pgn };
   }
 }
