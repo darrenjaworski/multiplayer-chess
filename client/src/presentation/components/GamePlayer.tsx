@@ -106,25 +106,21 @@ export const GamePlayer = (props: GamePlayerProps) => {
       </Modal>
       <PlayerName>
         <h2 data-testid="player-name">
-          <>
-            {username}
-            {isPlayersTurn && isPlayable && (
-              <ForfeitFlag
-                size={"1rem"}
-                color={theme.colors.secondary}
-                onClick={() => setConfirmForfeitModal(true)}
-              />
-            )}
-            {isPlayerInCheck && !isPlayerCheckMated && (
-              <span data-testid="player-check"> - check</span>
-            )}
-            {isPlayerCheckMated && (
-              <span data-testid="player-check-mate"> - check mate</span>
-            )}
-            {isPlayersTurn && (
-              <TurnIcon data-testid={"player-turn-indicator"} />
-            )}
-          </>
+          {username}
+          {isPlayersTurn && isPlayable && (
+            <ForfeitFlag
+              size={"1rem"}
+              color={theme.colors.secondary}
+              onClick={() => setConfirmForfeitModal(true)}
+            />
+          )}
+          {isPlayerInCheck && !isPlayerCheckMated && (
+            <span data-testid="player-check"> - check</span>
+          )}
+          {isPlayerCheckMated && (
+            <span data-testid="player-check-mate"> - check mate</span>
+          )}
+          {isPlayersTurn && <TurnIcon data-testid={"player-turn-indicator"} />}
         </h2>
         <span data-testid="player-ranking">Elo: {eloScore}</span>
       </PlayerName>
