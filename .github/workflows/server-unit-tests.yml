@@ -7,7 +7,7 @@ concurrency:
 on:
   push:
     paths:
-      - "server/src/**"
+      - "server/**"
   workflow_dispatch:
 
 defaults:
