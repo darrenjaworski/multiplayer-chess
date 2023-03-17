@@ -1,0 +1,3 @@
+describe("websockets hooks", () => {
+  it("", () => {});
+});
