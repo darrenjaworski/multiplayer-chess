@@ -31,6 +31,17 @@ export const renderComponentWithStore = (
   );
 };
 
+export const renderProviderWithStore = (
+  ComponentToRender: JSX.Element | React.ReactElement,
+  definedStore: MockStoreEnhanced<RootState> | null = null
+): RenderResult => {
+  const store = definedStore ? definedStore : createDefaultStore();
+
+  return render(
+    <Provider store={store}>{React.cloneElement(ComponentToRender)}</Provider>
+  );
+};
+
 export const renderComponentWithRouter = (
   definedStore: MockStoreEnhanced<RootState> | null = null
 ): RenderResult => {
