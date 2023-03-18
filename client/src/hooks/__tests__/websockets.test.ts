@@ -1,3 +1,0 @@
-describe("websockets hooks", () => {
-  it("", () => {});
-});

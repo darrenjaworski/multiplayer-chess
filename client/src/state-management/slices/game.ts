@@ -203,21 +203,6 @@ export const GameSlice = createSlice({
       return { ...initialState, players: players };
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(
-      "api/queries/queryResultPatched",
-      // @ts-ignore
-      (state, action) => {
-        const game = new Chess();
-        // @ts-ignore
-        game.loadPgn(action.payload.patches[0].value);
-
-        state.fen = game.fen();
-        state.turn = game.turn();
-        state.history = game.history({ verbose: true }) as Move[];
-      }
-    );
-  },
 });
 
 export const {
