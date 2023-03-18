@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Chess } from 'chess.js';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -16,9 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return starting fen', () => {
-      const game = new Chess();
-      expect(appController.getStartingStatus()).toEqual({ fen: game.fen() });
+    it('should return "Hello World!"', () => {
+      expect(appController.getHello()).toBe('Hello World!');
     });
   });
 });
