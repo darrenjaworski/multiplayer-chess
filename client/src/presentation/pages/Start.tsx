@@ -79,6 +79,7 @@ export const Start = () => {
 
   const gameId = uuid();
 
+  // BUG game id can get out of sync with browser back/forward buttons
   return (
     <GameScreen method="post" action={`/game/${gameId}`} data-testid="start">
       <input type="hidden" value={gameId} name="gameId" id="gameId" />

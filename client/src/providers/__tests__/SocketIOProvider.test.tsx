@@ -1,14 +1,14 @@
 import WS from "jest-websocket-mock";
 import { renderProviderWithStore } from "../../test-config/renderComponentWith";
-import { WebSocketsProvider } from "../WebSocketsProvider";
+import { SocketIOProvider } from "../SocketIOProvider";
 
 let websocketServer: WS;
 
 const setup = () =>
   renderProviderWithStore(
-    <WebSocketsProvider>
+    <SocketIOProvider>
       <h1>chess game</h1>
-    </WebSocketsProvider>
+    </SocketIOProvider>
   );
 
 describe("WebSocketsProvider", () => {

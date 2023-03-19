@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useJoinGame } from "../../hooks/useJoinGame";
 import { useAppSelector } from "../../state-management/hooks";
 import {
   GameTypes,
@@ -21,6 +22,7 @@ const GameScreen = styled.div`
 export const Game = () => {
   const gameType = useAppSelector(getGameType);
   const players = useAppSelector(getPlayers);
+  useJoinGame();
 
   const bottomPlayer = players[0];
   const topPlayer = players[1];
