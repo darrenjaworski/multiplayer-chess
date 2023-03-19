@@ -3,7 +3,6 @@ import { renderProviderWithStore } from "../../test-config/renderComponentWith";
 import { WebSocketsProvider } from "../WebSocketsProvider";
 
 let websocketServer: WS;
-jest.mock("uuid", () => ({ v4: () => "123456789" }));
 
 const setup = () =>
   renderProviderWithStore(
@@ -17,7 +16,7 @@ describe("WebSocketsProvider", () => {
   process.env.REACT_APP_WEBSOCKETS_URL = base_url;
 
   beforeEach(async () => {
-    websocketServer = new WS(`${base_url}/123456789`);
+    websocketServer = new WS(`${base_url}`);
   });
 
   afterEach(() => {

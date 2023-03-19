@@ -13,7 +13,7 @@ interface WebSocketProviderProps {
 export function WebSocketsProvider({ children }: WebSocketProviderProps) {
   const gameId = useAppSelector(getGameId);
   const wsBaseUrl = process.env.REACT_APP_WEBSOCKETS_URL as string;
-  const wsURL = `${wsBaseUrl}/${gameId}`;
+  const wsURL = `${wsBaseUrl}`;
   const websocket = new WebSocket(wsURL);
   const dispatch = useAppDispatch();
 
