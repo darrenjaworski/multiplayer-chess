@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../state-management/hooks";
+import { updateGame, UpdateGamePayload } from "../state-management/slices/game";
 import {
   connected,
   disconnected,
@@ -24,8 +25,8 @@ export function SocketIOProvider({ children }: SocketIOProviderProps) {
       dispatch(disconnected());
     });
 
-    socket.on("gameEvent", (...args) => {
-      console.log(args);
+    socket.on("gameEvent", (data: UpdateGamePayload) => {
+      dispatch(updateGame(data));
     });
 
     return () => {

@@ -66,15 +66,16 @@ export class Gateway
     client.leave(gameId);
   }
 
-  @SubscribeMessage('gameEvent')
-  onGameEvent(@MessageBody() body: any) {
-    const { gameId: roomId } = body;
-    this.server.in(roomId).emit('gameEvent', body);
-  }
-
-  @SubscribeMessage('newMessage')
-  onNewMessage(@MessageBody() body: any) {
-    this.logger.log(body);
-    this.server.emit('onMessage', { msg: 'blah i do not know' });
+  @SubscribeMessage('gameUpdate')
+  async onGameEvent(@MessageBody() body: any) {
+    const { gameId } = body;
+    this.server.in(gameId).emit('gameEvent', body);
+    let game = await this.gameModel.findOne({ gameId });
+    if (!game) {
+      game = new this.gameModel({
+        ...body,
+      });
+    }
+    await game.save();
   }
 }

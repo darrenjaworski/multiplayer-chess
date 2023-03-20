@@ -19,6 +19,7 @@ import {
   PlayerType,
   updateGame,
 } from "../../state-management/slices/game";
+import { sendGameUpdate } from "../../state-management/slices/gameSockets";
 import { getShouldPlaySounds } from "../../state-management/slices/settings";
 import { movePieceSound, pieceCaptureSound } from "../soundEffects";
 import { useBoardTheme } from "../theme/theme";
@@ -163,6 +164,7 @@ export const Chessboard = (props: ChessboardProps) => {
     clearValidMovesStyles();
     const move = localGame.history({ verbose: true })[0] as Move;
     dispatch(updateGame({ fen: localGame.fen(), move }));
+    dispatch(sendGameUpdate({ fen: localGame.fen(), move }));
     return true;
   };
 
