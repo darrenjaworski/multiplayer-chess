@@ -1,7 +1,7 @@
 name: gh page deploy
 
 concurrency:
-  group: gh-pages-${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
@@ -23,8 +23,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: "npm"
+          node-version-file: ".nvmrc"
           cache-dependency-path: client/package-lock.json
       - run: npm ci
       - run: REACT_APP_ENVIRONMENT="GH" PUBLIC_URL="https://darrenjaworski.github.io/multiplayer-chess/" npm run build
