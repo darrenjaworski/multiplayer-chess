@@ -6,7 +6,7 @@
 ## tooling
 
 - git
-- node (lts/gallium)
+- node (lts/hydrogen)
 - visual studio (ide)
   - extensions
     - [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
