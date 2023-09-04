@@ -1,12 +1,21 @@
 import { screen, within } from "@testing-library/react";
+// @ts-ignore
+import MockedSocket from "socket.io-mock";
 import {
-  initialState,
   Player,
   PlayerType,
+  initialState,
 } from "../../../state-management/slices/game";
 import { createStoreWithPlayers } from "../../../test-config/fakeStores";
 import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { Game } from "../Game";
+
+jest.mock("socket.io-client");
+jest.mock("../../../providers/socket", () => {
+  return {
+    socket: new MockedSocket(),
+  };
+});
 
 describe("game screen", () => {
   it("shows player names on screen", () => {

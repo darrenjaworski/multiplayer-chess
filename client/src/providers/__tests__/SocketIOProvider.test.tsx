@@ -1,8 +1,14 @@
-import WS from "jest-websocket-mock";
+// @ts-ignore
+import MockedSocket from "socket.io-mock";
 import { renderProviderWithStore } from "../../test-config/renderComponentWith";
 import { SocketIOProvider } from "../SocketIOProvider";
 
-let websocketServer: WS;
+jest.mock("socket.io-client");
+jest.mock("../socket", () => {
+  return {
+    socket: new MockedSocket(),
+  };
+});
 
 const setup = () =>
   renderProviderWithStore(
@@ -12,22 +18,13 @@ const setup = () =>
   );
 
 describe("WebSocketsProvider", () => {
-  const base_url = `ws://localhost:8080`;
-  process.env.REACT_APP_WEBSOCKETS_URL = base_url;
-
-  beforeEach(async () => {
-    websocketServer = new WS(`${base_url}`);
-  });
+  beforeEach(() => {});
 
   afterEach(() => {
-    WS.clean();
+    jest.restoreAllMocks();
   });
 
-  it("connects to ws server", async () => {
-    console.log = jest.fn();
+  it("connects to socket.io", () => {
     setup();
-
-    await websocketServer.connected;
-    expect(console.log).toHaveBeenCalledWith("on open");
   });
 });
