@@ -192,6 +192,7 @@ export const Chessboard = (props: ChessboardProps) => {
         isOpen={isPromotionModalOpen}
         promotePiece={handlePromotionSelection}
       />
+      {/* BUG gameFEN with redux state is not updating board */}
       <ReactChessboard
         onMouseOverSquare={handleMouseOver}
         onMouseOutSquare={handleMouseOut}

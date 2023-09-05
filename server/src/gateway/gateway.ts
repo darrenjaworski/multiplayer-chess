@@ -15,6 +15,16 @@ import { Model } from 'mongoose';
 import { Server, Socket } from 'socket.io';
 import { Game, GameDocument } from 'src/schemas/game.schema';
 
+enum ServerEvents {
+  GAME_EVENT = 'gameEvent',
+}
+
+enum ClientEvents {
+  JOIN_GAME = 'joinGame',
+  LEAVE_GAME = 'leaveGame',
+  GAME_UPDATE = 'gameUpdate',
+}
+
 @WebSocketGateway({ cors: true })
 export class Gateway
   implements OnModuleInit, OnGatewayConnection, OnGatewayDisconnect
@@ -29,7 +39,7 @@ export class Gateway
     this.logger.log('Gateway initialized');
   }
 
-  handleConnection(client: Socket, ...args: any[]) {
+  handleConnection(client: Socket) {
     this.logger.log(client.id);
     this.logger.log('handleConnection');
   }
@@ -39,7 +49,7 @@ export class Gateway
     this.logger.log('handleDisconnection');
   }
 
-  @SubscribeMessage('joinGame')
+  @SubscribeMessage(ClientEvents.JOIN_GAME)
   async onJoinGame(
     @MessageBody() body: any,
     @ConnectedSocket() client: Socket,
@@ -51,31 +61,36 @@ export class Gateway
       game = new this.gameModel({
         gameId,
         fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+        history: [],
       });
     }
 
     client.join(gameId);
-    this.server.to(client.id).emit('gameEvent', game.toJSON());
+    this.server.to(client.id).emit(ServerEvents.GAME_EVENT, game.toJSON());
+    console.log('emitted game event on join');
     await game.save();
   }
 
-  @SubscribeMessage('leaveGame')
+  @SubscribeMessage(ClientEvents.LEAVE_GAME)
   onLeaveGame(@MessageBody() body: any, @ConnectedSocket() client: Socket) {
     const { gameId } = body;
     this.logger.log('leave game ', gameId, client.id);
     client.leave(gameId);
   }
 
-  @SubscribeMessage('gameUpdate')
-  async onGameEvent(@MessageBody() body: any) {
+  @SubscribeMessage(ClientEvents.GAME_UPDATE)
+  async onGameUpdate(@MessageBody() body: any) {
     const { gameId } = body;
-    this.server.in(gameId).emit('gameEvent', body);
+    this.server.in(gameId).emit(ServerEvents.GAME_EVENT, body);
+    console.log('emitted on game update');
     let game = await this.gameModel.findOne({ gameId });
     if (!game) {
       game = new this.gameModel({
         ...body,
       });
+      await game.save();
+      return;
     }
-    await game.save();
+    await this.gameModel.updateOne({ _id: game._id }, { ...body });
   }
 }

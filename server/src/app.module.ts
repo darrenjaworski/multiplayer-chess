@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GatewayModule } from './gateway/gateway.module';
+import { GameSchema } from './schemas/game.schema';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { GatewayModule } from './gateway/gateway.module';
       `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@${process.env.MONGO_DB}/?retryWrites=true&w=majority`,
     ),
     GatewayModule,
+    MongooseModule.forFeature([{ name: 'Game', schema: GameSchema }]),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -69,5 +69,5 @@ async function handleStartAction({ request }) {
 
   store.dispatch(updatePlayers(players));
   store.dispatch(updateMode(mode));
-  store.dispatch(updateId(gameId));
+  // store.dispatch(updateId(gameId));
 }

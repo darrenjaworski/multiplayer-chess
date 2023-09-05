@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "../state-management/hooks";
-import { updateGame, UpdateGamePayload } from "../state-management/slices/game";
+import { loadFromHistory } from "../state-management/slices/game";
 import {
   connected,
   disconnected,
@@ -9,6 +9,10 @@ import { socket } from "./socket";
 
 interface SocketIOProviderProps {
   children: React.ReactNode;
+}
+
+interface ServerUpdate {
+  history: [];
 }
 
 export function SocketIOProvider({ children }: SocketIOProviderProps) {
@@ -23,8 +27,8 @@ export function SocketIOProvider({ children }: SocketIOProviderProps) {
       dispatch(disconnected());
     });
 
-    socket.on("gameEvent", (data: UpdateGamePayload) => {
-      dispatch(updateGame(data));
+    socket.on("gameEvent", (data: ServerUpdate) => {
+      dispatch(loadFromHistory(data.history));
     });
 
     return () => {

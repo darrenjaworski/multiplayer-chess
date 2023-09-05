@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useJoinGame } from "../../hooks/useJoinGame";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
@@ -30,17 +30,21 @@ export const Game = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useJoinGame(id ?? gameId);
 
   const bottomPlayer = players[0];
   const topPlayer = players[1];
-  if (id) {
+  if (id && gameId !== id) {
     dispatch(updateId(id));
   }
 
   useEffect(() => {
-    navigate("/game/" + gameId);
+    const route = `/game/${gameId}`;
+    if (location.pathname !== route) {
+      navigate("/game/" + gameId);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
