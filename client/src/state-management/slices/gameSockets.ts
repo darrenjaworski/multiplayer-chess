@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { socket } from "../../providers/socket";
 import { RootState } from "../store";
-import { getGameId, UpdateGamePayload } from "./game";
+import { UpdateGamePayload, getGameId, updateGame } from "./game";
 
 interface GameSocketState {
   isConnected: boolean;
@@ -33,6 +33,10 @@ export const sendGameUpdate = createAsyncThunk(
     const state: RootState = thunkAPI.getState();
     const gameId = getGameId(state);
     const gameUpdateData = { gameId, fen: gameUpdate.fen };
+    if (!state.gameSockets.isConnected) {
+      thunkAPI.dispatch(updateGame(gameUpdate));
+      return;
+    }
     socket.emit("gameUpdate", gameUpdateData);
   }
 );

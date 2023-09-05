@@ -17,7 +17,7 @@ const setup = () =>
     </SocketIOProvider>
   );
 
-describe("WebSocketsProvider", () => {
+describe("SocketIOProvider", () => {
   beforeEach(() => {});
 
   afterEach(() => {

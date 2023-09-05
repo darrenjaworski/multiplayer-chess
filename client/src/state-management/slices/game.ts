@@ -89,7 +89,9 @@ export const GameSlice = createSlice({
   reducers: {
     updateGame: (state, action: PayloadAction<UpdateGamePayload>) => {
       const game = new Chess(action.payload.fen);
-      const updatedHistory = [...state.history, action.payload.move];
+      const updatedHistory = action.payload.move
+        ? [...state.history, action.payload.move]
+        : [...state.history];
 
       state.fen = game.fen();
       state.turn = game.turn();

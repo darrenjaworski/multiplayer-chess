@@ -16,12 +16,10 @@ export function SocketIOProvider({ children }: SocketIOProviderProps) {
 
   useEffect(() => {
     socket.on("connect", () => {
-      console.log("on open");
       dispatch(connected());
     });
 
     socket.on("disconnect", () => {
-      console.log("on close");
       dispatch(disconnected());
     });
 

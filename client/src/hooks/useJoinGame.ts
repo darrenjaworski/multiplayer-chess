@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { socket } from "../providers/socket";
-import { useAppSelector } from "../state-management/hooks";
-import { getGameId } from "../state-management/slices/game";
 
-export function useJoinGame() {
-  const gameId = useAppSelector(getGameId);
-
+export function useJoinGame(gameId: string) {
   useEffect(() => {
     socket.emit("joinGame", { gameId });
     return () => {

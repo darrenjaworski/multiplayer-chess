@@ -1,10 +1,14 @@
 import styled from "@emotion/styled";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useJoinGame } from "../../hooks/useJoinGame";
-import { useAppSelector } from "../../state-management/hooks";
+import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   GameTypes,
+  getGameId,
   getGameType,
   getPlayers,
+  updateId,
 } from "../../state-management/slices/game";
 import { Chessboard } from "../components/Chessboard";
 import { GamePlayer } from "../components/GamePlayer";
@@ -22,10 +26,23 @@ const GameScreen = styled.div`
 export const Game = () => {
   const gameType = useAppSelector(getGameType);
   const players = useAppSelector(getPlayers);
-  useJoinGame();
+  const gameId = useAppSelector(getGameId);
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useJoinGame(id ?? gameId);
 
   const bottomPlayer = players[0];
   const topPlayer = players[1];
+  if (id) {
+    dispatch(updateId(id));
+  }
+
+  useEffect(() => {
+    navigate("/game/" + gameId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <GameScreen data-testid="game">

@@ -1,23 +1,22 @@
 import { Chess, Move, Piece, PieceSymbol } from "chess.js";
 import { useEffect, useState } from "react";
 import {
-  Chessboard as ReactChessboard,
   ChessBoardProps,
   CustomSquareStyles,
   Pieces,
+  Chessboard as ReactChessboard,
   Square,
 } from "react-chessboard";
 import useSound from "use-sound";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
-  addCaptured,
   GameTypes,
+  PlayerType,
+  addCaptured,
   getFEN,
   getGameType,
   getIsEndgame,
   getPlayerInTurn,
-  PlayerType,
-  updateGame,
 } from "../../state-management/slices/game";
 import { sendGameUpdate } from "../../state-management/slices/gameSockets";
 import { getShouldPlaySounds } from "../../state-management/slices/settings";
@@ -163,7 +162,6 @@ export const Chessboard = (props: ChessboardProps) => {
 
     clearValidMovesStyles();
     const move = localGame.history({ verbose: true })[0] as Move;
-    dispatch(updateGame({ fen: localGame.fen(), move }));
     dispatch(sendGameUpdate({ fen: localGame.fen(), move }));
     return true;
   };
