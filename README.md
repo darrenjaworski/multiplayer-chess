@@ -76,8 +76,8 @@
   - ✅ board theme switcher
   - 🟡 add sound effects to player piece moves, captures. end game, check, promotion.
   - ✅ mobile friendly
-- chess match against another online player or computer
-  - api for websockets
+- 🟡 chess match against another online player or computer
+  - 🟡 api for websockets
   - api for chess AI
   - frontend client can update via websocket server
 - chess match against AI
