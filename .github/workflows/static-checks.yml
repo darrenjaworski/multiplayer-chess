@@ -1,4 +1,4 @@
-name: client tests
+name: static checks
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,7 +15,7 @@ defaults:
     working-directory: client
 
 jobs:
-  unit-tests:
+  static-checks:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,4 +24,5 @@ jobs:
         with:
           node-version-file: ".nvmrc"
       - run: npm ci
-      - run: npm test
+      - run: npm test -- --reporter=verbose
+      - run: npx tsc --noEmit
