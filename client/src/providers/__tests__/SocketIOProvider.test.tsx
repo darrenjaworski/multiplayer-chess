@@ -26,4 +26,19 @@ describe("SocketIOProvider", () => {
   it("connects to socket.io", () => {
     setup();
   });
+
+  it("does not connect to socket.io for local games", () => {
+    // Mock Redux selector to return local game type
+    vi.mock("../../state-management/hooks", () => ({
+      useAppSelector: () => 0, // GameTypes.humanVsHumanLocal
+      useAppDispatch: () => vi.fn(),
+    }));
+    const socketOnSpy = vi.spyOn(MockedSocket.prototype, "on");
+    renderProviderWithStore(
+      <SocketIOProvider>
+        <h1>chess game</h1>
+      </SocketIOProvider>
+    );
+    expect(socketOnSpy).not.toHaveBeenCalled();
+  });
 });
