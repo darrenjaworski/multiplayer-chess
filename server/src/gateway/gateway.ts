@@ -54,7 +54,7 @@ export class Gateway
     @MessageBody() body: any,
     @ConnectedSocket() client: Socket,
   ) {
-    const { gameId } = body;
+    const { gameId, playerName, preferredColor } = body;
     this.logger.log('join game ', gameId, client.id);
     let game = await this.gameModel.findOne({ gameId });
     if (!game) {
@@ -65,10 +65,33 @@ export class Gateway
       });
     }
 
+    // Assign player to color if available
+    if (preferredColor === 'white') {
+      if (!game.whitePlayer) {
+        game.whitePlayer = playerName;
+      } else if (!game.blackPlayer) {
+        game.blackPlayer = playerName;
+      }
+    } else if (preferredColor === 'black') {
+      if (!game.blackPlayer) {
+        game.blackPlayer = playerName;
+      } else if (!game.whitePlayer) {
+        game.whitePlayer = playerName;
+      }
+    } else {
+      // No preference, assign to any open slot
+      if (!game.whitePlayer) {
+        game.whitePlayer = playerName;
+      } else if (!game.blackPlayer) {
+        game.blackPlayer = playerName;
+      }
+    }
+
     client.join(gameId);
-    this.server.to(client.id).emit(ServerEvents.GAME_EVENT, game.toJSON());
-    console.log('emitted game event on join');
     await game.save();
+    // Broadcast updated game state to all clients in the room
+    this.server.in(gameId).emit(ServerEvents.GAME_EVENT, game.toJSON());
+    this.logger.log('emitted game event on join');
   }
 
   @SubscribeMessage(ClientEvents.LEAVE_GAME)
@@ -92,5 +115,34 @@ export class Gateway
       return;
     }
     await this.gameModel.updateOne({ _id: game._id }, { ...body });
+  }
+
+  @SubscribeMessage('makeMove')
+  async onMakeMove(
+    @MessageBody() body: { gameId: string; move: any },
+    @ConnectedSocket() client: Socket,
+  ) {
+    const { gameId, move } = body;
+    let game = await this.gameModel.findOne({ gameId });
+    if (!game) return;
+
+    // Use chess.js to validate and apply the move
+    const Chess = require('chess.js').Chess;
+    const chess = new Chess(game.fen);
+    const result = chess.move(move);
+
+    if (!result) {
+      // Invalid move, optionally emit an error
+      this.server.to(client.id).emit('invalidMove', { move });
+      return;
+    }
+
+    // Update game state
+    game.fen = chess.fen();
+    game.history.push(result);
+    await game.save();
+
+    // Broadcast new state
+    this.server.in(gameId).emit('gameEvent', game.toJSON());
   }
 }

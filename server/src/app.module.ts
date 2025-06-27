@@ -10,7 +10,7 @@ import { GameSchema } from './schemas/game.schema';
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@${process.env.MONGO_DB}/?retryWrites=true&w=majority`,
+      `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@${process.env.MONGO_DB}/?retryWrites=true&w=majority&appName=mp-chess`,
     ),
     GatewayModule,
     MongooseModule.forFeature([{ name: 'Game', schema: GameSchema }]),

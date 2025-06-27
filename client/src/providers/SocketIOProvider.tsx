@@ -31,6 +31,10 @@ export function SocketIOProvider({ children }: SocketIOProviderProps) {
       dispatch(loadFromHistory(data.history));
     });
 
+    socket.on("makeMove", (data: any) => {
+      // handle move event if needed in the future
+    });
+
     return () => {
       socket.off("connect");
       socket.off("disconnect");
@@ -40,4 +44,8 @@ export function SocketIOProvider({ children }: SocketIOProviderProps) {
   }, []);
 
   return <>{children}</>;
+}
+
+export function useSocket() {
+  return socket;
 }

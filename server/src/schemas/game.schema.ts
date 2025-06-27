@@ -14,6 +14,12 @@ export class Game {
 
   @Prop({ required: true })
   history: Move[];
+
+  @Prop({ required: false })
+  whitePlayer?: string;
+
+  @Prop({ required: false })
+  blackPlayer?: string;
 }
 
 export const GameSchema = SchemaFactory.createForClass(Game);

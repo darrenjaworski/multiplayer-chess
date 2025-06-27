@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
 import { useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useLocation as useRouterLocation,
+} from "react-router-dom";
 import { useJoinGame } from "../../hooks/useJoinGame";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
@@ -32,7 +37,16 @@ export const Game = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useJoinGame(id ?? gameId);
+  // Get playerName and preferredColor from location state (passed from Start page)
+  const routerLocation = useRouterLocation();
+  const playerName = routerLocation.state?.playerName;
+  const preferredColor = routerLocation.state?.preferredColor;
+
+  useJoinGame({
+    gameId: id ?? gameId,
+    playerName: playerName ?? "Anonymous",
+    preferredColor: preferredColor,
+  });
 
   const bottomPlayer = players[0];
   const topPlayer = players[1];

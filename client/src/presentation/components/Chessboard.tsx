@@ -2,6 +2,7 @@ import { Chess, Move, Piece, PieceSymbol, Square } from "chess.js";
 import { useEffect, useState } from "react";
 import { Chessboard as ReactChessboard } from "react-chessboard";
 import useSound from "use-sound";
+import { useSocket } from "../../providers/SocketIOProvider";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
   GameTypes,
@@ -47,6 +48,7 @@ export const Chessboard = (props: ChessboardPropsLocal) => {
   const [playPieceCapture] = useSound(pieceCaptureSound);
   const playerInTurn = useAppSelector(getPlayerInTurn);
   const gameType = useAppSelector(getGameType);
+  const socket = useSocket();
 
   const disableMoves =
     playerInTurn?.type !== PlayerType.humanLocal ||
@@ -153,6 +155,8 @@ export const Chessboard = (props: ChessboardPropsLocal) => {
     }
     clearValidMovesStyles();
     const move = localGame.history({ verbose: true })[0] as Move;
+    // Send move to server via WebSocket
+    socket?.emit("makeMove", { gameId: props.id, move: moveAttempt });
     dispatch(sendGameUpdate({ fen: localGame.fen(), move }));
     return true;
   };

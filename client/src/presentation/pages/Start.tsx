@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { ChangeEvent, useState } from "react";
 import { FaChessKing } from "react-icons/fa";
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { GAME_MODES } from "../../state-management/slices/game";
 import { Button } from "../atoms/Button";
@@ -72,6 +72,12 @@ const WhitePiecePreview = styled.div<StyledPiecePreviewProps>`
 export const Start = () => {
   const [selectedMode, setSelectedMode] = useState(GAME_MODES[0].key);
   const { colors: boardColors } = useBoardTheme();
+  const [playerOne, setPlayerOne] = useState("");
+  const [playerTwo, setPlayerTwo] = useState("");
+  const [preferredColor, setPreferredColor] = useState<"white" | "black">(
+    "white"
+  );
+  const navigate = useNavigate();
 
   const handleSelectedModeUpdate = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedMode(Number(event.target.value));
@@ -79,9 +85,25 @@ export const Start = () => {
 
   const gameId = uuid();
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // For now, let player one be the one who starts the game
+    navigate(`/game/${gameId}`, {
+      state: {
+        playerName: preferredColor === "white" ? playerOne : playerTwo,
+        preferredColor,
+      },
+    });
+  };
+
   // BUG game id can get out of sync with browser back/forward buttons
   return (
-    <GameScreen method="post" action={`/game/${gameId}`} data-testid="start">
+    <GameScreen
+      method="post"
+      action="#"
+      data-testid="start"
+      onSubmit={handleSubmit}
+    >
       <input type="hidden" value={gameId} name="gameId" id="gameId" />
       <CenteredRow>
         <h1 data-testid="start-headline">Let's play some chess!</h1>
@@ -101,7 +123,17 @@ export const Start = () => {
           name="playerTwo"
           id="player-two"
           data-testid="black-pieces-player-name"
+          value={playerTwo}
+          onChange={(e) => setPlayerTwo(e.target.value)}
         />
+        <input
+          type="radio"
+          name="preferredColor"
+          value="black"
+          checked={preferredColor === "black"}
+          onChange={() => setPreferredColor("black")}
+        />
+        <label>Play as Black</label>
       </PlayerSelection>
       <PlayerSelection>
         <WhitePiecePreview background={boardColors.darkSquare}>
@@ -115,12 +147,21 @@ export const Start = () => {
           name="playerOne"
           id="player-one"
           data-testid="white-pieces-player-name"
+          value={playerOne}
+          onChange={(e) => setPlayerOne(e.target.value)}
         />
+        <input
+          type="radio"
+          name="preferredColor"
+          value="white"
+          checked={preferredColor === "white"}
+          onChange={() => setPreferredColor("white")}
+        />
+        <label>Play as White</label>
       </PlayerSelection>
       <GameModeSelection>
         <fieldset>
           <legend>Select a game mode:</legend>
-
           {GAME_MODES.map((mode, i) => {
             const key = mode.key;
             const label = mode.label;
