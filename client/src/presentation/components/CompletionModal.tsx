@@ -73,7 +73,7 @@ export const CompletionModal = (props: CompletionModalProps) => {
   };
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal isOpen={isOpen} handleClose={handleClose}>
       <>
         <h1>The Game is over!</h1>
         <h2 data-testid="endgame-text">{getLoserText()}</h2>

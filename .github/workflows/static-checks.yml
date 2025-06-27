@@ -1,4 +1,4 @@
-name: static checks
+name: client static checks
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
