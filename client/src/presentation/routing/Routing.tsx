@@ -9,6 +9,8 @@ import {
 import { store } from "../../state-management/store";
 import { Game } from "../pages/Game";
 import { JoinGame } from "../pages/JoinGame";
+import { LocalGamePlay } from "../pages/LocalGamePlay";
+import { LocalGameSetup } from "../pages/LocalGameSetup";
 import { NotFound } from "../pages/NotFound";
 import { Start } from "../pages/Start";
 
@@ -22,6 +24,16 @@ export const router = createBrowserRouter(
     {
       path: "/join",
       element: <JoinGame />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/game/local",
+      element: <LocalGameSetup />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/game/local/play",
+      element: <LocalGamePlay />,
       errorElement: <NotFound />,
     },
     {
