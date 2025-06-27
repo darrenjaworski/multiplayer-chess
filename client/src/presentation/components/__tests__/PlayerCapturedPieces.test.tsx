@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/react";
 import type { Piece } from "chess.js";
+import { describe, expect, it } from "vitest";
 import { createStoreWithCapturedPieces } from "../../../test-config/fakeStores";
 import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { PlayerCapturedPieces } from "../PlayerCapturedPieces";

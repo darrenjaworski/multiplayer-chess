@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { getMinSec, PlayerCountdown } from "../PlayerCountdown";
 
@@ -40,7 +41,7 @@ describe("PlayerCountddown", () => {
     expect(timeRemaining).toHaveTextContent("1:40");
 
     const countdownContainer = screen.getByTestId(`player-${color}-countdown`);
-    expect(countdownContainer).toHaveStyle({ color: "red" });
+    expect(countdownContainer).toHaveStyle({ color: "rgb(255, 0, 0)" });
   });
 
   it("shows clock with correct time and color when it is not players turn", () => {
@@ -54,6 +55,6 @@ describe("PlayerCountddown", () => {
     expect(timeRemaining).toHaveTextContent("5:00");
 
     const countdownContainer = screen.getByTestId(`player-${color}-countdown`);
-    expect(countdownContainer).toHaveStyle({ color: "steelblue" });
+    expect(countdownContainer).toHaveStyle({ color: "rgb(70, 130, 180)" });
   });
 });

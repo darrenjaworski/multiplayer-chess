@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { renderAtomWithPropsAndTheme } from "../../../test-config/renderComponentWith";
 import { theme } from "../../theme/theme";
 import { Button } from "../Button";

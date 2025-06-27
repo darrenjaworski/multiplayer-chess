@@ -1,10 +1,7 @@
-// jest-dom adds custom jest matchers for asserting on DOM nodes.
-// allows you to do things like:
-// expect(element).toHaveTextContent(/react/i)
-// learn more: https://github.com/testing-library/jest-dom
 import "@testing-library/jest-dom";
 import ReactModal from "react-modal";
 
 // #root doesn't exist in tests...
-jest.spyOn(ReactModal, "setAppElement").mockImplementation((_param) => {});
-jest.mock("socket.io-client");
+import { vi } from "vitest";
+vi.spyOn(ReactModal, "setAppElement").mockImplementation((_param) => {});
+vi.mock("socket.io-client");

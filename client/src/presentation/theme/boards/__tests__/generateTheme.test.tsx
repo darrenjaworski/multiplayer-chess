@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { CustomPieceFn } from "react-chessboard";
+import { describe, expect, it } from "vitest";
 import { BoardOptions } from "../../@types/BoardTheme";
 import { generateTheme } from "../generateTheme";
 

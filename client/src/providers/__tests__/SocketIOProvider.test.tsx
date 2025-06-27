@@ -1,10 +1,11 @@
 // @ts-ignore
 import MockedSocket from "socket.io-mock";
+import { afterEach, describe, it, vi } from "vitest";
 import { renderProviderWithStore } from "../../test-config/renderComponentWith";
 import { SocketIOProvider } from "../SocketIOProvider";
 
-jest.mock("socket.io-client");
-jest.mock("../socket", () => {
+vi.mock("socket.io-client");
+vi.mock("../socket", () => {
   return {
     socket: new MockedSocket(),
   };
@@ -18,10 +19,8 @@ const setup = () =>
   );
 
 describe("SocketIOProvider", () => {
-  beforeEach(() => {});
-
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("connects to socket.io", () => {

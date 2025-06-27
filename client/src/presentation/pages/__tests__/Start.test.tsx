@@ -1,5 +1,6 @@
 import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { describe, expect, it } from "vitest";
 import { GameModes } from "../../../state-management/slices/game";
 import { renderComponentWithRouter } from "../../../test-config/renderComponentWith";
 

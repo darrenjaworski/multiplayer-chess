@@ -1,6 +1,7 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Chess } from "chess.js";
+import { describe, expect, it } from "vitest";
 import { Player, undoMove } from "../../../state-management/slices/game";
 import {
   createStoreWithBlackTurn,

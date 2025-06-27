@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import { createStoreWithHistory } from "../../../test-config/fakeStores";
 import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { GameHistory } from "../GameHistory";

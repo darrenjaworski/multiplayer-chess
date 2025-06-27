@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { describe, expect, it } from "vitest";
 import { createStoreWithHistory } from "../../../test-config/fakeStores";
 import { renderComponentWithStore } from "../../../test-config/renderComponentWith";
 import { GameTicker } from "../GameTicker";

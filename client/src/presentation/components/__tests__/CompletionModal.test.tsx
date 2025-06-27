@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/react";
 import { Chess } from "chess.js";
+import { describe, expect, it } from "vitest";
 import {
   createStoreWithForfeit,
   createStoreWithGameState,
