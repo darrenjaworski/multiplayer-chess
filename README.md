@@ -1,4 +1,4 @@
-[![client tests](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/client-unit-tests.yml/badge.svg?branch=main)](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/client-unit-tests.yml)
+[![client static checks](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/static-checks.yml/badge.svg)](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/static-checks.yml)
 [![server tests](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/server-unit-tests.yml/badge.svg?branch=main)](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/server-unit-tests.yml)
 
 # multiplayer online chess game
