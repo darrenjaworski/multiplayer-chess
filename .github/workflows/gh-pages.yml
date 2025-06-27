@@ -26,9 +26,9 @@ jobs:
           node-version-file: ".nvmrc"
           cache-dependency-path: client/package-lock.json
       - run: npm ci
-      - run: REACT_APP_ENVIRONMENT="GH" PUBLIC_URL="https://darrenjaworski.github.io/multiplayer-chess/" npm run build
+      - run: npm run build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: client/build #
+          folder: client/dist #
