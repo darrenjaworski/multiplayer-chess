@@ -1,13 +1,17 @@
 import { useTheme } from "@emotion/react";
+import React from "react";
 import ReactModal from "react-modal";
 
 interface ModalProps {
   isOpen: boolean;
   handleClose: () => void | undefined;
-  children: JSX.Element | React.ReactElement;
+  children: React.ReactElement;
 }
 
-ReactModal.setAppElement("#root");
+// Only set app element in browser (not in test/JSDOM)
+if (typeof document !== "undefined") {
+  ReactModal.setAppElement("#root");
+}
 
 export const Modal = (props: ModalProps) => {
   const { isOpen, handleClose, children } = props;
@@ -37,14 +41,13 @@ export const Modal = (props: ModalProps) => {
       isOpen={isOpen}
       onRequestClose={handleClose}
       style={modalStyles}
+      ariaHideApp={
+        typeof process !== "undefined" && process.env.NODE_ENV === "test"
+          ? false
+          : undefined
+      }
     >
       {children}
     </ReactModal>
   );
-};
-
-Modal.defaultProps = {
-  isOpen: false,
-  handleClose: undefined,
-  children: <></>,
 };

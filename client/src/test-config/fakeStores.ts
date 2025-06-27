@@ -3,7 +3,10 @@ import createMockStore, {
   MockStoreCreator,
   MockStoreEnhanced,
 } from "redux-mock-store";
-import { initialState as initialGameState, Player } from "../state-management/slices/game";
+import {
+  initialState as initialGameState,
+  Player,
+} from "../state-management/slices/game";
 import { initialState as initialGameSocketsState } from "../state-management/slices/gameSockets";
 import { initialState as initialSettingsState } from "../state-management/slices/settings";
 import { initialState as initialThemeState } from "../state-management/slices/theme";
@@ -110,7 +113,7 @@ export function createStoreWithHistory() {
           to: "f3",
           san: "Nf3",
           flags: "n",
-        },
+        } as any,
         {
           color: "b",
           piece: "n",
@@ -118,7 +121,7 @@ export function createStoreWithHistory() {
           to: "f6",
           san: "Nf6",
           flags: "n",
-        },
+        } as any,
         {
           color: "w",
           piece: "p",
@@ -126,7 +129,7 @@ export function createStoreWithHistory() {
           to: "g4",
           san: "g4",
           flags: "b",
-        },
+        } as any,
         {
           color: "b",
           piece: "n",
@@ -135,7 +138,7 @@ export function createStoreWithHistory() {
           san: "Nxg4",
           flags: "c",
           captured: "p",
-        },
+        } as any,
         {
           color: "w",
           piece: "n",
@@ -143,7 +146,7 @@ export function createStoreWithHistory() {
           to: "e5",
           san: "Ne5",
           flags: "n",
-        },
+        } as any,
         {
           color: "b",
           piece: "p",
@@ -151,7 +154,7 @@ export function createStoreWithHistory() {
           to: "d6",
           san: "d6",
           flags: "n",
-        },
+        } as any,
         {
           color: "w",
           piece: "n",
@@ -160,7 +163,7 @@ export function createStoreWithHistory() {
           san: "Nxf7",
           flags: "c",
           captured: "p",
-        },
+        } as any,
         {
           color: "b",
           piece: "k",
@@ -169,7 +172,7 @@ export function createStoreWithHistory() {
           san: "Kxf7",
           flags: "c",
           captured: "n",
-        },
+        } as any,
         {
           color: "w",
           piece: "p",
@@ -177,7 +180,7 @@ export function createStoreWithHistory() {
           to: "f3",
           san: "f3",
           flags: "n",
-        },
+        } as any,
         {
           color: "b",
           piece: "n",
@@ -186,7 +189,7 @@ export function createStoreWithHistory() {
           san: "Nxh2",
           flags: "c",
           captured: "p",
-        },
+        } as any,
         {
           color: "w",
           piece: "r",
@@ -195,7 +198,7 @@ export function createStoreWithHistory() {
           san: "Rxh2",
           flags: "c",
           captured: "n",
-        },
+        } as any,
       ],
     },
   });
@@ -225,7 +228,7 @@ export function createStoreWithPawnToPromote() {
           to: "h4",
           san: "h4",
           flags: "b",
-        },
+        } as any,
         {
           color: "b",
           piece: "p",
@@ -233,7 +236,7 @@ export function createStoreWithPawnToPromote() {
           to: "h5",
           san: "h5",
           flags: "b",
-        },
+        } as any,
         {
           color: "w",
           piece: "p",
@@ -241,7 +244,7 @@ export function createStoreWithPawnToPromote() {
           to: "g4",
           san: "g4",
           flags: "b",
-        },
+        } as any,
         {
           color: "b",
           piece: "r",
@@ -249,7 +252,7 @@ export function createStoreWithPawnToPromote() {
           to: "h6",
           san: "Rh6",
           flags: "n",
-        },
+        } as any,
         {
           color: "w",
           piece: "p",
@@ -258,7 +261,7 @@ export function createStoreWithPawnToPromote() {
           san: "gxh5",
           flags: "c",
           captured: "p",
-        },
+        } as any,
         {
           color: "b",
           piece: "r",
@@ -266,7 +269,7 @@ export function createStoreWithPawnToPromote() {
           to: "a6",
           san: "Ra6",
           flags: "n",
-        },
+        } as any,
         {
           color: "w",
           piece: "p",
@@ -274,7 +277,7 @@ export function createStoreWithPawnToPromote() {
           to: "h6",
           san: "h6",
           flags: "n",
-        },
+        } as any,
         {
           color: "b",
           piece: "r",
@@ -282,7 +285,7 @@ export function createStoreWithPawnToPromote() {
           to: "b6",
           san: "Rb6",
           flags: "n",
-        },
+        } as any,
         {
           color: "w",
           piece: "p",
@@ -290,7 +293,7 @@ export function createStoreWithPawnToPromote() {
           to: "h7",
           san: "h7",
           flags: "n",
-        },
+        } as any,
         {
           color: "b",
           piece: "r",
@@ -298,7 +301,7 @@ export function createStoreWithPawnToPromote() {
           to: "c6",
           san: "Rc6",
           flags: "n",
-        },
+        } as any,
       ],
     },
   });
@@ -350,9 +353,7 @@ export function createStoreWithPlayers(players: Player[]) {
     ...initialRootState,
     game: {
       ...initialGameState,
-      players: [
-        ...players
-      ]
-    }
-  })
+      players: [...players],
+    },
+  });
 }

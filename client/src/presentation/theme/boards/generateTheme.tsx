@@ -1,5 +1,4 @@
 import { PieceSymbol } from "chess.js";
-import type { CustomPieces, Pieces } from "react-chessboard";
 import {
   FaChessBishop,
   FaChessKing,
@@ -109,7 +108,7 @@ export const generateTheme = (options: BoardOptions): BoardTheme => {
       };
       return pieces;
     },
-    {} as CustomPieces
+    {} as Record<string, any>
   );
 
   return {
@@ -134,3 +133,18 @@ function scaleSize() {
   const boardSize = Math.min(window.innerWidth * 0.9, 560);
   return `${ratio * boardSize}rem`;
 }
+
+// Define local type for Pieces if needed
+export type Pieces =
+  | "wK"
+  | "wQ"
+  | "wR"
+  | "wB"
+  | "wN"
+  | "wP"
+  | "bK"
+  | "bQ"
+  | "bR"
+  | "bB"
+  | "bN"
+  | "bP";

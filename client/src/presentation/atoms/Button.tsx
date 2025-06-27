@@ -49,17 +49,12 @@ const StyledButton = styled.button<ButtonProps>`
   }
 `;
 
-export const Button: FC<ButtonProps> = (props: ButtonProps) => {
-  const passedProps = { ...props };
-
+export const Button: FC<ButtonProps> = ({
+  variant = "outlined",
+  color = "normal",
+  ...props
+}) => {
+  const passedProps = { ...props, variant, color };
   delete passedProps.children;
-
   return <StyledButton {...passedProps}>{props.children}</StyledButton>;
 };
-
-export const defaultButtonProps: ButtonProps = {
-  variant: "outlined",
-  color: "normal",
-};
-
-Button.defaultProps = defaultButtonProps;

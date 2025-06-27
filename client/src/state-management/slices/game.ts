@@ -3,6 +3,7 @@ import type { Color, Move, Piece } from "chess.js";
 import { Chess, DEFAULT_POSITION as startingFEN } from "chess.js";
 import { v4 as uuid } from "uuid";
 import { RootState } from "./../store";
+import { createSelector as createSelectorMemo } from "./selectors";
 
 type MoveElapsed = {
   history: Move;
@@ -81,8 +82,6 @@ export interface UpdateGamePayload {
   move: Move;
 }
 
-type UpdatePlayerClockPayload = number;
-
 export const GameSlice = createSlice({
   name: "game",
   initialState,
@@ -117,7 +116,7 @@ export const GameSlice = createSlice({
 
       state.fen = game.fen();
       state.turn = game.turn();
-      state.history = game.history({ verbose: true }) as Move[];
+      state.history = game.history({ verbose: true });
     },
     loadFromHistory: (state, action: PayloadAction<Move[]>) => {
       const game = new Chess();
@@ -127,7 +126,7 @@ export const GameSlice = createSlice({
 
       state.fen = game.fen();
       state.turn = game.turn();
-      state.history = game.history({ verbose: true }) as Move[];
+      state.history = game.history({ verbose: true });
     },
     undoMove: (state, _action: PayloadAction<void>) => {
       const game = new Chess();
@@ -152,12 +151,9 @@ export const GameSlice = createSlice({
 
       state.fen = game.fen();
       state.turn = game.turn();
-      state.history = game.history({ verbose: true }) as Move[];
+      state.history = game.history({ verbose: true });
     },
-    updatePlayerClock: (
-      state,
-      action: PayloadAction<UpdatePlayerClockPayload>
-    ) => {
+    updatePlayerClock: (state, action: PayloadAction<number>) => {
       const fullClockHistory = state.playerClockHistory
         ? [...state.playerClockHistory]
         : [];
@@ -235,7 +231,7 @@ export const getHistory = (state: RootState) => state.game.history;
 export const getIsEndgame = (state: RootState) => {
   const game = new Chess(state.game.fen);
   return (
-    game.isGameOver() || state.game.playerTimeout || state.game.playerForfeit
+    game.isGameOver() ?? state.game.playerTimeout ?? state.game.playerForfeit
   );
 };
 
@@ -247,41 +243,34 @@ export const getPGN = (state: RootState) => {
   return game.pgn();
 };
 
-export const getCaptured =
-  (color: Color | undefined = undefined) =>
-  (state: RootState) => {
-    if (color) {
-      return state.game.captured.filter(
-        (piece: Piece) => piece.color === color
-      );
+// Memoized selector for captured pieces
+export const getCaptured = (color: Color | undefined = undefined) =>
+  createSelectorMemo(
+    (state: RootState) => state.game.captured,
+    (captured) => {
+      if (color) {
+        return captured.filter((piece: Piece) => piece.color === color);
+      }
+      return captured;
     }
-    return state.game.captured;
-  };
+  );
 
-export const getIsColorInCheck = (color: Color) => (state: RootState) => {
-  const game = new Chess(state.game.fen);
-  if (color === game.turn()) return game.inCheck();
-  return false;
-};
-
-export const getIsColorInCheckMate = (color: Color) => (state: RootState) => {
-  const game = new Chess(state.game.fen);
-  if (!game.isGameOver()) return;
-
-  if (color === game.turn()) return game.isCheckmate();
-  return false;
-};
-
-export const getEndGameResult = (state: RootState) => {
-  const game = new Chess(state.game.fen);
-  return {
-    isDraw: game.isDraw(),
-    isStalemate: game.isStalemate(),
-    isCheckMate: game.isCheckmate(),
-    isForfeit: state.game.playerForfeit !== null,
-    isPlayerTimeout: state.game.playerTimeout,
-  };
-};
+// Memoized selector for end game result
+export const getEndGameResult = createSelector(
+  (state: RootState) => state.game.fen,
+  (state: RootState) => state.game.playerForfeit,
+  (state: RootState) => state.game.playerTimeout,
+  (fen, playerForfeit, playerTimeout) => {
+    const game = new Chess(fen);
+    return {
+      isDraw: game.isDraw(),
+      isStalemate: game.isStalemate(),
+      isCheckMate: game.isCheckmate(),
+      isForfeit: playerForfeit !== null,
+      isPlayerTimeout: playerTimeout,
+    };
+  }
+);
 
 export const getPlayers = (state: RootState) => {
   return state.game.players;
@@ -305,3 +294,26 @@ export const getPlayerInTurn = createSelector(
     return state.game.players.find((player) => player.color === turn);
   }
 );
+
+// Memoized selector for color in check
+export const getIsColorInCheck = (color: Color) =>
+  createSelectorMemo(
+    (state: RootState) => state.game.fen,
+    (fen) => {
+      const game = new Chess(fen);
+      if (color === game.turn()) return game.inCheck();
+      return false;
+    }
+  );
+
+// Memoized selector for color in checkmate
+export const getIsColorInCheckMate = (color: Color) =>
+  createSelectorMemo(
+    (state: RootState) => state.game.fen,
+    (fen) => {
+      const game = new Chess(fen);
+      if (!game.isGameOver()) return false;
+      if (color === game.turn()) return game.isCheckmate();
+      return false;
+    }
+  );

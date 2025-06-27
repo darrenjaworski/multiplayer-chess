@@ -4,6 +4,7 @@ import { AvailableThemes } from "../../presentation/theme/@types/Theme";
 import { theme } from "../../presentation/theme/theme";
 import { Boards } from "./../../presentation/theme/@types/BoardTheme";
 import { RootState } from "./../store";
+import { createSelector } from "./selectors";
 
 interface ThemeState {
   currentMode: AvailableThemes;
@@ -43,18 +44,23 @@ export const ThemeSlice = createSlice({
 
 export const { updateBoardTheme, updateTheme } = ThemeSlice.actions;
 
-export const getBoardTheme = (state: RootState) => {
-  const boardThemeKey =
-    state.theme.currentMode === "dark"
-      ? state.theme.darkBoard
-      : state.theme.lightBoard;
-
-  return theme[state.theme.currentMode].boards[boardThemeKey];
-};
+// Memoized selector for board theme
+export const getBoardTheme = createSelector(
+  (state: RootState) => state.theme.currentMode,
+  (state: RootState) => state.theme.darkBoard,
+  (state: RootState) => state.theme.lightBoard,
+  (currentMode, darkBoard, lightBoard) => {
+    const boardThemeKey = currentMode === "dark" ? darkBoard : lightBoard;
+    return theme[currentMode].boards[boardThemeKey];
+  }
+);
 
 export const getLightBoardKey = (state: RootState) => state.theme.lightBoard;
 export const getDarkBoardKey = (state: RootState) => state.theme.darkBoard;
 
-export const getTheme = (state: RootState) => theme[state.theme.currentMode];
+export const getTheme = createSelector(
+  (state: RootState) => state.theme.currentMode,
+  (currentMode) => theme[currentMode]
+);
 
 export const getThemeMode = (state: RootState) => state.theme.currentMode;

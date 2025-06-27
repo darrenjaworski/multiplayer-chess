@@ -1,12 +1,12 @@
 import type { Color } from "chess.js";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../atoms/Button";
 
 interface UndoButtonProps {
   handleClick: () => void;
   disabled: boolean;
   color: Color;
-  children: JSX.Element | React.ReactElement | string;
+  children: React.ReactElement | string;
   turn: Color;
 }
 

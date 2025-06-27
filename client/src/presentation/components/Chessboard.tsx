@@ -1,12 +1,6 @@
-import { Chess, Move, Piece, PieceSymbol } from "chess.js";
+import { Chess, Move, Piece, PieceSymbol, Square } from "chess.js";
 import { useEffect, useState } from "react";
-import {
-  ChessBoardProps,
-  CustomSquareStyles,
-  Pieces,
-  Chessboard as ReactChessboard,
-  Square,
-} from "react-chessboard";
+import { Chessboard as ReactChessboard } from "react-chessboard";
 import useSound from "use-sound";
 import { useAppDispatch, useAppSelector } from "../../state-management/hooks";
 import {
@@ -25,7 +19,10 @@ import { useBoardTheme } from "../theme/theme";
 import { CompletionModal } from "./CompletionModal";
 import { PromotionModal } from "./PromotionModal";
 
-interface ChessboardProps extends ChessBoardProps {}
+export interface ChessboardPropsLocal {
+  id?: number;
+  [key: string]: any;
+}
 
 interface MoveTo extends Move {
   to: Square;
@@ -41,7 +38,7 @@ const initialPromotionFromTo: PromotionFromTo = {
   to: null,
 };
 
-export const Chessboard = (props: ChessboardProps) => {
+export const Chessboard = (props: ChessboardPropsLocal) => {
   const gameFEN = useAppSelector(getFEN);
   const isEndgame = useAppSelector(getIsEndgame);
   const shouldPlaySounds = useAppSelector(getShouldPlaySounds);
@@ -55,13 +52,13 @@ export const Chessboard = (props: ChessboardProps) => {
     playerInTurn?.type !== PlayerType.humanLocal ||
     gameType === GameTypes.observer;
 
-  const [promotionFromTo, setPromotionFromTo] = useState(
+  const [promotionFromTo, setPromotionFromTo] = useState<PromotionFromTo>(
     initialPromotionFromTo
   );
   const [isPromotionModalOpen, setPromotionModalOpen] = useState(false);
-  const [validMoveStyles, setValidMoveStyles] = useState(
-    {} as CustomSquareStyles
-  );
+  const [validMoveStyles, setValidMoveStyles] = useState<
+    Partial<Record<Square, Record<string, string | number>>>
+  >({});
   const [isCompletionModalOpen, setCompletionModalOpen] = useState(false);
 
   useEffect(() => {
@@ -72,41 +69,40 @@ export const Chessboard = (props: ChessboardProps) => {
 
   const clearValidMovesStyles = (): void => {
     if (Object.keys(validMoveStyles).length === 0) return;
-
     setValidMoveStyles({});
   };
 
   const handleMouseOver = (square: Square) => {
     if (disableMoves) return;
-
     const localGame = new Chess(gameFEN);
     const moves = localGame.moves({ square, verbose: true }) as MoveTo[];
     if (moves.length === 0) return;
-
-    const initialHintStyles: CustomSquareStyles = {
+    const initialHintStyles: Partial<
+      Record<Square, Record<string, string | number>>
+    > = {
       [square]: {
         background: "rgba(255, 255, 0, 0.4)",
       },
     };
-
     const hintStyles = moves.reduce(
-      (validMoves: CustomSquareStyles, move: MoveTo): CustomSquareStyles => {
+      (
+        validMoves: Partial<Record<Square, Record<string, string | number>>>,
+        move: MoveTo
+      ) => {
+        const moveToPiece = localGame.get(move.to);
+        const squarePiece = localGame.get(square);
         const moveCanCapture =
-          localGame.get(move.to) &&
-          localGame.get(move.to).color !== localGame.get(square).color;
-
+          moveToPiece && squarePiece && moveToPiece.color !== squarePiece.color;
         validMoves[move.to] = {
           background: moveCanCapture
             ? "radial-gradient(circle, rgba(255,255,255,.5) 85%, transparent 85%)"
             : "radial-gradient(circle, rgba(0,0,0,.5) 25%, transparent 25%)",
           borderRadius: "50%",
         };
-
         return validMoves;
       },
       initialHintStyles
     );
-
     setValidMoveStyles(hintStyles);
   };
 
@@ -115,23 +111,20 @@ export const Chessboard = (props: ChessboardProps) => {
   const handlePieceDrop = (
     sourceSquare: Square,
     targetSquare: Square,
-    _piece: Pieces
+    _piece: string
   ): boolean => {
     if (disableMoves) return false;
-
     const localGame = new Chess(gameFEN);
     const moves = localGame.moves({
       square: sourceSquare,
       verbose: true,
     }) as MoveTo[];
     const canPromote = moves.some((move) => move?.promotion);
-
     if (canPromote) {
       setPromotionFromTo({ from: sourceSquare, to: targetSquare });
       setPromotionModalOpen(true);
       return false;
     }
-
     return commitMove(sourceSquare, targetSquare);
   };
 
@@ -143,23 +136,21 @@ export const Chessboard = (props: ChessboardProps) => {
   ): boolean => {
     const localGame = new Chess(gameFEN);
     const moveAttempt = { from: sourceSquare, to: targetSquare } as Move;
-
     if (promotion) moveAttempt.promotion = promotion;
-
     const didMove = localGame.move(moveAttempt);
     if (!didMove) return false;
-
     if (didMove?.captured) {
       const capturedPiece: Piece = {
         color: didMove.color === "w" ? "b" : "w",
         type: didMove.captured,
       };
       dispatch(addCaptured(capturedPiece));
-      if (shouldPlaySounds) playPieceCapture();
-    } else {
-      if (shouldPlaySounds && playSound) playPieceMove();
+      if (shouldPlaySounds) {
+        playPieceCapture();
+      }
+    } else if (shouldPlaySounds && playSound) {
+      playPieceMove();
     }
-
     clearValidMovesStyles();
     const move = localGame.history({ verbose: true })[0] as Move;
     dispatch(sendGameUpdate({ fen: localGame.fen(), move }));
@@ -170,7 +161,6 @@ export const Chessboard = (props: ChessboardProps) => {
     setPromotionModalOpen(false);
     const { from, to } = promotionFromTo;
     if (!from || !to) return;
-
     commitMove(from, to, piece, false);
     setPromotionFromTo({ from: null, to: null });
   };
@@ -192,7 +182,6 @@ export const Chessboard = (props: ChessboardProps) => {
         isOpen={isPromotionModalOpen}
         promotePiece={handlePromotionSelection}
       />
-      {/* BUG gameFEN with redux state is not updating board */}
       <ReactChessboard
         onMouseOverSquare={handleMouseOver}
         onMouseOutSquare={handleMouseOut}

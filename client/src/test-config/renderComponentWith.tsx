@@ -4,7 +4,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, RouterProvider, Routes } from "react-router-dom";
 import { MockStoreEnhanced } from "redux-mock-store";
-import { ButtonProps, defaultButtonProps } from "../presentation/atoms/Button";
+import { ButtonProps } from "../presentation/atoms/Button";
 import { router } from "../presentation/routing/Routing";
 import { AvailableThemes } from "../presentation/theme/@types/Theme";
 import { theme } from "../presentation/theme/theme";
@@ -12,7 +12,7 @@ import type { RootState } from "../state-management/store";
 import { createDefaultStore } from "./fakeStores";
 
 export const renderComponentWithStore = (
-  ComponentToRender: JSX.Element | React.ReactElement,
+  ComponentToRender: React.ReactElement,
   definedStore: MockStoreEnhanced<RootState> | null = null
 ): RenderResult => {
   const store = definedStore ? definedStore : createDefaultStore();
@@ -32,7 +32,7 @@ export const renderComponentWithStore = (
 };
 
 export const renderProviderWithStore = (
-  ComponentToRender: JSX.Element | React.ReactElement,
+  ComponentToRender: React.ReactElement,
   definedStore: MockStoreEnhanced<RootState> | null = null
 ): RenderResult => {
   const store = definedStore ? definedStore : createDefaultStore();
@@ -56,8 +56,8 @@ export const renderComponentWithRouter = (
 };
 
 export const renderAtomWithPropsAndTheme = (
-  componentToRender: JSX.Element | React.ReactElement,
-  props: ButtonProps = defaultButtonProps,
+  componentToRender: React.ReactElement,
+  props: ButtonProps = { variant: "outlined", color: "normal" },
   selectedTheme: AvailableThemes = "dark"
 ) => {
   return render(

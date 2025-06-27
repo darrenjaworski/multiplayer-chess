@@ -29,10 +29,6 @@ const CenteredClock = styled.div<CenteredClockProps>`
   color: ${(props) => (props.turn ? "red" : "steelblue")};
 `;
 
-CenteredClock.defaultProps = {
-  turn: false,
-};
-
 export function getMinSec(remaining: number): string {
   if (remaining < 0) return "";
   const remainingMin = Math.floor(remaining / 60);

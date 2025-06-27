@@ -3,7 +3,7 @@ import { appReducer } from "./appReducer";
 
 export const store = configureStore({
   reducer: appReducer,
-  devTools: import.meta.env.MODE !== "production",
+  devTools: (import.meta as any).env.MODE !== "production",
 });
 
 export type RootState = ReturnType<typeof appReducer>;

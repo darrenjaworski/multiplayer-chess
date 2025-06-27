@@ -1,21 +1,19 @@
-import { CustomPieces } from "react-chessboard";
-
 export interface BoardTheme {
-  customDarkSquareStyle: CustomDarkSquareStyle;
-  customLightSquareStyle: CustomLightSquareStyle;
-  customPieces: CustomPieces;
+  customDarkSquareStyle: Record<string, string>;
+  customLightSquareStyle: Record<string, string>;
+  customPieces: {
+    [key: string]: (args: {
+      isDragging: boolean;
+      squareWidth: number;
+      square?: string;
+    }) => React.ReactElement;
+  };
   colors: BoardColors;
 }
 
 export interface Boards {
   [key: string]: BoardTheme;
 }
-
-interface CustomDarkSquareStyle {
-  backgroundColor: string;
-}
-
-interface CustomLightSquareStyle extends CustomDarkSquareStyle {}
 
 export interface CustomPiecesColors {
   light: string;

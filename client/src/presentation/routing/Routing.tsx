@@ -35,7 +35,9 @@ export const router = createBrowserRouter(
   ],
   {
     basename:
-      import.meta.env.VITE_ENVIRONMENT === "GH" ? "/multiplayer-chess" : "/",
+      (import.meta as any).env.VITE_ENVIRONMENT === "GH"
+        ? "/multiplayer-chess"
+        : "/",
   }
 );
 

@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { CustomPieceFn } from "react-chessboard";
 import { describe, expect, it } from "vitest";
 import { BoardOptions } from "../../@types/BoardTheme";
 import { generateTheme } from "../generateTheme";
@@ -39,17 +38,9 @@ describe("generate theme", () => {
 
     expect(actualThemeColors).toEqual(expectedThemeColors);
 
-    const WhiteKing = actualTheme.customPieces.wK as CustomPieceFn;
+    const WhiteKing = actualTheme.customPieces.wK;
 
-    render(
-      <WhiteKing
-        isDragging={false}
-        squareWidth={0}
-        droppedPiece={"wP"}
-        targetSquare={"h1"}
-        sourceSquare={"h1"}
-      />
-    );
+    render(<WhiteKing isDragging={false} squareWidth={0} />);
 
     expect(screen.getByTestId("light-king")).toBeInTheDocument();
   });
@@ -88,17 +79,9 @@ describe("generate theme", () => {
 
     expect(actualThemeColors).toEqual(expectedThemeColors);
 
-    const WhiteKing = actualTheme.customPieces.wK as CustomPieceFn;
+    const WhiteKing = actualTheme.customPieces.wK;
 
-    render(
-      <WhiteKing
-        isDragging={false}
-        squareWidth={0}
-        droppedPiece={"wP"}
-        targetSquare={"h1"}
-        sourceSquare={"h1"}
-      />
-    );
+    render(<WhiteKing isDragging={false} squareWidth={0} />);
 
     expect(screen.getByTestId("light-king")).toBeInTheDocument();
   });
