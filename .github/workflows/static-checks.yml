@@ -25,4 +25,4 @@ jobs:
           node-version-file: ".nvmrc"
       - run: npm ci
       - run: npm test -- --reporter=verbose
-      - run: npx tsc --noEmit
+      - run: npm run tsc
