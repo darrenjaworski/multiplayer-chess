@@ -1,30 +1,31 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { GameModes } from "../../../state-management/slices/game";
 import { renderComponentWithRouter } from "../../../test-config/renderComponentWith";
 
 describe("Start", () => {
-  it("accepts user names and game selection", () => {
+  it("shows options for local, computer, and online play", () => {
     renderComponentWithRouter();
+    expect(screen.getByText(/play locally/i)).toBeInTheDocument();
+    expect(screen.getByText(/play against computer/i)).toBeInTheDocument();
+    expect(screen.getByText(/create or join online game/i)).toBeInTheDocument();
+  });
 
-    const whiteName = screen.getByTestId(
-      "white-pieces-player-name"
-    ) as HTMLInputElement;
-    const blackName = screen.getByTestId(
-      "black-pieces-player-name"
-    ) as HTMLInputElement;
+  it("navigates to local game when 'Play locally' is clicked", () => {
+    renderComponentWithRouter();
+    userEvent.click(screen.getByText(/play locally/i));
+    // TODO: assert navigation or state change
+  });
 
-    fireEvent.change(blackName, { target: { value: "darren" } });
-    expect(blackName.value).toEqual("darren");
+  it("navigates to computer game when 'Play against computer' is clicked", () => {
+    renderComponentWithRouter();
+    userEvent.click(screen.getByText(/play against computer/i));
+    // TODO: assert navigation or state change
+  });
 
-    fireEvent.change(whiteName, { target: { value: "ian" } });
-    expect(whiteName.value).toEqual("ian");
-
-    const modeSelection = screen.getByTestId(
-      `${GameModes.untimed}-mode-selection`
-    );
-    userEvent.click(modeSelection);
-    expect(modeSelection).toHaveAttribute("checked");
+  it("navigates to join/create online game when 'Create or join online game' is clicked", () => {
+    renderComponentWithRouter();
+    userEvent.click(screen.getByText(/create or join online game/i));
+    // TODO: assert navigation or state change
   });
 });

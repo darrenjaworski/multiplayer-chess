@@ -8,6 +8,7 @@ import {
 } from "../../state-management/slices/game";
 import { store } from "../../state-management/store";
 import { Game } from "../pages/Game";
+import { JoinGame } from "../pages/JoinGame";
 import { NotFound } from "../pages/NotFound";
 import { Start } from "../pages/Start";
 
@@ -16,6 +17,11 @@ export const router = createBrowserRouter(
     {
       path: "/",
       element: <Start />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/join",
+      element: <JoinGame />,
       errorElement: <NotFound />,
     },
     {
