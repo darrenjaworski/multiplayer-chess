@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { socket } from "../providers/socket";
+import { useAppSelector } from "../state-management/hooks";
+import { GameTypes, getGameType } from "../state-management/slices/game";
 
 interface JoinGameOptions {
   gameId: string;
@@ -13,11 +15,16 @@ export function useJoinGame({
   playerName,
   preferredColor,
 }: JoinGameOptions) {
+  const gameType = useAppSelector(getGameType);
   useEffect(() => {
-    socket.emit("joinGame", { gameId, playerName, preferredColor });
-    return () => {
-      socket.emit("leaveGame", { gameId });
-    };
+    if (gameType !== GameTypes.humanVsHumanLocal) {
+      socket.emit("joinGame", { gameId, playerName, preferredColor });
+      return () => {
+        socket.emit("leaveGame", { gameId });
+      };
+    }
+    // For local games, do nothing
+    return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameId, playerName, preferredColor]);
+  }, [gameId, playerName, preferredColor, gameType]);
 }

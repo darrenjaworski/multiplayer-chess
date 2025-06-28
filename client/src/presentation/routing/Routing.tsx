@@ -9,7 +9,6 @@ import {
 import { store } from "../../state-management/store";
 import { Game } from "../pages/Game";
 import { JoinGame } from "../pages/JoinGame";
-import { LocalGamePlay } from "../pages/LocalGamePlay";
 import { LocalGameSetup } from "../pages/LocalGameSetup";
 import { NotFound } from "../pages/NotFound";
 import { Start } from "../pages/Start";
@@ -33,7 +32,7 @@ export const router = createBrowserRouter(
     },
     {
       path: "/game/local/play",
-      element: <LocalGamePlay />,
+      element: <Game />, // Use Game component for local play
       errorElement: <NotFound />,
     },
     {

@@ -50,17 +50,26 @@ export const Game = () => {
 
   const bottomPlayer = players[0];
   const topPlayer = players[1];
-  if (id && gameId !== id) {
-    dispatch(updateId(id));
-  }
 
   useEffect(() => {
+    // If on /game/local/play, ensure local mode and player names are present
+    if (location.pathname === "/game/local/play") {
+      if (!players[0]?.username || !players[1]?.username) {
+        navigate("/game/local", { replace: true });
+        return;
+      }
+    } else if (id && gameId !== id) {
+      dispatch(updateId(id));
+    }
     const route = `/game/${gameId}`;
-    if (location.pathname !== route) {
+    if (
+      location.pathname !== route &&
+      location.pathname !== "/game/local/play"
+    ) {
       navigate("/game/" + gameId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location.pathname, players, gameType, id, gameId]);
 
   return (
     <GameScreen data-testid="game">
