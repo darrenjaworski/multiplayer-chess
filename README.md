@@ -1,7 +1,7 @@
+# multiplayer online chess game
+
 [![client static checks](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/client-static-checks.yml/badge.svg)](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/client-static-checks.yml)
 [![server static checks](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/server-static-checks.yml/badge.svg)](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/server-static-checks.yml)
-
-# multiplayer online chess game
 
 ## tooling
 
