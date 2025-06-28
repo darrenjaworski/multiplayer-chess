@@ -13,7 +13,7 @@ import {
 } from '@nestjs/websockets/interfaces';
 import { Model } from 'mongoose';
 import { Server, Socket } from 'socket.io';
-import { Game, GameDocument } from 'src/schemas/game.schema';
+import { Game, GameDocument } from '../schemas/game.schema';
 
 enum ServerEvents {
   GAME_EVENT = 'gameEvent',

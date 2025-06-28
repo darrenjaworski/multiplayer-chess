@@ -6,4 +6,6 @@ Please practice test driven development when writing code. Run the tests. Write 
 
 After each change, run the test and ensure that they pass.
 
-After each change, run the typescript compiler and ensure that it compiles without errors.
+After each change to any logic within the client directory, run the command `npm client:checks` script from the root.
+
+After each change to any logic within the server directory, run the command `npm server:checks` script from the root.

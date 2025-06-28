@@ -24,6 +24,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
+    "test:report": "vitest run",
     "tsc": "tsc --noEmit"
   },
   "devDependencies": {
