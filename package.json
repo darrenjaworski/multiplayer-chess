@@ -7,10 +7,10 @@
     "all": "npm run client:all & npm run server:all",
     "client:all": "npm run client:install && npm run client:checks",
     "client:install": "cd client && npm i",
-    "client:checks": "cd client && npm run tsc & npm run test:report",
+    "client:checks": "cd client && npm run tsc && npm run test:report",
     "server:all": "npm run server:install && npm run server:checks",
     "server:install": "cd server && npm i",
-    "server:checks": "cd server && npm run tsc & npm test"
+    "server:checks": "cd server && npm run tsc && npm test"
   },
   "repository": {
     "type": "git",
