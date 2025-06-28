@@ -1,4 +1,4 @@
-name: server tests
+name: client static checks
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -7,15 +7,15 @@ concurrency:
 on:
   push:
     paths:
-      - "server/**"
+      - "client/**"
   workflow_dispatch:
 
 defaults:
   run:
-    working-directory: server
+    working-directory: client
 
 jobs:
-  unit-tests:
+  static-checks:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,4 +24,5 @@ jobs:
         with:
           node-version-file: ".nvmrc"
       - run: npm ci
-      - run: npm test
+      - run: npm test run --reporter=verbose
+      - run: npm run tsc
