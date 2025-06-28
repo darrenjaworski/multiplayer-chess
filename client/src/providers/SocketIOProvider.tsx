@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../state-management/hooks";
-import { getGameType, loadFromHistory } from "../state-management/slices/game";
+import {
+  GameTypes,
+  getGameType,
+  loadFromHistory,
+} from "../state-management/slices/game";
 import {
   connected,
   disconnected,
@@ -15,13 +19,15 @@ interface ServerUpdate {
   history: [];
 }
 
-export function SocketIOProvider({ children }: SocketIOProviderProps) {
+export function SocketIOProvider({
+  children,
+}: Readonly<SocketIOProviderProps>) {
   const dispatch = useAppDispatch();
   const gameType = useAppSelector(getGameType);
 
   useEffect(() => {
-    if (gameType === 0) {
-      // 0 = GameTypes.humanVsHumanLocal, do not connect
+    if (gameType === GameTypes.humanVsHumanLocal) {
+      // Do not connect for local games
       return;
     }
     socket.on("connect", () => {
