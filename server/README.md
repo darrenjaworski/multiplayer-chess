@@ -1,3 +1,5 @@
+[![server static checks](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/server-static-checks.yml/badge.svg)](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/server-static-checks.yml)
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>

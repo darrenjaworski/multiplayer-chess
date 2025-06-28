@@ -1,4 +1,4 @@
-[![client static checks](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/static-checks.yml/badge.svg)](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/static-checks.yml)
+[![client static checks](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/client-static-checks.yml/badge.svg)](https://github.com/darrenjaworski/multiplayer-chess/actions/workflows/client-static-checks.yml)
 
 # real time online multiplayer chess
 
