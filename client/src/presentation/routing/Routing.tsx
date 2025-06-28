@@ -64,7 +64,6 @@ async function handleStartAction({ request }) {
   const formData = await request.formData();
   const playerOne = formData.get("playerOne");
   const playertwo = formData.get("playerTwo");
-  // const gameId = formData.get("gameId");
   const mode = Number(formData.get("mode")) as GameModes;
 
   const players = [
@@ -87,5 +86,4 @@ async function handleStartAction({ request }) {
 
   store.dispatch(updatePlayers(players));
   store.dispatch(updateMode(mode));
-  // store.dispatch(updateId(gameId));
 }
